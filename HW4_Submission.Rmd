@@ -1,0 +1,8 @@
+---
+title: "EDAV Project: NYC Restaurant Trends"
+author: "Marika Lohmus"
+output:
+  html_document: default
+  html_notebook: default
+---
+##1. Introduction
