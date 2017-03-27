@@ -1,8 +1,30 @@
 ---
-title: "EDAV Project: NYC Restaurant Trends"
-author: "Marika Lohmus"
+title: 'EDAV Project: NYC Restaurant Trends'
+author: "Adam Coviensky, Rohan Pitre, Marika Lohmus"
 output:
-  html_document: default
   html_notebook: default
+  html_document: default
 ---
 ##1. Introduction
+
+##2. Team Section
+
+##3. Variable Analysis
+#### Sidewalk Cafes
+```{r}
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+```
+```{r}
+sidewalk_apps<- read.csv("Data/Sidewalk Cafes/Sidewalk_Caf_Licenses_and_Applications.csv")
+sidewalk_apps$ZIP <- as.factor(sidewalk_apps$ZIP)
+
+active_sidewalk_apps <- sidewalk_apps %>% filter(LIC_STATUS=="Active")
+
+```
+
+```{r}
+ggplot(active_sidewalk_apps, aes(CITY))+geom_bar()
+
+```
