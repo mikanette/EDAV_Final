@@ -18,13 +18,17 @@ library(dplyr)
 ```
 ```{r}
 sidewalk_apps<- read.csv("Data/Sidewalk Cafes/Sidewalk_Caf_Licenses_and_Applications.csv")
+master_zip <- read.csv("Data/MASTER_BOROUGHS.csv")
 sidewalk_apps$ZIP <- as.factor(sidewalk_apps$ZIP)
+sidewalk_apps$CITY <- toupper(sidewalk_apps$CITY)
+
+joined_sidewalk<- merge(sidewalk_apps, master_zip, by="ZIP")
 
 active_sidewalk_apps <- sidewalk_apps %>% filter(LIC_STATUS=="Active")
 
 ```
 
 ```{r}
-ggplot(active_sidewalk_apps, aes(CITY))+geom_bar()
+ggplot(active_sidewalk_apps, aes(CITY))+geom_bar()+facet_wrap(~CITY)
 
 ```
