@@ -2,10 +2,25 @@
 title: 'EDAV Project: NYC Restaurant Trends'
 author: "Adam Coviensky, Rohan Pitre, Marika Lohmus"
 output:
-  html_notebook: default
   html_document: default
+  html_notebook: default
 ---
 ##1. Introduction
+Can you spot a trend in new bars and sidewalk cafes? Are we able to predict what the next "up and coming" or gentrified neighborhoods will be? Is there a correlation between the average income of an area and the number of new bars and sidewalk cafes opening up?
+
+Marika lives in Hamilton Heights and noticed that there was a sudden influx of new bars and cafes opening up around her. We wondered whether it would be easy to pick out the 'up and coming' neighborhoods from available data.  
+
+After some research, we decided to use data from data.ny.gov regarding liquor and sidewalk cafe license requests in the four NYC boroughs to determine whether there are any noticeable trends. We did not find any data on new restaurants and bars opening up, but the license requests did seem to be the best proxies since a new bar or restaurant will need a liquor license, and sidewalk cafes need to request special permission to use public street space.  
+
+We will be limiting our search to the set of zip codes listed on the [NYC Health Website](https://www.health.ny.gov/statistics/cancer/registry/appendix/neighborhoods.htm), which also provides a master set of zip codes and neighborhood names that can be used across datasets. 
+
+The main datasets we will be using are:  
+1. [Liquor License Requests](https://data.ny.gov/Economic-Development/NYS-Liquor-Authority-New-Applications-Received/2kid-jvyk/data)  
+2. [Currently Active Liquor Licenses](https://data.ny.gov/Economic-Development/Liquor-Authority-Quarterly-List-of-Active-Licenses/hrvs-fxs2)  
+3. [Sidewalk Cafe Licences and Requests](https://data.cityofnewyork.us/Business/Sidewalk-Caf-Licenses-and-Applications/qcdj-rwhu)  
+4. [Income by ZIP code](http://wealth.mongabay.com/cities/NEW_YORK.html)  
+
+Depending on time, we may add additional analysis from healthcode violations and demographics (by zip code) datasets.
 
 ##2. Team Section
 
@@ -15,6 +30,7 @@ output:
 library(ggplot2)
 library(tidyr)
 library(dplyr)
+require(forcats)
 ```
 ```{r}
 sidewalk_apps<- read.csv("Data/Sidewalk Cafes/Sidewalk_Caf_Licenses_and_Applications.csv")
@@ -24,11 +40,11 @@ sidewalk_apps$CITY <- toupper(sidewalk_apps$CITY)
 
 joined_sidewalk<- merge(sidewalk_apps, master_zip, by="ZIP")
 
-active_sidewalk_apps <- sidewalk_apps %>% filter(LIC_STATUS=="Active")
+active_sidewalk_apps <- joined_sidewalk %>% filter(LIC_STATUS=="Active")
 
 ```
 
-```{r}
-ggplot(active_sidewalk_apps, aes(CITY))+geom_bar()+facet_wrap(~CITY)
-
+```{r fig.width=10}
+ggplot(joined_sidewalk, aes(fct_infreq(Neighborhood)))+geom_bar(aes(fill=LIC_STATUS))+facet_wrap(~Borough, scales='free')+coord_flip()+ggtitle("Active and Inactive Sidewalk Cafe Licenses by Borough")+labs(x="Neighborhood",y="License Count")
 ```
+This set of bar charts analyses the number of active and inactive (requested) licenses by neighborhoods, faceted by borough. This gives an overview of the Neighborhoods we will be concentrating on, and shows the neighborhoods that are most populated with sidewalk cafes. As expected, Manhattan has the most licenses. Out of Mahattan, the Greenwich Village and Soho have the most license requests. In Queens, Northwest Queens takes the lead (which includes Astoria which is known for its many sidewalk cafes). Though it is tougher to see with free axes, Bronx has the least amount of sidewalk cafe requests. 
