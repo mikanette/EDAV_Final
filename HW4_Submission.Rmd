@@ -24,6 +24,14 @@ Depending on time, we may add additional analysis from healthcode violations and
 
 ##2. Team Section
 
+Rohan Pitre - Will focus on cleaning the data for the liquor license requests and the active liquor licenses and making visualizations of them. Will use ggmap to visualize what areas have active liquor licenses and what areas have made requests for future licenses.
+
+Marika Lohmus - Will focus on the Sidewalk Cafe Licenses and Requests and making visualizations of it. Will use ggmap to visualize where there are currently sidewalk cafes and where they are opening up.
+
+Adam Coviensky - Will focus on obtaining and cleaning data on the wealth per zipcode and creating visualizations from it. Will analyze which neighborhoods are "up and coming" based on wealth data and use ggmap to make visualizations of this.
+
+We will work on combining the data together to form visualizations encompassing all of the variables. If time permits, we will work together to use Shiny to make more interactive visualizations using a map of NYC.
+
 ##3. Variable Analysis
 #### Sidewalk Cafes
 ```{r}
@@ -48,3 +56,58 @@ active_sidewalk_apps <- joined_sidewalk %>% filter(LIC_STATUS=="Active")
 ggplot(joined_sidewalk, aes(fct_infreq(Neighborhood)))+geom_bar(aes(fill=LIC_STATUS))+facet_wrap(~Borough, scales='free')+coord_flip()+ggtitle("Active and Inactive Sidewalk Cafe Licenses by Borough")+labs(x="Neighborhood",y="License Count")
 ```
 This set of bar charts analyses the number of active and inactive (requested) licenses by neighborhoods, faceted by borough. This gives an overview of the Neighborhoods we will be concentrating on, and shows the neighborhoods that are most populated with sidewalk cafes. As expected, Manhattan has the most licenses. Out of Mahattan, the Greenwich Village and Soho have the most license requests. In Queens, Northwest Queens takes the lead (which includes Astoria which is known for its many sidewalk cafes). Though it is tougher to see with free axes, Bronx has the least amount of sidewalk cafe requests. 
+
+
+#### Value per zipcode
+
+This data has been processed to have an average revised market value for each zipcode, along with the corresponding borough.
+
+```{r}
+zip_values <- read.csv("Data/zip_property_values.csv")
+```
+
+Strip plots
+
+```{r}
+zip_values %>% ggplot(aes(City, avg_revised_value, color=City, alpha(0.1))) + geom_point(size = 2, shape = 1) + guides(color=FALSE) 
+```
+
+In this plot, we can see that Manhattan has the highest average valued zip codes. We see this both in individual values and has a higher distribution. However, the extremes distort the view of the rest of the boroughs so it is difficult to properly compare them to one another.
+
+```{r}
+zip_values %>% filter(avg_revised_value < 10000000) %>% ggplot(aes(City, avg_revised_value, color=City, alpha(0.1))) + geom_point(size = 2, shape = 1) + guides(color=FALSE)
+```
+
+Here we have filtered the extreme values for Manhattan out of the plot. This allows us to see more clearly how the different boroughs compare to one another. Unfortunately, we only have data on 3 zip codes for Queens and not too many for Staten Island. However, we can clearly see that Bronx and Brooklyn have fairly similar distributions of wealth by their zipcodes only differing by the extreme values. By filtering the data, we find that these two highest values correspond to Brighton Beach and Brooklyn Heights. Surprisingly enough, Williamsburg was actually towards the bottom of this list. This is likely because the there is no data on dollar per square footage in this dataset and the places in Williamsburg are likely smaller buildings.
+
+
+Barchart of counts
+
+```{r}
+ggplot(zip_values, aes(x=reorder(City, -table(City)[City]))) + geom_bar() + xlab("City") + ylab("Number of Zipcodes") + ggtitle("Number of zipcodes with observations per borough")
+```
+
+This bar chart indicates how many zipcodes we have data on from each borough. We are clearly lacking data on wealth for a lot of zipcodes in Queens and possibly even Staten Island. However, this will only be an issue if we also have data on many restaurants in these zipcodes. If these are much more residential areas and most of the restaurants popping up are in the zipcodes we do have data on, then it should not be an issue. Otherwise, this plot indicates that we might have to find more data.
+
+Barchart of means
+
+```{r}
+zip_values %>% group_by(City) %>% summarise(avg_per_city = mean(avg_revised_value)) %>% ggplot(aes(x = reorder(City, -avg_per_city), y = avg_per_city)) + geom_bar(stat = "identity") + xlab("Borough") + ylab("average market value") + ggtitle("Mean Market Value by Borough")
+```
+
+Again here we can see that Manhattan has by far the greatest average market value as expected. Furthermore, the other boroughs all seem pretty similar except for Staten Island which sees a somewhat significant drop.
+
+Barchart of medians
+```{r}
+zip_values %>% group_by(City) %>% summarise(median_per_city = median(avg_revised_value)) %>% ggplot(aes(x = reorder(City, -median_per_city), y = median_per_city)) + geom_bar(stat = "identity") + xlab("Borough") + ylab("Median Market Value") + ggtitle("Median Market Value by Borough")
+```
+
+When looking at the medians, it appears that Manhattan is not as far off from the rest of the boroughs indicating that there are indeed some outliers which we saw in the point graph above. Furthermore, the drop in Staten Island is now even more evident since there was one outlier.
+
+Histogram of Revised values per zip code:
+
+```{r}
+zip_values %>% filter(avg_revised_value < 10000000) %>% ggplot(aes(avg_revised_value)) + geom_histogram(bins = 10) + scale_x_continuous(limits = c(50000, 10000000)) + ggtitle("Histogram of values") + ylab("Count") + xlab("Average Revised Value")
+```
+
+This shows that the distribution is very high towards the lower end of the revised value per zip and there are fewer and fewer as the values increase. This was expected and is due to the fact that all five boroughs are highly concentrated around the lowest two bins whereas Manhattan has many higher market valued zip codes as well as illustrated by the strip plot.
