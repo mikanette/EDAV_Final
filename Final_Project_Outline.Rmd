@@ -1,0 +1,57 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+## 1. Introduction - Marika
+
+In this section, explain why you chose this topic, and the questions you are interested in studying. Include a brief description of how you found the data, and clear instructions on where the reader can find the data. 
+
+
+## 2. Team - Adam
+
+List team members and a description of how each contributed to the project. (If you're working alone, briefly describe the stages of the project.) 
+
+1. Adam Coviensky -  
+
+2. Rohan Pitre -  
+
+3. Marika Lohmus -  
+
+
+## 3. Analysis of Data Quality - All
+
+#### Zip Code, Neighborhood and Land Value Data - Adam
+
+#### Sidewalk Cafe License Data - Marika
+
+#### Liquor License Data - Rohan
+
+## 4. Executive Summary - All
+
+Interactive Map of New York City
+
+Provide a short nontechnical summary of the most revealing findings of your analysis with no more than 3 static graphs or one interactive graph (or link), written for a nontechnical audience. The length should be approximately 2 pages (if we were using pages...) Do not show code, and take extra care to clean up your graphs, ensuring that best practices for presentation are followed.
+.  Note: the tips below are not intended to be a complete list of everything we've covered this semester on designing a successful graph.  It's meant to help you avoid some common
+problems.
+.  Title, axis labels, tick mark labels, and legends should be comprehensible (easy to understand) and legible (easy to read / decipher).
+.  Tick marks should not be labeled in scientific notation or with long strings of zeros, such as 3000000000. Instead, convert to smaller numbers and change the units: 3000000000 becomes "3" and the axis label "billions of views".
+.  Units should be intuitive (Extreme example: an axis labeled in month/day/year format is intuitive, one labeled in seconds since January 1, 1970 is not.)
+.  The font size should be large enough to read clearly. The default in ggplot2 is generally too small. You can easily change it by passing the base font size to the theme, such as  + theme_grey(16). (The default base font size is 11.)
+.  The order of items on the axes and legends is logical. (Alphabetical is often not logical.) .  Colors should be color vision deficiency friendly. .  If a legend is taking up too much space on the right, move it to the bottom. .  If categorical variable levels are long, set up the graph so the categorical variable is on the y-axis
+and the names are horizontal.  A better option, if possible, is to shorten the names of the levels.
+.  Not all EDA graphs lend themselves to presentation, either because the graph form is hard to understand without practice or it's not well labeled. The labeling problem can be solved by adding text in an image editor. The downside is that it is not reproducible. If you want to go this route, Paintbrush is a free and simple bitmap image editor for the Mac: https://paintbrush.sourceforge.io/ There are many other options. 
+
+## 5. Main Analysis - All
+
+Provide a detailed, well-organized description of your findings, including textual description, graphs, and code.  Your focus should be on both the results and the process. Include, as reasonable and relevant, approaches that didn't work, challenges, the data cleaning process, etc. .  The guidelines for the Executive Summary above do NOT apply to exploratory data analysis.
+Your main concern is designing graphs that reveal patterns and trends. .  As noted in Hmk #4, do not use circles, that is: bubbles, pie charts, or polar coordinates. .  Use stacked bar charts sparingly. Try grouped bar charts and faceting as alternatives, and only
+choose stacked bar charts if they truly do a better job than the alternatives for observing patterns. 
+
+#### Zip Code, Neighborhood and Land Value Data - Adam
+
+#### Sidewalk Cafe License Data - Marika
+
+#### Liquor License Data - Rohan
+
+## 6. Conclusion - Rohan
