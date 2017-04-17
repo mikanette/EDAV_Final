@@ -1,0 +1,149 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+plot(cars)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file).
+
+```{r}
+library(tidyr)
+library(diplyr)
+library(ggplot2)
+library(zipcode)
+library(ggmap)
+library(viridis)
+```
+
+
+We realized that the original data was not going to be sufficient. We only had a few rental observations from Staten Island, Queens and the Bronx, and all of the observations were directly bordering Manhattan. We decided to find new data. We found the data for a Shiny project titled Superzip with Income per zipcode for the entire United States. Since we also wanted the income per neighborhood, we found a mapping from zipcode to neighborhood name that we will use for our final observations. It proved rather difficult to actually clean this mapping.
+
+```{r}
+superzip <- read.table('superzip.csv', header = TRUE)
+neighborhood <- read.csv('nyc_zcta.csv')
+colnames(neighborhood)[1] <- "zipcode"
+neighborhood2 <- neighborhood[,c(1, 6)]
+neighborhood2$zipcode <- as.factor(neighborhood2$zipcode)
+```
+
+For the join, we changed the zcta column name to be called zipcode like in superzip. Furthermore, we only need the name of the neighborhood for each zipcode so we created a new dataframe containing only the zipcode and the neighborhood names. 
+
+```{r}
+superzip2 <- superzip %>% dplyr::filter(state == "NY")
+superzip3 <- superzip2 %>% filter(city %in% c("Brooklyn", "Queens Village", "Staten Island", "New York", "Bronx"))
+superzip3$city[superzip3$city=="New York"] = "Manhattan"
+```
+
+Without filtering for the state == NY, we found we had some extra rows. When we looked up these zipcodes online, we found that there were 6 other Brooklyns in the United States. Thus, we had to first filter for NY, then only containing the boroughs. Then, we changed the borough from New York to be Manhattan
+```{r}
+superzip4 <- rbind(superzip3, filtered_missing_zips)
+master_zip_added <- full_join(superzip4, neighborhood2, by = 'zipcode')
+master_zip_added[!complete.cases(master_zip_added),]
+colnames(master_zip_added)[11] <- "area"
+AVG_INCOME_NEIGHBORHOOD_ADDED <- master_zip_added %>% group_by(area) %>% summarise(avg = mean(income., na.rm=TRUE))
+master_zip2_added <- left_join(master_zip_added, AVG_INCOME_NEIGHBORHOOD_ADDED, by = "area")
+census_added <- merge(master_zip2_added, zipcode, by.x = 'zipcode', by.y = 'zip')
+census_added2 <- census_added %>% filter(!is.na(avg))
+write.csv(census_added2, file = "zip_master_no_missing.csv")
+```
+
+```{r}
+master_zip <- full_join(superzip3, neighborhood2, by = 'zipcode')
+master_zip[!complete.cases(master_zip),]
+colnames(master_zip)[11] <- "area"
+```
+
+This shows us the rows which have NAs. As we can clearly see, there were more zipcodes in the neighborhood data than in the superzip data. Our way of adjusting for this will be to determine an average income for each neighborhood. Then, we will be using this average income per neighborhood for each of the zipcodes falling in this neighborhood. We will later see if we need to use this aggregate based on if we have data for bars or cafes in the zipcodes which are not a part of the superzip data.
+
+```{r}
+AVG_INCOME_NEIGHBORHOOD <- master_zip %>% group_by(area) %>% summarise(avg = mean(income., na.rm=TRUE))
+filter(master_zip, area == "Astoria & Long Island City")
+```
+
+Upon viewing the output, we still have many NAs in the avg column, when looking at the master_zip dataframe filtered for "Astoria & Long Island City", which is the first neighborhood with an avg of NA, we see that it's because we have no income data for any zipcodes in this area. Therefore, once we join the average income with the master_zip dataframe we will drop these rows with NAs.
+
+```{r}
+master_zip2 <- left_join(master_zip, AVG_INCOME_NEIGHBORHOOD, by = "area")
+```
+
+Here we have joined the average income per neighborhood data back to the rest of the income data. 
+
+```{r}
+data(zipcode)
+census <- merge(master_zip2, zipcode, by.x = 'ZIP', by.y = 'zip')
+census <- census %>% filter(!is.na(avg))
+```
+
+Here we are using the package zipcode to map all of our zipcodes to geospatial coordinates so that we can plot them using ggmap. Then, we are filtering out all of the zipcodes and neighborhoods for which we have no income data at all within that neighborhood.
+
+```{r}
+missing_zips <- c(10065, 10075, 10106, 10281, 11101, 11102, 11103, 11104, 11105, 11106, 11109, 11249, 11366, 11367, 11368, 11370, 11372, 11373, 11374, 11375, 11377, 11379, 11435, 11694)
+filtered_missing_zips <- filter(superzip, zipcode %in% missing_zips)
+setdiff(missing_zips, filtered_missing_zips$zipcode)
+```
+
+Here, Marika had informed me that we had missing zipcodes in the final census dataframe. Therefore, I went back to the superzip dataset and found that 18 of the 24 zipcodes appeared there. However, they were labeled as being in different cities, not one of the five boroughs. Since she has data in these zipcodes, we will be adding them back into the census dataframe.
+
+We also found that 6 zipcodes are still missing from our income data. These are 10065 (Upper East Side), 10075(Upper East Side), 10106(midtown), 10281 (World Trade), 11109 (Long Island) and 11249(Williamsburg).
+
+```{r}
+map <- get_map("New York City", source = "google", zoom = 11)
+
+ggmap(map, base_layer = ggplot(aes(x = longitude, y = latitude, color = avg), data = census))  + geom_point(size = 4, alpha=0.7) + scale_color_viridis()
+```
+
+This map shows all of the zipcodes and we can clearly see that by far the greatest incomes per zipcode are in the Upper East Side and Upper West Side. Then, midtown and downtown also have high incomes. After that, they all fall towards the bottom of the spectrum. Thus, I think it would be useful to make a map showing only Manhattan, and then the everything excluding Manhattan. This should give us a better idea of what areas outside of Manhattan might see more bar/cafe openings.
+
+
+```{r}
+census_manhattan <- census %>% dplyr::filter(city.x == 'Manhattan')
+ggmap(map, base_layer = ggplot(aes(x = longitude, y = latitude, color = avg), data = census_manhattan))  + geom_point(size = 4, alpha=0.7) + scale_color_viridis()
+```
+
+
+```{r}
+census_not_manhattan <- census %>% dplyr::filter(city.x != 'Manhattan')
+ggmap(map, base_layer = ggplot(aes(x = longitude, y = latitude, color = avg), data = census_not_manhattan))  + geom_point(size = 4, alpha=0.7) + scale_color_viridis()
+```
+
+```{r}
+census_not_manhattan <- census %>% dplyr::filter(city.x != 'Manhattan')
+ggmap(map, base_layer = ggplot(aes(x = longitude, y = latitude, color = income., size = college), data = census_not_manhattan))  + geom_point(alpha=0.7) + scale_color_viridis()
+```
+
+
+```{r}
+ggplot(census, aes(reorder(city.x, -avg, FUN = median), avg)) + geom_boxplot(varwidth = TRUE)
+```
+
+Here we see the distributions of the average income per area in each of the 5 boroughs. This plot shows us that Queens Villge does not have very much data since it is a variable width boxplot. Also, there is very little spread in the distribution for Queens. Bronx and Brooklyn seem relatively similar, and Manhattan has a massive spread. The missing values occur from zipcodes which occur in the neighborhood data and not in the superzip data. We can see that the average income calculated for these zipcodes in general are high. We can thus infer they are likely from New York and looking back at the census data and filtering for the NAs in city.x, we can see that this is the case:
+
+```{r}
+census %>% filter(is.na(census$city.x))
+```
+
+PROBABLY NOT NECESSARY
+```{r}
+census %>% filter(!is.na(census$city.x)) %>% ggplot(aes(reorder(city.x, -avg, FUN = median), avg)) + geom_boxplot(varwidth = TRUE)
+```
+
+```{r}
+census %>% filter(!is.na(census$city.x)) %>% ggplot(aes(city.x, income., color=city.x, alpha(0.1))) + geom_point(size = 2, shape = 1) + guides(color=FALSE) 
+```
+
+Similarly to the boxplot, this shows the distribution of the income for each of the boroughs. We can see we do not have too much data on Queens again. 
+
+```{r}
+ggplot(census, aes(x=reorder(city.x, -table(city.x)[city.x]))) + geom_bar() + xlab("City") + ylab("Number of Zipcodes") + ggtitle("Number of zipcodes with observations per borough")
+```
+
+Again the NAs here correspond to not having an actual income value for said zipcode. It was derived from the average for that neighborhood. This shows that approximately half of the zipcodes had no income data. Also, this data is certainly better than the last set, although ideally we would still have more data on Queens and Staten Island especially if there are many liquor licenses and sidewalk cafes popping up in zipcodes which we are missing.
