@@ -1,190 +1,190 @@
-"","ZIP","X","percentile","superzip","rank","city.x","state.x","adultpop","households","college","income.","area","avg","city.y","state.y","latitude","longitude","nbh"
-"1",10001,1,78.93413,0,3120,"Manhattan","NY",12961,2711,"50.16%",58.3699,"Chelsea, Clinton & Midtown Business District",85.76612,"New York","NY",40.750742,-73.99653,"West Midtown "
-"2",10002,2,13.30883,0,18943,"Manhattan","NY",59323,18859,"16.83%",35.786,"Chinatown & Lower East Side",70.1926,"New York","NY",40.71704,-73.987,"Lower East Side "
-"3",10003,3,97.68859,1,385,"Manhattan","NY",40319,7504,"70.12%",121.43,"Chinatown & Lower East Side",70.1926,"New York","NY",40.732509,-73.98935,"Greenwich Village "
-"4",10004,4,99.43828,1,93,"Manhattan","NY",1020,221,"75.98%",170.258,"Battery Park City, Greenwich Village & Soho",131.63891,"New York","NJ",40.699226,-74.04118,"Financial District "
-"5",10005,5,99.36517,1,107,"Manhattan","NY",703,119,"74.68%",167.23,"Battery Park City, Greenwich Village & Soho",131.63891,"New York","NY",40.706019,-74.00858,"Financial District "
-"6",10006,6,98.65981,1,228,"Manhattan","NY",1174,230,"70.95%",138.78,"Battery Park City, Greenwich Village & Soho",131.63891,"New York","NY",40.707904,-74.01342,"Financial District "
-"7",10007,7,99.38902,1,100,"Manhattan","NY",2814,563,"56.89%",199.713,"Battery Park City, Greenwich Village & Soho",131.63891,"New York","NY",40.714754,-74.00721,"Financial District "
-"8",10009,8,71.88912,0,4213,"Manhattan","NY",43663,11823,"44.55%",53.3618,"Chinatown & Lower East Side",70.1926,"New York","NY",40.727093,-73.97864,"East Greenwich Village "
-"9",10010,9,98.17231,1,320,"Manhattan","NY",21221,4819,"71.23%",126,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,"New York","NY",40.739022,-73.98205,"Gramercy "
-"10",10011,10,98.13351,1,326,"Manhattan","NY",39951,6704,"68.57%",130.999,"Chelsea, Clinton & Midtown Business District",85.76612,"New York","NY",40.741012,-74.00012,"Chelsea Greenwich Village "
-"11",10012,11,94.66093,0,840,"Manhattan","NY",20476,4501,"64.63%",95.9752,"Battery Park City, Greenwich Village & Soho",131.63891,"New York","NY",40.72596,-73.99834,"Village NoHo "
-"12",10013,12,69.03775,0,4647,"Manhattan","NY",18344,5447,"40.66%",55.1401,"Battery Park City, Greenwich Village & Soho",131.63891,"New York","NY",40.720666,-74.00526,"Tribeca, Soho "
-"13",10014,13,99.0041,1,167,"Manhattan","NY",28445,4763,"74.39%",145.505,"Battery Park City, Greenwich Village & Soho",131.63891,"New York","NY",40.734718,-74.00532,"West Greenwich Village "
-"14",10016,14,98.56199,1,243,"Manhattan","NY",41544,7973,"68.79%",140.174,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,"New York","NY",40.74618,-73.97759,"Murray Hill "
-"15",10017,15,99.12652,1,150,"Manhattan","NY",14064,2742,"73.99%",152.385,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,"New York","NY",40.752159,-73.97231,"East Midtown "
-"16",10018,16,82.75207,0,2549,"Manhattan","NY",3534,626,"51.33%",66.3136,"Chelsea, Clinton & Midtown Business District",85.76612,"New York","NY",40.755101,-73.99337,"West Midtown "
-"17",10019,17,94.55955,0,854,"Manhattan","NY",30339,5984,"61.50%",100.511,"Chelsea, Clinton & Midtown Business District",85.76612,"New York","NY",40.765714,-73.9856,"West Midtown "
-"18",10020,18,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Chelsea, Clinton & Midtown Business District",85.76612,"New York","NY",40.758667,-73.98024,"Midtown Center "
-"19",10021,19,99.78984,1,46,"Manhattan","NY",86540,20928,"75.28%",195.312,"Upper East Side",165.20488,"New York","NY",40.76842,-73.96045,"Upper East Side "
-"20",10022,20,99.83436,1,42,"Manhattan","NY",26893,6274,"71.96%",203.584,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,"New York","NY",40.759015,-73.96732,"East Midtown "
-"21",10023,21,99.29218,1,120,"Manhattan","NY",51494,11604,"73.32%",162.015,"Upper West Side & West Side",156.587,"New York","NY",40.776099,-73.98285,"Upper West Side "
-"22",10024,22,99.5659,1,77,"Manhattan","NY",49837,12623,"73.93%",180.668,"Upper West Side & West Side",156.587,"New York","NY",40.786387,-73.97709,"Upper West Side "
-"23",10025,23,91.02995,0,1363,"Manhattan","NY",71769,19247,"58.40%",83.655,"Upper West Side & West Side",156.587,"New York","NY",40.798502,-73.96811,"Upper West Side "
-"24",10026,24,16.26024,0,17737,"Manhattan","NY",19105,6812,"19.67%",34.2146,"Central Harlem",32.703175,"New York","NY",40.802853,-73.95471,"Harlem "
-"25",10027,25,35.87317,0,11625,"Manhattan","NY",34172,10798,"28.93%",34.7324,"Hamilton Heights, Manhattanville & West Harlem",35.024,"New York","NY",40.812665,-73.95499,"Morningside Heights "
-"26",10028,26,99.86842,1,38,"Manhattan","NY",36366,9188,"77.74%",197.116,"Upper East Side",165.20488,"New York","NY",40.776777,-73.9541,"Upper East Side "
-"27",10029,27,7.188779,0,21302,"Manhattan","NY",45347,17413,"14.39%",32.35,"East Harlem",28.70635,"New York","NY",40.791586,-73.94575,"East Harlem "
-"28",10030,28,3.608121,0,22743,"Manhattan","NY",15888,5853,"12.44%",28.267,"Central Harlem",32.703175,"New York","NY",40.818151,-73.94351,"Harlem "
-"29",10031,29,7.86562,0,21060,"Manhattan","NY",37700,12996,"13.19%",35.3156,"Hamilton Heights, Manhattanville & West Harlem",35.024,"New York","NY",40.826201,-73.94879,"Harlem "
-"30",10032,30,11.30932,0,19675,"Manhattan","NY",39631,13451,"15.12%",36.526,"Washington Heights, Inwood & Marble Hill",37.67195,"New York","NY",40.840686,-73.94154,"Washington Heights "
-"31",10033,31,27.69628,0,13998,"Manhattan","NY",36538,12954,"21.39%",41.0246,"Washington Heights, Inwood & Marble Hill",37.67195,"New York","NY",40.848764,-73.93496,"Washington Heights "
-"32",10034,32,23.28298,0,15381,"Manhattan","NY",26273,9856,"21.59%",37.02,"Washington Heights, Inwood & Marble Hill",37.67195,"New York","NY",40.867653,-73.92,"Inwood "
-"33",10035,33,1.037593,0,23597,"Manhattan","NY",20025,6586,"8.67%",25.0627,"East Harlem",28.70635,"New York","NY",40.802395,-73.93359,"East Harlem "
-"34",10036,34,85.7291,0,2107,"Manhattan","NY",15723,2480,"52.79%",72.6371,"Chelsea, Clinton & Midtown Business District",85.76612,"New York","NY",40.759511,-73.99019,"West Midtown "
-"35",10037,35,21.08418,0,16070,"Manhattan","NY",12320,3836,"18.51%",40.5852,"Central Harlem",32.703175,"New York","NY",40.813385,-73.93616,"Harlem "
-"36",10038,36,58.65752,0,6446,"Manhattan","NY",10406,3010,"35.35%",48.0608,"Battery Park City, Greenwich Village & Soho",131.63891,"New York","NY",40.709677,-74.00365,"Financial District, Seaport "
-"37",10039,37,1.349182,0,23485,"Manhattan","NY",13056,5297,"8.36%",27.7459,"Central Harlem",32.703175,"New York","NY",40.826181,-73.9371,"Harlem "
-"38",10040,38,19.30757,0,16699,"Manhattan","NY",29590,10759,"20.22%",36.1172,"Washington Heights, Inwood & Marble Hill",37.67195,"New York","NY",40.858704,-73.92853,"Washington Heights "
-"39",10044,39,83.96834,0,2369,"Manhattan","NY",6640,1840,"45.90%",79.0744,"Upper East Side",165.20488,"New York","NY",40.762174,-73.94917,"Roosevelt Island "
-"40",10065,40,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Upper East Side",165.20488,"New York","NY",40.76,-73.96,"Midtown Upper East Side "
-"41",10069,41,99.93251,1,23,"Manhattan","NY",1376,422,"84.16%",200.01,"Upper West Side & West Side",156.587,"New York","NY",40.775477,-73.9905,"Upper West Side "
-"42",10075,42,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Upper East Side",165.20488,"New York","NY",40.77,-73.95,"Midtown Upper East Side "
-"43",10103,43,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Chelsea, Clinton & Midtown Business District",85.76612,"New York","NY",40.760915,-73.97785,"Midtown "
-"44",10110,44,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Chelsea, Clinton & Midtown Business District",85.76612,"New York","NY",40.753987,-73.980811,"Midtown "
-"45",10111,45,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Chelsea, Clinton & Midtown Business District",85.76612,"New York","NY",40.759235,-73.97775,"Midtown "
-"46",10112,46,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Chelsea, Clinton & Midtown Business District",85.76612,"New York","NY",40.759291,-73.97979,"Midtown "
-"47",10115,47,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Hamilton Heights, Manhattanville & West Harlem",35.024,"New York","NY",40.810906,-73.96375,"Morningside Heights "
-"48",10119,48,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Chelsea, Clinton & Midtown Business District",85.76612,"New York","NY",40.750824,-73.99289,"Korea Town "
-"49",10128,49,99.10585,1,152,"Manhattan","NY",46757,12049,"73.83%",152.017,"Upper East Side",165.20488,"New York","NY",40.781894,-73.95039,"Upper East Side "
-"50",10152,50,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,"New York","NY",40.758611,-73.97223,"Midtown "
-"51",10153,51,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Chelsea, Clinton & Midtown Business District",85.76612,"New York","NY",40.763742,-73.97268,"Midtown "
-"52",10154,52,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,"New York","NY",40.757986,-73.97267,"Midtown "
-"53",10162,53,99.93327,1,22,"Manhattan","NY",1415,480,"82.76%",202.505,"Upper East Side",165.20488,"New York","NY",40.769334,-73.94893,"Yorkville "
-"54",10165,54,89.09837,0,NA,"Manhattan","NY",11,6,"100%",3.26769,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,"New York","NY",40.752354,-73.9789,"Midtown "
-"55",10167,55,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,"New York","NY",40.754862,-73.97495,"Midtown "
-"56",10168,56,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,"New York","NY",40.751933,-73.976794,"Midtown "
-"57",10169,57,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,"New York","NY",40.754463,-73.97606,"Midtown "
-"58",10170,58,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,"New York","NY",40.752859,-73.97608,"Midtown "
-"59",10171,59,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,"New York","NY",40.756099,-73.97401,"Midtown "
-"60",10172,60,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,"New York","NY",40.755494,-73.97447,"Midtown "
-"61",10173,61,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Chelsea, Clinton & Midtown Business District",85.76612,"New York","NY",40.754302,-73.97955,"Midtown "
-"62",10174,62,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,"New York","NY",40.751656,-73.97516,"Midtown "
-"63",10177,63,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Chelsea, Clinton & Midtown Business District",85.76612,"New York","NY",40.755345,-73.97609,"Midtown "
-"64",10199,64,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Chelsea, Clinton & Midtown Business District",85.76612,"New York","NY",40.750308,-74.00058,"Theater District "
-"65",10271,65,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Battery Park City, Greenwich Village & Soho",131.63891,"New York","NY",40.708669,-74.01043,"Financial District "
-"66",10278,66,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Battery Park City, Greenwich Village & Soho",131.63891,"New York","NY",40.715721,-74.00395,"Tribeca "
-"67",10279,67,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Battery Park City, Greenwich Village & Soho",131.63891,"New York","NY",40.713062,-74.00857,"Tribeca "
-"68",10280,68,99.63304,1,65,"Manhattan","NY",5422,1613,"78.27%",179.075,"Battery Park City, Greenwich Village & Soho",131.63891,"New York","NY",40.707467,-74.0178,"Lower Manhattan "
-"69",10282,69,95.66295,1,691,"Manhattan","NY",1039,317,"58.42%",116.652,"Battery Park City, Greenwich Village & Soho",131.63891,"New York","NY",40.717179,-74.01433,"Tribeca "
-"70",10301,70,68.9603,0,4663,"Staten Island","NY",25512,8557,"31.34%",71.0693,"Port Richmond, Stapleton & Mariners Harbor",68.58714,"Staten Island","NY",40.631775,-74.09432,"Port Richmond, Stapleton & Mariners Harbor"
-"71",10302,71,45.31491,0,9288,"Staten Island","NY",10246,3868,"14.67%",67.8069,"Port Richmond, Stapleton & Mariners Harbor",68.58714,"Staten Island","NY",40.631127,-74.13715,"Port Richmond, Stapleton & Mariners Harbor"
-"72",10303,72,41.62149,0,10132,"Staten Island","NY",13414,5807,"15.44%",63.2106,"Port Richmond, Stapleton & Mariners Harbor",68.58714,"Staten Island","NY",40.629448,-74.16239,"Port Richmond, Stapleton & Mariners Harbor"
-"73",10304,73,55.89274,0,6976,"Staten Island","NY",24638,9560,"24.00%",64.0279,"Port Richmond, Stapleton & Mariners Harbor",68.58714,"Staten Island","NY",40.60787,-74.08991,"Port Richmond, Stapleton & Mariners Harbor"
-"74",10305,74,55.72988,0,6996,"Staten Island","NY",26388,9702,"18.42%",73.5198,"New Springville & South Beach",83.6388666666667,"Staten Island","NY",40.599021,-74.07503,"New Springville & South Beach"
-"75",10306,75,68.04404,0,4808,"Staten Island","NY",38846,14986,"20.50%",88.1453,"New Springville & South Beach",83.6388666666667,"Staten Island","NY",40.569394,-74.11785,"New Springville & South Beach"
-"76",10307,76,73.4277,0,3983,"Staten Island","NY",7544,3112,"20.63%",97.3102,"Tottenville, Great Kills & Annadale",95.453125,"Staten Island","NY",40.508274,-74.24387,"Tottenville, Great Kills & Annadale"
-"77",10308,77,70.73705,0,4382,"Staten Island","NY",18333,7473,"21.15%",91.7595,"Tottenville, Great Kills & Annadale",95.453125,"Staten Island","NY",40.551353,-74.15098,"Tottenville, Great Kills & Annadale"
-"78",10309,78,73.80246,0,3932,"Staten Island","NY",17713,7013,"22.80%",94.121,"Tottenville, Great Kills & Annadale",95.453125,"Staten Island","NY",40.529749,-74.21304,"Tottenville, Great Kills & Annadale"
-"79",10310,79,65.73212,0,5178,"Staten Island","NY",14110,5713,"24.68%",76.821,"Port Richmond, Stapleton & Mariners Harbor",68.58714,"Staten Island","NY",40.63212,-74.11551,"Port Richmond, Stapleton & Mariners Harbor"
-"80",10311,80,NA,NA,NA,NA,NA,NA,NA,NA,NA,"New Springville & South Beach",83.6388666666667,"Staten Island","NY",40.605245,-74.179485,"New Springville & South Beach"
-"81",10312,81,76.77791,0,3474,"Staten Island","NY",38824,16183,"23.79%",98.6218,"Tottenville, Great Kills & Annadale",95.453125,"Staten Island","NY",40.543117,-74.17628,"Tottenville, Great Kills & Annadale"
-"82",10314,82,74.79237,0,3774,"Staten Island","NY",58227,22693,"26.83%",89.2515,"New Springville & South Beach",83.6388666666667,"Staten Island","NY",40.606337,-74.14513,"New Springville & South Beach"
-"83",10451,83,2.333696,0,23164,"Bronx","NY",23274,9702,"9.91%",29.2784,"Hunts Point, Longwood & Melrose",25.70424,"Bronx","NY",40.819729,-73.9223,"Hunts Point, Longwood & Melrose"
-"84",10452,84,0.7293516,0,23666,"Bronx","NY",38423,16976,"6.46%",27.5053,"Concourse, Highbridge & Mount Eden",27.5053,"Bronx","NY",40.838745,-73.92234,"Concourse, Highbridge & Mount Eden"
-"85",10453,85,1.302413,0,23506,"Bronx","NY",40143,18113,"7.83%",28.406,"Morris Heights, Fordham South & Mount Hope",27.6353,"Bronx","NY",40.853017,-73.91214,"Morris Heights, Fordham South & Mount Hope"
-"86",10454,86,0.0760166,0,23907,"Bronx","NY",18591,7725,"4.21%",21.6303,"Hunts Point, Longwood & Melrose",25.70424,"Bronx","NY",40.805968,-73.91628,"Hunts Point, Longwood & Melrose"
-"87",10455,87,0.783581,0,23656,"Bronx","NY",20341,8679,"6.19%",28.2389,"Hunts Point, Longwood & Melrose",25.70424,"Bronx","NY",40.815559,-73.90771,"Hunts Point, Longwood & Melrose"
-"88",10456,88,0.4691314,0,23746,"Bronx","NY",41232,18062,"6.68%",25.1046,"Belmont, Crotona Park East & East Tremont",27.2118,"Bronx","NY",40.829676,-73.90856,"Belmont, Crotona Park East & East Tremont"
-"89",10457,89,1.092873,0,23579,"Bronx","NY",37442,16182,"7.90%",26.8646,"Morris Heights, Fordham South & Mount Hope",27.6353,"Bronx","NY",40.846745,-73.89861,"Morris Heights, Fordham South & Mount Hope"
-"90",10458,90,4.292924,0,22488,"Bronx","NY",40609,17576,"11.87%",30.9678,"Bedford Park, Fordham North & Norwood",35.4908333333333,"Bronx","NY",40.864166,-73.88881,"Bedford Park, Fordham North & Norwood"
-"91",10459,91,0.7517098,0,23661,"Bronx","NY",20976,9000,"7.43%",25.9048,"Hunts Point, Longwood & Melrose",25.70424,"Bronx","NY",40.825432,-73.89327,"Hunts Point, Longwood & Melrose"
-"92",10460,92,1.468095,0,23452,"Bronx","NY",28729,12610,"7.74%",29.319,"Belmont, Crotona Park East & East Tremont",27.2118,"Bronx","NY",40.84095,-73.88036,"Belmont, Crotona Park East & East Tremont"
-"93",10461,93,56.59912,0,6835,"Bronx","NY",36068,12189,"22.80%",67.157,"Co-op City, Pelham Bay & Schuylerville",75.829,"Bronx","NY",40.842917,-73.83819,"Co-op City, Pelham Bay & Schuylerville"
-"94",10462,94,30.72697,0,13072,"Bronx","NY",46751,18313,"18.26%",48.8493,"Castle Hill, Clason Point & Parkchester",41.5481,"Bronx","NY",40.842173,-73.85862,"Castle Hill, Clason Point & Parkchester"
-"95",10463,95,65.00788,0,5308,"Bronx","NY",45788,16143,"33.00%",61.2872,"Riverdale, Fieldston & Kingsbridge",81.5246,"Bronx","NY",40.881086,-73.90749,"Riverdale, Fieldston & Kingsbridge"
-"96",10464,96,83.64798,0,2414,"Bronx","NY",3524,1144,"33.77%",99.0886,"Co-op City, Pelham Bay & Schuylerville",75.829,"Bronx","NY",40.857017,-73.78903,"Co-op City, Pelham Bay & Schuylerville"
-"97",10465,97,50.20518,0,8171,"Bronx","NY",29433,11268,"16.40%",70.154,"Co-op City, Pelham Bay & Schuylerville",75.829,"Bronx","NY",40.825727,-73.81752,"Co-op City, Pelham Bay & Schuylerville"
-"98",10466,98,36.0951,0,11558,"Bronx","NY",42221,16951,"16.60%",56.2045,"Wakefield, Williamsbridge & Woodlawn",58.68175,"Bronx","NY",40.89095,-73.84702,"Wakefield, Williamsbridge & Woodlawn"
-"99",10467,99,16.38134,0,17700,"Bronx","NY",57954,22657,"15.90%",40.8298,"Bedford Park, Fordham North & Norwood",35.4908333333333,"Bronx","NY",40.872265,-73.86937,"Bedford Park, Fordham North & Norwood"
-"100",10468,100,7.163314,0,21304,"Bronx","NY",45226,18311,"13.03%",34.6749,"Bedford Park, Fordham North & Norwood",35.4908333333333,"Bronx","NY",40.867107,-73.89916,"Bedford Park, Fordham North & Norwood"
-"101",10469,101,50.74111,0,8058,"Bronx","NY",42025,15743,"20.64%",63.4617,"Pelham Parkway, Morris Park & Laconia",63.4617,"Bronx","NY",40.868643,-73.84735,"Pelham Parkway, Morris Park & Laconia"
-"102",10470,102,47.08347,0,8903,"Bronx","NY",11083,3987,"19.56%",61.159,"Wakefield, Williamsbridge & Woodlawn",58.68175,"Bronx","NY",40.900629,-73.86072,"Wakefield, Williamsbridge & Woodlawn"
-"103",10471,103,91.39788,0,1303,"Bronx","NY",17090,5323,"49.33%",101.762,"Riverdale, Fieldston & Kingsbridge",81.5246,"Bronx","NY",40.900819,-73.90347,"Riverdale, Fieldston & Kingsbridge"
-"104",10472,104,4.052896,0,22576,"Bronx","NY",37071,15819,"9.96%",33.7269,"Castle Hill, Clason Point & Parkchester",41.5481,"Bronx","NY",40.830409,-73.86845,"Castle Hill, Clason Point & Parkchester"
-"105",10473,105,10.40108,0,20014,"Bronx","NY",33247,14380,"11.27%",42.0681,"Castle Hill, Clason Point & Parkchester",41.5481,"Bronx","NY",40.818514,-73.85893,"Castle Hill, Clason Point & Parkchester"
-"106",10474,106,0.0982101,0,23900,"Bronx","NY",5606,2479,"3.67%",23.4688,"Hunts Point, Longwood & Melrose",25.70424,"Bronx","NY",40.81321,-73.88755,"Hunts Point, Longwood & Melrose"
-"107",10475,107,54.73836,0,7209,"Bronx","NY",27476,9855,"21.51%",66.9164,"Co-op City, Pelham Bay & Schuylerville",75.829,"Bronx","NY",40.878522,-73.82541,"Co-op City, Pelham Bay & Schuylerville"
-"108",11004,108,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Queens Village, Cambria Heights & Rosedale",76.189,"Glen Oaks","NY",40.742944,-73.70956,"Glen Oaks"
-"109",11005,109,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Queens Village, Cambria Heights & Rosedale",76.189,"Floral Park","NY",40.756983,-73.7148,"Floral Park"
-"110",11101,110,23.32383,0,15370,"Long Island City","NY",16409,5625,"20.60%",38.7624,"Astoria & Long Island City",51.10682,"Long Island City","NY",40.745341,-73.93907,"Long Island City"
-"111",11102,111,46.91633,0,8930,"Astoria","NY",24353,8080,"25.78%",50.3216,"Astoria & Long Island City",51.10682,"Astoria","NY",40.771286,-73.92462,"Astoria"
-"112",11103,112,48.70462,0,8538,"Astoria","NY",31029,10105,"24.00%",55.2683,"Astoria & Long Island City",51.10682,"Astoria","NY",40.762968,-73.91091,"Astoria"
-"113",11104,113,56.04495,0,6947,"Sunnyside","NY",21778,6908,"28.59%",56.3588,"Sunnyside & Woodside",54.7498,"Sunnyside","NY",40.743796,-73.91949,"Sunnyside"
-"114",11105,114,58.50016,0,6478,"Astoria","NY",30169,10330,"28.07%",60.4438,"Astoria & Long Island City",51.10682,"Astoria","NY",40.774686,-73.90816,"Astoria"
-"115",11106,115,47.71119,0,8746,"Astoria","NY",30267,9931,"26.04%",50.738,"Astoria & Long Island City",51.10682,"Astoria","NY",40.762012,-73.93147,"Astoria"
-"116",11109,116,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Sunnyside & Woodside",54.7498,"Long Island City","NY",40.651378,-73.870779,"Long Island City"
-"117",11201,117,94.71729,0,831,"Brooklyn","NY",36260,9089,"57.51%",109.175,"Brooklyn Heights & Fort Greene",71.7936,"Brooklyn","NY",40.695286,-73.98907,"Brooklyn Heights & Fort Greene"
-"118",11203,118,36.6087,0,11417,"Brooklyn","NY",53501,20705,"16.26%",57.241,"East Flatbush, Farragut & Rugby",57.241,"Brooklyn","NY",40.649059,-73.93304,"East Flatbush, Farragut & Rugby"
-"119",11204,119,35.0085,0,11822,"Brooklyn","NY",48359,18939,"19.56%",50.2432,"Bensonhurst & Bath Beach",51.4021666666667,"Brooklyn","NY",40.618944,-73.98473,"Bensonhurst & Bath Beach"
-"120",11205,120,27.78091,0,13970,"Brooklyn","NY",20789,7256,"24.46%",35.7824,"Brooklyn Heights & Fort Greene",71.7936,"Brooklyn","NY",40.694214,-73.96529,"Brooklyn Heights & Fort Greene"
-"121",11206,121,1.143559,0,23569,"Brooklyn","NY",38688,15734,"7.53%",27.8283,"Bedford-Stuyvesant",33.5978666666667,"Brooklyn","NY",40.702348,-73.94288,"Bedford-Stuyvesant"
-"122",11207,122,3.35476,0,22818,"Brooklyn","NY",47565,20665,"9.01%",33.5896,"East New York & Starrett City",35.9079333333333,"Brooklyn","NY",40.670874,-73.89424,"East New York & Starrett City"
-"123",11208,123,3.888649,0,22629,"Brooklyn","NY",48507,20728,"7.94%",36.835,"East New York & Starrett City",35.9079333333333,"Brooklyn","NY",40.672666,-73.87248,"East New York & Starrett City"
-"124",11209,124,73.76591,0,3935,"Brooklyn","NY",52332,17028,"35.49%",72.203,"Bay Ridge & Dyker Heights",72.5868,"Brooklyn","NY",40.62327,-74.0295,"Bay Ridge & Dyker Heights"
-"125",11210,125,60.11124,0,6158,"Brooklyn","NY",36958,14844,"26.71%",65.0844,"Flatbush & Midwood",52.6369333333333,"Brooklyn","NY",40.627946,-73.94552,"Flatbush & Midwood"
-"126",11211,126,10.47996,0,19986,"Brooklyn","NY",45874,17749,"18.40%",29.8812,"Greenpoint & Williamsburg",39.33515,"Brooklyn","NY",40.71209,-73.95427,"Greenpoint & Williamsburg"
-"127",11212,127,1.772859,0,23356,"Brooklyn","NY",46709,20724,"8.05%",30.2134,"Brownsville & Ocean Hill",32.0048,"Brooklyn","NY",40.662191,-73.91328,"Brownsville & Ocean Hill"
-"128",11213,128,10.55935,0,19955,"Brooklyn","NY",37801,15390,"12.79%",39.6281,"Crown Heights North & Prospect Heights",48.4387,"Brooklyn","NY",40.670937,-73.93459,"Crown Heights North & Prospect Heights"
-"129",11214,129,41.15621,0,10259,"Brooklyn","NY",59256,21864,"21.29%",52.6688,"Bensonhurst & Bath Beach",51.4021666666667,"Brooklyn","NY",40.598994,-73.99611,"Bensonhurst & Bath Beach"
-"130",11215,130,89.72504,0,1553,"Brooklyn","NY",45146,13709,"53.00%",86.4336,"Park Slope, Carroll Gardens & Red Hook",75.0137,"Brooklyn","NY",40.667508,-73.9856,"Park Slope, Carroll Gardens & Red Hook"
-"131",11216,131,10.61578,0,19938,"Brooklyn","NY",35109,12815,"12.69%",39.8661,"Bedford-Stuyvesant",33.5978666666667,"Brooklyn","NY",40.680398,-73.94824,"Bedford-Stuyvesant"
-"132",11217,132,83.39497,0,2452,"Brooklyn","NY",26126,7107,"50.10%",70.4234,"Brooklyn Heights & Fort Greene",71.7936,"Brooklyn","NY",40.68209,-73.97783,"Brooklyn Heights & Fort Greene"
-"133",11218,133,49.17326,0,8424,"Brooklyn","NY",46942,17134,"26.55%",51.386,"Borough Park, Kensington & Ocean Parkway",45.26905,"Brooklyn","NY",40.644552,-73.97595,"Borough Park, Kensington & Ocean Parkway"
-"134",11219,134,12.68876,0,19194,"Brooklyn","NY",48713,19630,"14.48%",39.1521,"Borough Park, Kensington & Ocean Parkway",45.26905,"Brooklyn","NY",40.632449,-73.99629,"Borough Park, Kensington & Ocean Parkway"
-"135",11220,135,10.9603,0,19794,"Brooklyn","NY",57009,21250,"12.36%",40.8585,"Sunset Park & Windsor Terrace",40.2204,"Brooklyn","NY",40.641436,-74.01574,"Sunset Park & Windsor Terrace"
-"136",11221,136,3.224591,0,22874,"Brooklyn","NY",42288,17588,"9.06%",33.0992,"Bedford-Stuyvesant",33.5978666666667,"Brooklyn","NY",40.691234,-73.92637,"Bedford-Stuyvesant"
-"137",11222,137,36.70459,0,11390,"Brooklyn","NY",28046,8880,"21.22%",48.7891,"Greenpoint & Williamsburg",39.33515,"Brooklyn","NY",40.726302,-73.94559,"Greenpoint & Williamsburg"
-"138",11223,138,38.37161,0,10945,"Brooklyn","NY",52042,20261,"20.65%",51.2945,"Bensonhurst & Bath Beach",51.4021666666667,"Brooklyn","NY",40.598142,-73.97229,"Bensonhurst & Bath Beach"
-"139",11224,139,23.01646,0,15466,"Brooklyn","NY",34392,12758,"20.71%",38.2839,"Brighton Beach & Coney Island",38.2839,"Brooklyn","NY",40.576589,-73.99172,"Brighton Beach & Coney Island"
-"140",11225,140,19.27732,0,16709,"Brooklyn","NY",39593,16086,"15.54%",44.1641,"Crown Heights South, Prospect Lefferts & Wingate",44.1641,"Brooklyn","NY",40.662892,-73.95509,"Crown Heights South, Prospect Lefferts & Wingate"
-"141",11226,141,10.68537,0,19910,"Brooklyn","NY",63341,25967,"12.37%",40.5159,"Flatbush & Midwood",52.6369333333333,"Brooklyn","NY",40.645256,-73.95553,"Flatbush & Midwood"
-"142",11228,142,62.25162,0,5785,"Brooklyn","NY",29585,10781,"23.88%",72.9706,"Bay Ridge & Dyker Heights",72.5868,"Brooklyn","NY",40.617563,-74.01168,"Bay Ridge & Dyker Heights"
-"143",11229,143,60.69767,0,6045,"Brooklyn","NY",55405,21193,"29.10%",61.7997,"Sheepshead Bay, Gerritsen Beach & Homecrest",57.30485,"Brooklyn","NY",40.599256,-73.94118,"Sheepshead Bay, Gerritsen Beach & Homecrest"
-"144",11230,144,55.63203,0,7006,"Brooklyn","NY",56227,21502,"30.69%",52.3105,"Flatbush & Midwood",52.6369333333333,"Brooklyn","NY",40.622994,-73.96427,"Flatbush & Midwood"
-"145",11231,145,77.39547,0,3368,"Brooklyn","NY",23361,7884,"44.95%",63.5938,"Park Slope, Carroll Gardens & Red Hook",75.0137,"Brooklyn","NY",40.6788,-74.00254,"Park Slope, Carroll Gardens & Red Hook"
-"146",11232,146,11.58681,0,19572,"Brooklyn","NY",16836,5954,"13.54%",39.5823,"Sunset Park & Windsor Terrace",40.2204,"Brooklyn","NY",40.655481,-74.00424,"Sunset Park & Windsor Terrace"
-"147",11233,147,4.487129,0,22415,"Brooklyn","NY",35343,14857,"10.45%",33.7962,"Brownsville & Ocean Hill",32.0048,"Brooklyn","NY",40.676938,-73.91858,"Brownsville & Ocean Hill"
-"148",11234,148,67.56207,0,4882,"Brooklyn","NY",58644,23464,"24.74%",79.9688,"Canarsie & Flatlands",70.7496,"Brooklyn","NY",40.618561,-73.9216,"Canarsie & Flatlands"
-"149",11235,149,56.8589,0,6786,"Brooklyn","NY",57406,19813,"31.28%",52.81,"Sheepshead Bay, Gerritsen Beach & Homecrest",57.30485,"Brooklyn","NY",40.583803,-73.95019,"Sheepshead Bay, Gerritsen Beach & Homecrest"
-"150",11236,150,47.06157,0,8906,"Brooklyn","NY",59451,24333,"19.33%",61.5304,"Canarsie & Flatlands",70.7496,"Brooklyn","NY",40.640527,-73.90362,"Canarsie & Flatlands"
-"151",11237,151,1.362886,0,23482,"Brooklyn","NY",25752,11162,"7.30%",29.6419,"Bushwick",29.6419,"Brooklyn","NY",40.703355,-73.91993,"Bushwick"
-"152",11238,152,65.43406,0,5229,"Brooklyn","NY",33671,10254,"35.75%",57.2493,"Crown Heights North & Prospect Heights",48.4387,"Brooklyn","NY",40.680145,-73.96257,"Crown Heights North & Prospect Heights"
-"153",11239,153,12.70817,0,19190,"Brooklyn","NY",9843,3773,"15.56%",37.2992,"East New York & Starrett City",35.9079333333333,"Brooklyn","NY",40.645848,-73.87919,"East New York & Starrett City"
-"154",11365,154,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Briarwood, Fresh Meadows & Hillcrest",81.44185,"Fresh Meadows","NY",40.738983,-73.79209,"Fresh Meadows"
-"155",11366,155,86.63705,0,1967,"Fresh Meadows","NY",9383,3510,"41.40%",95.5097,"Briarwood, Fresh Meadows & Hillcrest",81.44185,"Fresh Meadows","NY",40.726137,-73.79502,"Fresh Meadows"
-"156",11367,156,69.9868,0,4507,"Flushing","NY",25388,10076,"34.36%",67.374,"Briarwood, Fresh Meadows & Hillcrest",81.44185,"Flushing","NY",40.728614,-73.82145,"Flushing"
-"157",11368,157,14.56694,0,18429,"Corona","NY",58915,21446,"11.50%",46.3975,"Elmhurst & South Corona",49.0369,"Corona","NY",40.747106,-73.85838,"Corona"
-"158",11369,158,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Jackson Heights & North Corona",58.20215,"East Elmhurst","NY",40.762854,-73.87051,"East Elmhurst"
-"159",11370,159,40.49926,0,10426,"East Elmhurst","NY",29538,7285,"15.03%",62.815,"Jackson Heights & North Corona",58.20215,"East Elmhurst","NY",40.763015,-73.89052,"East Elmhurst"
-"160",11371,160,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Jackson Heights & North Corona",58.20215,"Flushing","NY",40.772072,-73.87509,"Flushing"
-"161",11372,161,46.5347,0,9002,"Jackson Heights","NY",48962,16290,"23.67%",53.5893,"Jackson Heights & North Corona",58.20215,"Jackson Heights","NY",40.750146,-73.88433,"Jackson Heights"
-"162",11373,162,43.55163,0,9697,"Elmhurst","NY",71522,24328,"23.12%",51.6763,"Elmhurst & South Corona",49.0369,"Elmhurst","NY",40.736076,-73.87804,"Elmhurst"
-"163",11374,163,74.8264,0,3769,"Rego Park","NY",32851,11181,"40.75%",65.3839,"Forest Hills & Rego Park",74.4135,"Rego Park","NY",40.724945,-73.8609,"Rego Park"
-"164",11375,164,86.94963,0,1928,"Forest Hills","NY",55212,18079,"48.94%",83.4431,"Forest Hills & Rego Park",74.4135,"Forest Hills","NY",40.720535,-73.84582,"Forest Hills"
-"165",11377,165,44.9283,0,9379,"Woodside","NY",61205,20632,"22.97%",53.1408,"Sunnyside & Woodside",54.7498,"Woodside","NY",40.742869,-73.90377,"Woodside"
-"166",11378,166,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Ridgewood, Glendale & Middle Village",79.927,"Maspeth","NY",40.724096,-73.90271,"Maspeth"
-"167",11379,167,62.61557,0,5718,"Middle Village","NY",21622,7798,"20.14%",79.927,"Ridgewood, Glendale & Middle Village",79.927,"Middle Village","NY",40.716028,-73.87925,"Middle Village"
-"168",11385,168,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Ridgewood, Glendale & Middle Village",79.927,"Ridgewood","NY",40.703069,-73.89285,"Ridgewood"
-"169",11411,169,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Queens Village, Cambria Heights & Rosedale",76.189,"Cambria Heights","NY",40.693538,-73.73574,"Cambria Heights"
-"170",11412,170,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Jamaica, Hollis & St. Albans",54.5556,"Saint Albans","NY",40.697188,-73.75948,"Saint Albans"
-"171",11413,171,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Queens Village, Cambria Heights & Rosedale",76.189,"Springfield Gardens","NY",40.670138,-73.75141,"Springfield Gardens"
-"172",11422,172,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Queens Village, Cambria Heights & Rosedale",76.189,"Rosedale","NY",40.662538,-73.73514,"Rosedale"
-"173",11423,173,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Jamaica, Hollis & St. Albans",54.5556,"Hollis","NY",40.714261,-73.76824,"Hollis"
-"174",11425,174,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Bay Ridge & Dyker Heights",72.5868,"Jamaica","NY",40.651378,-73.870779,"Jamaica"
-"175",11426,175,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Queens Village, Cambria Heights & Rosedale",76.189,"Bellerose","NY",40.732239,-73.72108,"Bellerose"
-"176",11427,176,69.19512,0,4630,"Queens Village","NY",15756,6030,"28.65%",75.9545,"Queens Village, Cambria Heights & Rosedale",76.189,"Queens Village","NY",40.728235,-73.74782,"Queens Village"
-"177",11428,177,62.01378,0,5829,"Queens Village","NY",13331,5034,"20.70%",77.9486,"Queens Village, Cambria Heights & Rosedale",76.189,"Queens Village","NY",40.719981,-73.74127,"Queens Village"
-"178",11429,178,56.2184,0,6919,"Queens Village","NY",17352,6488,"18.09%",74.6639,"Queens Village, Cambria Heights & Rosedale",76.189,"Queens Village","NY",40.708833,-73.73903,"Queens Village"
-"179",11432,179,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Briarwood, Fresh Meadows & Hillcrest",81.44185,"Jamaica","NY",40.714144,-73.79324,"Jamaica"
-"180",11433,180,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Jamaica, Hollis & St. Albans",54.5556,"Jamaica","NY",40.696538,-73.78734,"Jamaica"
-"181",11434,181,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Jamaica, Hollis & St. Albans",54.5556,"Jamaica","NY",40.674888,-73.7727,"Jamaica"
-"182",11435,182,43.3062,0,9747,"Jamaica","NY",35290,12590,"21.32%",54.5556,"Jamaica, Hollis & St. Albans",54.5556,"Jamaica","NY",40.700068,-73.80986,"Jamaica"
-"183",11436,183,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Jamaica, Hollis & St. Albans",54.5556,"Jamaica","NY",40.674146,-73.79687,"Jamaica"
-"184",11451,184,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Jamaica, Hollis & St. Albans",54.5556,"Jamaica","NY",40.651378,-73.870779,"Jamaica"
-"185",11691,185,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Far Rockaway, Breezy Point & Broad Channel",84.99,"Far Rockaway","NY",40.60002,-73.75962,"Far Rockaway"
-"186",11692,186,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Far Rockaway, Breezy Point & Broad Channel",84.99,"Arverne","NY",40.592939,-73.79568,"Arverne"
-"187",11693,187,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Far Rockaway, Breezy Point & Broad Channel",84.99,"Far Rockaway","NY",40.596959,-73.81978,"Far Rockaway"
-"188",11694,188,79.05356,0,3102,"Rockaway Park","NY",14207,4648,"34.85%",84.99,"Far Rockaway, Breezy Point & Broad Channel",84.99,"Rockaway Park","NY",40.57649,-73.84721,"Rockaway Park"
-"189",11697,189,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Far Rockaway, Breezy Point & Broad Channel",84.99,"Breezy Point","NY",40.560167,-73.90891,"Breezy Point"
+ZIP,percentile,superzip,rank,city.x,state.x,adultpop,households,college,income.,area,avg,city.y,state.y,latitude,longitude,nbh
+10001,78.93413,0,3120,Manhattan,NY,12961,2711,50.16%,58.3699,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.750742,-73.99653,West Midtown 
+10002,13.30883,0,18943,Manhattan,NY,59323,18859,16.83%,35.786,Chinatown & Lower East Side,70.1926,New York,NY,40.71704,-73.987,Lower East Side 
+10003,97.68859,1,385,Manhattan,NY,40319,7504,70.12%,121.43,Chinatown & Lower East Side,70.1926,New York,NY,40.732509,-73.98935,Greenwich Village 
+10004,99.43828,1,93,Manhattan,NY,1020,221,75.98%,170.258,"Battery Park City, Greenwich Village & Soho",131.63891,New York,NJ,40.699226,-74.04118,Financial District 
+10005,99.36517,1,107,Manhattan,NY,703,119,74.68%,167.23,"Battery Park City, Greenwich Village & Soho",131.63891,New York,NY,40.706019,-74.00858,Financial District 
+10006,98.65981,1,228,Manhattan,NY,1174,230,70.95%,138.78,"Battery Park City, Greenwich Village & Soho",131.63891,New York,NY,40.707904,-74.01342,Financial District 
+10007,99.38902,1,100,Manhattan,NY,2814,563,56.89%,199.713,"Battery Park City, Greenwich Village & Soho",131.63891,New York,NY,40.714754,-74.00721,Financial District 
+10009,71.88912,0,4213,Manhattan,NY,43663,11823,44.55%,53.3618,Chinatown & Lower East Side,70.1926,New York,NY,40.727093,-73.97864,East Greenwich Village 
+10010,98.17231,1,320,Manhattan,NY,21221,4819,71.23%,126,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,New York,NY,40.739022,-73.98205,Gramercy 
+10011,98.13351,1,326,Manhattan,NY,39951,6704,68.57%,130.999,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.741012,-74.00012,Chelsea Greenwich Village 
+10012,94.66093,0,840,Manhattan,NY,20476,4501,64.63%,95.9752,"Battery Park City, Greenwich Village & Soho",131.63891,New York,NY,40.72596,-73.99834,Village NoHo 
+10013,69.03775,0,4647,Manhattan,NY,18344,5447,40.66%,55.1401,"Battery Park City, Greenwich Village & Soho",131.63891,New York,NY,40.720666,-74.00526,"Tribeca, Soho "
+10014,99.0041,1,167,Manhattan,NY,28445,4763,74.39%,145.505,"Battery Park City, Greenwich Village & Soho",131.63891,New York,NY,40.734718,-74.00532,West Greenwich Village 
+10016,98.56199,1,243,Manhattan,NY,41544,7973,68.79%,140.174,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,New York,NY,40.74618,-73.97759,Murray Hill 
+10017,99.12652,1,150,Manhattan,NY,14064,2742,73.99%,152.385,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,New York,NY,40.752159,-73.97231,East Midtown 
+10018,82.75207,0,2549,Manhattan,NY,3534,626,51.33%,66.3136,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.755101,-73.99337,West Midtown 
+10019,94.55955,0,854,Manhattan,NY,30339,5984,61.50%,100.511,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.765714,-73.9856,West Midtown 
+10020,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.758667,-73.98024,Midtown Center 
+10021,99.78984,1,46,Manhattan,NY,86540,20928,75.28%,195.312,Upper East Side,165.20488,New York,NY,40.76842,-73.96045,Upper East Side 
+10022,99.83436,1,42,Manhattan,NY,26893,6274,71.96%,203.584,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,New York,NY,40.759015,-73.96732,East Midtown 
+10023,99.29218,1,120,Manhattan,NY,51494,11604,73.32%,162.015,Upper West Side & West Side,156.587,New York,NY,40.776099,-73.98285,Upper West Side 
+10024,99.5659,1,77,Manhattan,NY,49837,12623,73.93%,180.668,Upper West Side & West Side,156.587,New York,NY,40.786387,-73.97709,Upper West Side 
+10025,91.02995,0,1363,Manhattan,NY,71769,19247,58.40%,83.655,Upper West Side & West Side,156.587,New York,NY,40.798502,-73.96811,Upper West Side 
+10026,16.26024,0,17737,Manhattan,NY,19105,6812,19.67%,34.2146,Central Harlem,32.703175,New York,NY,40.802853,-73.95471,Harlem 
+10027,35.87317,0,11625,Manhattan,NY,34172,10798,28.93%,34.7324,"Hamilton Heights, Manhattanville & West Harlem",35.024,New York,NY,40.812665,-73.95499,Morningside Heights 
+10028,99.86842,1,38,Manhattan,NY,36366,9188,77.74%,197.116,Upper East Side,165.20488,New York,NY,40.776777,-73.9541,Upper East Side 
+10029,7.188779,0,21302,Manhattan,NY,45347,17413,14.39%,32.35,East Harlem,28.70635,New York,NY,40.791586,-73.94575,East Harlem 
+10030,3.608121,0,22743,Manhattan,NY,15888,5853,12.44%,28.267,Central Harlem,32.703175,New York,NY,40.818151,-73.94351,Harlem 
+10031,7.86562,0,21060,Manhattan,NY,37700,12996,13.19%,35.3156,"Hamilton Heights, Manhattanville & West Harlem",35.024,New York,NY,40.826201,-73.94879,Harlem 
+10032,11.30932,0,19675,Manhattan,NY,39631,13451,15.12%,36.526,"Washington Heights, Inwood & Marble Hill",37.67195,New York,NY,40.840686,-73.94154,Washington Heights 
+10033,27.69628,0,13998,Manhattan,NY,36538,12954,21.39%,41.0246,"Washington Heights, Inwood & Marble Hill",37.67195,New York,NY,40.848764,-73.93496,Washington Heights 
+10034,23.28298,0,15381,Manhattan,NY,26273,9856,21.59%,37.02,"Washington Heights, Inwood & Marble Hill",37.67195,New York,NY,40.867653,-73.92,Inwood 
+10035,1.037593,0,23597,Manhattan,NY,20025,6586,8.67%,25.0627,East Harlem,28.70635,New York,NY,40.802395,-73.93359,East Harlem 
+10036,85.7291,0,2107,Manhattan,NY,15723,2480,52.79%,72.6371,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.759511,-73.99019,West Midtown 
+10037,21.08418,0,16070,Manhattan,NY,12320,3836,18.51%,40.5852,Central Harlem,32.703175,New York,NY,40.813385,-73.93616,Harlem 
+10038,58.65752,0,6446,Manhattan,NY,10406,3010,35.35%,48.0608,"Battery Park City, Greenwich Village & Soho",131.63891,New York,NY,40.709677,-74.00365,"Financial District, Seaport "
+10039,1.349182,0,23485,Manhattan,NY,13056,5297,8.36%,27.7459,Central Harlem,32.703175,New York,NY,40.826181,-73.9371,Harlem 
+10040,19.30757,0,16699,Manhattan,NY,29590,10759,20.22%,36.1172,"Washington Heights, Inwood & Marble Hill",37.67195,New York,NY,40.858704,-73.92853,Washington Heights 
+10044,83.96834,0,2369,Manhattan,NY,6640,1840,45.90%,79.0744,Upper East Side,165.20488,New York,NY,40.762174,-73.94917,Roosevelt Island 
+10065,NA,NA,NA,NA,NA,NA,NA,NA,NA,Upper East Side,165.20488,New York,NY,40.76,-73.96,Midtown Upper East Side 
+10069,99.93251,1,23,Manhattan,NY,1376,422,84.16%,200.01,Upper West Side & West Side,156.587,New York,NY,40.775477,-73.9905,Upper West Side 
+10075,NA,NA,NA,NA,NA,NA,NA,NA,NA,Upper East Side,165.20488,New York,NY,40.77,-73.95,Midtown Upper East Side 
+10103,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.760915,-73.97785,Midtown 
+10110,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.753987,-73.980811,Midtown 
+10111,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.759235,-73.97775,Midtown 
+10112,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.759291,-73.97979,Midtown 
+10115,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Hamilton Heights, Manhattanville & West Harlem",35.024,New York,NY,40.810906,-73.96375,Morningside Heights 
+10119,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.750824,-73.99289,Korea Town 
+10128,99.10585,1,152,Manhattan,NY,46757,12049,73.83%,152.017,Upper East Side,165.20488,New York,NY,40.781894,-73.95039,Upper East Side 
+10152,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,New York,NY,40.758611,-73.97223,Midtown 
+10153,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.763742,-73.97268,Midtown 
+10154,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,New York,NY,40.757986,-73.97267,Midtown 
+10162,99.93327,1,22,Manhattan,NY,1415,480,82.76%,202.505,Upper East Side,165.20488,New York,NY,40.769334,-73.94893,Yorkville 
+10165,89.09837,0,NA,Manhattan,NY,11,6,100%,3.26769,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,New York,NY,40.752354,-73.9789,Midtown 
+10167,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,New York,NY,40.754862,-73.97495,Midtown 
+10168,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,New York,NY,40.751933,-73.976794,Midtown 
+10169,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,New York,NY,40.754463,-73.97606,Midtown 
+10170,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,New York,NY,40.752859,-73.97608,Midtown 
+10171,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,New York,NY,40.756099,-73.97401,Midtown 
+10172,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,New York,NY,40.755494,-73.97447,Midtown 
+10173,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.754302,-73.97955,Midtown 
+10174,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,New York,NY,40.751656,-73.97516,Midtown 
+10177,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.755345,-73.97609,Midtown 
+10199,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.750308,-74.00058,Theater District 
+10271,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Battery Park City, Greenwich Village & Soho",131.63891,New York,NY,40.708669,-74.01043,Financial District 
+10278,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Battery Park City, Greenwich Village & Soho",131.63891,New York,NY,40.715721,-74.00395,Tribeca 
+10279,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Battery Park City, Greenwich Village & Soho",131.63891,New York,NY,40.713062,-74.00857,Tribeca 
+10280,99.63304,1,65,Manhattan,NY,5422,1613,78.27%,179.075,"Battery Park City, Greenwich Village & Soho",131.63891,New York,NY,40.707467,-74.0178,Lower Manhattan 
+10282,95.66295,1,691,Manhattan,NY,1039,317,58.42%,116.652,"Battery Park City, Greenwich Village & Soho",131.63891,New York,NY,40.717179,-74.01433,Tribeca 
+10301,68.9603,0,4663,Staten Island,NY,25512,8557,31.34%,71.0693,"Port Richmond, Stapleton & Mariners Harbor",68.58714,Staten Island,NY,40.631775,-74.09432,"Port Richmond, Stapleton & Mariners Harbor"
+10302,45.31491,0,9288,Staten Island,NY,10246,3868,14.67%,67.8069,"Port Richmond, Stapleton & Mariners Harbor",68.58714,Staten Island,NY,40.631127,-74.13715,"Port Richmond, Stapleton & Mariners Harbor"
+10303,41.62149,0,10132,Staten Island,NY,13414,5807,15.44%,63.2106,"Port Richmond, Stapleton & Mariners Harbor",68.58714,Staten Island,NY,40.629448,-74.16239,"Port Richmond, Stapleton & Mariners Harbor"
+10304,55.89274,0,6976,Staten Island,NY,24638,9560,24.00%,64.0279,"Port Richmond, Stapleton & Mariners Harbor",68.58714,Staten Island,NY,40.60787,-74.08991,"Port Richmond, Stapleton & Mariners Harbor"
+10305,55.72988,0,6996,Staten Island,NY,26388,9702,18.42%,73.5198,New Springville & South Beach,83.63886667,Staten Island,NY,40.599021,-74.07503,New Springville & South Beach
+10306,68.04404,0,4808,Staten Island,NY,38846,14986,20.50%,88.1453,New Springville & South Beach,83.63886667,Staten Island,NY,40.569394,-74.11785,New Springville & South Beach
+10307,73.4277,0,3983,Staten Island,NY,7544,3112,20.63%,97.3102,"Tottenville, Great Kills & Annadale",95.453125,Staten Island,NY,40.508274,-74.24387,"Tottenville, Great Kills & Annadale"
+10308,70.73705,0,4382,Staten Island,NY,18333,7473,21.15%,91.7595,"Tottenville, Great Kills & Annadale",95.453125,Staten Island,NY,40.551353,-74.15098,"Tottenville, Great Kills & Annadale"
+10309,73.80246,0,3932,Staten Island,NY,17713,7013,22.80%,94.121,"Tottenville, Great Kills & Annadale",95.453125,Staten Island,NY,40.529749,-74.21304,"Tottenville, Great Kills & Annadale"
+10310,65.73212,0,5178,Staten Island,NY,14110,5713,24.68%,76.821,"Port Richmond, Stapleton & Mariners Harbor",68.58714,Staten Island,NY,40.63212,-74.11551,"Port Richmond, Stapleton & Mariners Harbor"
+10311,NA,NA,NA,NA,NA,NA,NA,NA,NA,New Springville & South Beach,83.63886667,Staten Island,NY,40.605245,-74.179485,New Springville & South Beach
+10312,76.77791,0,3474,Staten Island,NY,38824,16183,23.79%,98.6218,"Tottenville, Great Kills & Annadale",95.453125,Staten Island,NY,40.543117,-74.17628,"Tottenville, Great Kills & Annadale"
+10314,74.79237,0,3774,Staten Island,NY,58227,22693,26.83%,89.2515,New Springville & South Beach,83.63886667,Staten Island,NY,40.606337,-74.14513,New Springville & South Beach
+10451,2.333696,0,23164,Bronx,NY,23274,9702,9.91%,29.2784,"Hunts Point, Longwood & Melrose",25.70424,Bronx,NY,40.819729,-73.9223,"Hunts Point, Longwood & Melrose"
+10452,0.7293516,0,23666,Bronx,NY,38423,16976,6.46%,27.5053,"Concourse, Highbridge & Mount Eden",27.5053,Bronx,NY,40.838745,-73.92234,"Concourse, Highbridge & Mount Eden"
+10453,1.302413,0,23506,Bronx,NY,40143,18113,7.83%,28.406,"Morris Heights, Fordham South & Mount Hope",27.6353,Bronx,NY,40.853017,-73.91214,"Morris Heights, Fordham South & Mount Hope"
+10454,0.0760166,0,23907,Bronx,NY,18591,7725,4.21%,21.6303,"Hunts Point, Longwood & Melrose",25.70424,Bronx,NY,40.805968,-73.91628,"Hunts Point, Longwood & Melrose"
+10455,0.783581,0,23656,Bronx,NY,20341,8679,6.19%,28.2389,"Hunts Point, Longwood & Melrose",25.70424,Bronx,NY,40.815559,-73.90771,"Hunts Point, Longwood & Melrose"
+10456,0.4691314,0,23746,Bronx,NY,41232,18062,6.68%,25.1046,"Belmont, Crotona Park East & East Tremont",27.2118,Bronx,NY,40.829676,-73.90856,"Belmont, Crotona Park East & East Tremont"
+10457,1.092873,0,23579,Bronx,NY,37442,16182,7.90%,26.8646,"Morris Heights, Fordham South & Mount Hope",27.6353,Bronx,NY,40.846745,-73.89861,"Morris Heights, Fordham South & Mount Hope"
+10458,4.292924,0,22488,Bronx,NY,40609,17576,11.87%,30.9678,"Bedford Park, Fordham North & Norwood",35.49083333,Bronx,NY,40.864166,-73.88881,"Bedford Park, Fordham North & Norwood"
+10459,0.7517098,0,23661,Bronx,NY,20976,9000,7.43%,25.9048,"Hunts Point, Longwood & Melrose",25.70424,Bronx,NY,40.825432,-73.89327,"Hunts Point, Longwood & Melrose"
+10460,1.468095,0,23452,Bronx,NY,28729,12610,7.74%,29.319,"Belmont, Crotona Park East & East Tremont",27.2118,Bronx,NY,40.84095,-73.88036,"Belmont, Crotona Park East & East Tremont"
+10461,56.59912,0,6835,Bronx,NY,36068,12189,22.80%,67.157,"Co-op City, Pelham Bay & Schuylerville",75.829,Bronx,NY,40.842917,-73.83819,"Co-op City, Pelham Bay & Schuylerville"
+10462,30.72697,0,13072,Bronx,NY,46751,18313,18.26%,48.8493,"Castle Hill, Clason Point & Parkchester",41.5481,Bronx,NY,40.842173,-73.85862,"Castle Hill, Clason Point & Parkchester"
+10463,65.00788,0,5308,Bronx,NY,45788,16143,33.00%,61.2872,"Riverdale, Fieldston & Kingsbridge",81.5246,Bronx,NY,40.881086,-73.90749,"Riverdale, Fieldston & Kingsbridge"
+10464,83.64798,0,2414,Bronx,NY,3524,1144,33.77%,99.0886,"Co-op City, Pelham Bay & Schuylerville",75.829,Bronx,NY,40.857017,-73.78903,"Co-op City, Pelham Bay & Schuylerville"
+10465,50.20518,0,8171,Bronx,NY,29433,11268,16.40%,70.154,"Co-op City, Pelham Bay & Schuylerville",75.829,Bronx,NY,40.825727,-73.81752,"Co-op City, Pelham Bay & Schuylerville"
+10466,36.0951,0,11558,Bronx,NY,42221,16951,16.60%,56.2045,"Wakefield, Williamsbridge & Woodlawn",58.68175,Bronx,NY,40.89095,-73.84702,"Wakefield, Williamsbridge & Woodlawn"
+10467,16.38134,0,17700,Bronx,NY,57954,22657,15.90%,40.8298,"Bedford Park, Fordham North & Norwood",35.49083333,Bronx,NY,40.872265,-73.86937,"Bedford Park, Fordham North & Norwood"
+10468,7.163314,0,21304,Bronx,NY,45226,18311,13.03%,34.6749,"Bedford Park, Fordham North & Norwood",35.49083333,Bronx,NY,40.867107,-73.89916,"Bedford Park, Fordham North & Norwood"
+10469,50.74111,0,8058,Bronx,NY,42025,15743,20.64%,63.4617,"Pelham Parkway, Morris Park & Laconia",63.4617,Bronx,NY,40.868643,-73.84735,"Pelham Parkway, Morris Park & Laconia"
+10470,47.08347,0,8903,Bronx,NY,11083,3987,19.56%,61.159,"Wakefield, Williamsbridge & Woodlawn",58.68175,Bronx,NY,40.900629,-73.86072,"Wakefield, Williamsbridge & Woodlawn"
+10471,91.39788,0,1303,Bronx,NY,17090,5323,49.33%,101.762,"Riverdale, Fieldston & Kingsbridge",81.5246,Bronx,NY,40.900819,-73.90347,"Riverdale, Fieldston & Kingsbridge"
+10472,4.052896,0,22576,Bronx,NY,37071,15819,9.96%,33.7269,"Castle Hill, Clason Point & Parkchester",41.5481,Bronx,NY,40.830409,-73.86845,"Castle Hill, Clason Point & Parkchester"
+10473,10.40108,0,20014,Bronx,NY,33247,14380,11.27%,42.0681,"Castle Hill, Clason Point & Parkchester",41.5481,Bronx,NY,40.818514,-73.85893,"Castle Hill, Clason Point & Parkchester"
+10474,0.0982101,0,23900,Bronx,NY,5606,2479,3.67%,23.4688,"Hunts Point, Longwood & Melrose",25.70424,Bronx,NY,40.81321,-73.88755,"Hunts Point, Longwood & Melrose"
+10475,54.73836,0,7209,Bronx,NY,27476,9855,21.51%,66.9164,"Co-op City, Pelham Bay & Schuylerville",75.829,Bronx,NY,40.878522,-73.82541,"Co-op City, Pelham Bay & Schuylerville"
+11004,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Queens Village, Cambria Heights & Rosedale",76.189,Glen Oaks,NY,40.742944,-73.70956,Glen Oaks
+11005,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Queens Village, Cambria Heights & Rosedale",76.189,Floral Park,NY,40.756983,-73.7148,Floral Park
+11101,23.32383,0,15370,Long Island City,NY,16409,5625,20.60%,38.7624,Astoria & Long Island City,51.10682,Long Island City,NY,40.745341,-73.93907,Long Island City
+11102,46.91633,0,8930,Astoria,NY,24353,8080,25.78%,50.3216,Astoria & Long Island City,51.10682,Astoria,NY,40.771286,-73.92462,Astoria
+11103,48.70462,0,8538,Astoria,NY,31029,10105,24.00%,55.2683,Astoria & Long Island City,51.10682,Astoria,NY,40.762968,-73.91091,Astoria
+11104,56.04495,0,6947,Sunnyside,NY,21778,6908,28.59%,56.3588,Sunnyside & Woodside,54.7498,Sunnyside,NY,40.743796,-73.91949,Sunnyside
+11105,58.50016,0,6478,Astoria,NY,30169,10330,28.07%,60.4438,Astoria & Long Island City,51.10682,Astoria,NY,40.774686,-73.90816,Astoria
+11106,47.71119,0,8746,Astoria,NY,30267,9931,26.04%,50.738,Astoria & Long Island City,51.10682,Astoria,NY,40.762012,-73.93147,Astoria
+11109,NA,NA,NA,NA,NA,NA,NA,NA,NA,Sunnyside & Woodside,54.7498,Long Island City,NY,40.651378,-73.870779,Long Island City
+11201,94.71729,0,831,Brooklyn,NY,36260,9089,57.51%,109.175,Brooklyn Heights & Fort Greene,71.7936,Brooklyn,NY,40.695286,-73.98907,Brooklyn Heights & Fort Greene
+11203,36.6087,0,11417,Brooklyn,NY,53501,20705,16.26%,57.241,"East Flatbush, Farragut & Rugby",57.241,Brooklyn,NY,40.649059,-73.93304,"East Flatbush, Farragut & Rugby"
+11204,35.0085,0,11822,Brooklyn,NY,48359,18939,19.56%,50.2432,Bensonhurst & Bath Beach,51.40216667,Brooklyn,NY,40.618944,-73.98473,Bensonhurst & Bath Beach
+11205,27.78091,0,13970,Brooklyn,NY,20789,7256,24.46%,35.7824,Brooklyn Heights & Fort Greene,71.7936,Brooklyn,NY,40.694214,-73.96529,Brooklyn Heights & Fort Greene
+11206,1.143559,0,23569,Brooklyn,NY,38688,15734,7.53%,27.8283,Bedford-Stuyvesant,33.59786667,Brooklyn,NY,40.702348,-73.94288,Bedford-Stuyvesant
+11207,3.35476,0,22818,Brooklyn,NY,47565,20665,9.01%,33.5896,East New York & Starrett City,35.90793333,Brooklyn,NY,40.670874,-73.89424,East New York & Starrett City
+11208,3.888649,0,22629,Brooklyn,NY,48507,20728,7.94%,36.835,East New York & Starrett City,35.90793333,Brooklyn,NY,40.672666,-73.87248,East New York & Starrett City
+11209,73.76591,0,3935,Brooklyn,NY,52332,17028,35.49%,72.203,Bay Ridge & Dyker Heights,72.5868,Brooklyn,NY,40.62327,-74.0295,Bay Ridge & Dyker Heights
+11210,60.11124,0,6158,Brooklyn,NY,36958,14844,26.71%,65.0844,Flatbush & Midwood,52.63693333,Brooklyn,NY,40.627946,-73.94552,Flatbush & Midwood
+11211,10.47996,0,19986,Brooklyn,NY,45874,17749,18.40%,29.8812,Greenpoint & Williamsburg,39.33515,Brooklyn,NY,40.71209,-73.95427,Greenpoint & Williamsburg
+11212,1.772859,0,23356,Brooklyn,NY,46709,20724,8.05%,30.2134,Brownsville & Ocean Hill,32.0048,Brooklyn,NY,40.662191,-73.91328,Brownsville & Ocean Hill
+11213,10.55935,0,19955,Brooklyn,NY,37801,15390,12.79%,39.6281,Crown Heights North & Prospect Heights,48.4387,Brooklyn,NY,40.670937,-73.93459,Crown Heights North & Prospect Heights
+11214,41.15621,0,10259,Brooklyn,NY,59256,21864,21.29%,52.6688,Bensonhurst & Bath Beach,51.40216667,Brooklyn,NY,40.598994,-73.99611,Bensonhurst & Bath Beach
+11215,89.72504,0,1553,Brooklyn,NY,45146,13709,53.00%,86.4336,"Park Slope, Carroll Gardens & Red Hook",75.0137,Brooklyn,NY,40.667508,-73.9856,"Park Slope, Carroll Gardens & Red Hook"
+11216,10.61578,0,19938,Brooklyn,NY,35109,12815,12.69%,39.8661,Bedford-Stuyvesant,33.59786667,Brooklyn,NY,40.680398,-73.94824,Bedford-Stuyvesant
+11217,83.39497,0,2452,Brooklyn,NY,26126,7107,50.10%,70.4234,Brooklyn Heights & Fort Greene,71.7936,Brooklyn,NY,40.68209,-73.97783,Brooklyn Heights & Fort Greene
+11218,49.17326,0,8424,Brooklyn,NY,46942,17134,26.55%,51.386,"Borough Park, Kensington & Ocean Parkway",45.26905,Brooklyn,NY,40.644552,-73.97595,"Borough Park, Kensington & Ocean Parkway"
+11219,12.68876,0,19194,Brooklyn,NY,48713,19630,14.48%,39.1521,"Borough Park, Kensington & Ocean Parkway",45.26905,Brooklyn,NY,40.632449,-73.99629,"Borough Park, Kensington & Ocean Parkway"
+11220,10.9603,0,19794,Brooklyn,NY,57009,21250,12.36%,40.8585,Sunset Park & Windsor Terrace,40.2204,Brooklyn,NY,40.641436,-74.01574,Sunset Park & Windsor Terrace
+11221,3.224591,0,22874,Brooklyn,NY,42288,17588,9.06%,33.0992,Bedford-Stuyvesant,33.59786667,Brooklyn,NY,40.691234,-73.92637,Bedford-Stuyvesant
+11222,36.70459,0,11390,Brooklyn,NY,28046,8880,21.22%,48.7891,Greenpoint & Williamsburg,39.33515,Brooklyn,NY,40.726302,-73.94559,Greenpoint & Williamsburg
+11223,38.37161,0,10945,Brooklyn,NY,52042,20261,20.65%,51.2945,Bensonhurst & Bath Beach,51.40216667,Brooklyn,NY,40.598142,-73.97229,Bensonhurst & Bath Beach
+11224,23.01646,0,15466,Brooklyn,NY,34392,12758,20.71%,38.2839,Brighton Beach & Coney Island,38.2839,Brooklyn,NY,40.576589,-73.99172,Brighton Beach & Coney Island
+11225,19.27732,0,16709,Brooklyn,NY,39593,16086,15.54%,44.1641,"Crown Heights South, Prospect Lefferts & Wingate",44.1641,Brooklyn,NY,40.662892,-73.95509,"Crown Heights South, Prospect Lefferts & Wingate"
+11226,10.68537,0,19910,Brooklyn,NY,63341,25967,12.37%,40.5159,Flatbush & Midwood,52.63693333,Brooklyn,NY,40.645256,-73.95553,Flatbush & Midwood
+11228,62.25162,0,5785,Brooklyn,NY,29585,10781,23.88%,72.9706,Bay Ridge & Dyker Heights,72.5868,Brooklyn,NY,40.617563,-74.01168,Bay Ridge & Dyker Heights
+11229,60.69767,0,6045,Brooklyn,NY,55405,21193,29.10%,61.7997,"Sheepshead Bay, Gerritsen Beach & Homecrest",57.30485,Brooklyn,NY,40.599256,-73.94118,"Sheepshead Bay, Gerritsen Beach & Homecrest"
+11230,55.63203,0,7006,Brooklyn,NY,56227,21502,30.69%,52.3105,Flatbush & Midwood,52.63693333,Brooklyn,NY,40.622994,-73.96427,Flatbush & Midwood
+11231,77.39547,0,3368,Brooklyn,NY,23361,7884,44.95%,63.5938,"Park Slope, Carroll Gardens & Red Hook",75.0137,Brooklyn,NY,40.6788,-74.00254,"Park Slope, Carroll Gardens & Red Hook"
+11232,11.58681,0,19572,Brooklyn,NY,16836,5954,13.54%,39.5823,Sunset Park & Windsor Terrace,40.2204,Brooklyn,NY,40.655481,-74.00424,Sunset Park & Windsor Terrace
+11233,4.487129,0,22415,Brooklyn,NY,35343,14857,10.45%,33.7962,Brownsville & Ocean Hill,32.0048,Brooklyn,NY,40.676938,-73.91858,Brownsville & Ocean Hill
+11234,67.56207,0,4882,Brooklyn,NY,58644,23464,24.74%,79.9688,Canarsie & Flatlands,70.7496,Brooklyn,NY,40.618561,-73.9216,Canarsie & Flatlands
+11235,56.8589,0,6786,Brooklyn,NY,57406,19813,31.28%,52.81,"Sheepshead Bay, Gerritsen Beach & Homecrest",57.30485,Brooklyn,NY,40.583803,-73.95019,"Sheepshead Bay, Gerritsen Beach & Homecrest"
+11236,47.06157,0,8906,Brooklyn,NY,59451,24333,19.33%,61.5304,Canarsie & Flatlands,70.7496,Brooklyn,NY,40.640527,-73.90362,Canarsie & Flatlands
+11237,1.362886,0,23482,Brooklyn,NY,25752,11162,7.30%,29.6419,Bushwick,29.6419,Brooklyn,NY,40.703355,-73.91993,Bushwick
+11238,65.43406,0,5229,Brooklyn,NY,33671,10254,35.75%,57.2493,Crown Heights North & Prospect Heights,48.4387,Brooklyn,NY,40.680145,-73.96257,Crown Heights North & Prospect Heights
+11239,12.70817,0,19190,Brooklyn,NY,9843,3773,15.56%,37.2992,East New York & Starrett City,35.90793333,Brooklyn,NY,40.645848,-73.87919,East New York & Starrett City
+11365,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Briarwood, Fresh Meadows & Hillcrest",81.44185,Fresh Meadows,NY,40.738983,-73.79209,Fresh Meadows
+11366,86.63705,0,1967,Fresh Meadows,NY,9383,3510,41.40%,95.5097,"Briarwood, Fresh Meadows & Hillcrest",81.44185,Fresh Meadows,NY,40.726137,-73.79502,Fresh Meadows
+11367,69.9868,0,4507,Flushing,NY,25388,10076,34.36%,67.374,"Briarwood, Fresh Meadows & Hillcrest",81.44185,Flushing,NY,40.728614,-73.82145,Flushing
+11368,14.56694,0,18429,Corona,NY,58915,21446,11.50%,46.3975,Elmhurst & South Corona,49.0369,Corona,NY,40.747106,-73.85838,Corona
+11369,NA,NA,NA,NA,NA,NA,NA,NA,NA,Jackson Heights & North Corona,58.20215,East Elmhurst,NY,40.762854,-73.87051,East Elmhurst
+11370,40.49926,0,10426,East Elmhurst,NY,29538,7285,15.03%,62.815,Jackson Heights & North Corona,58.20215,East Elmhurst,NY,40.763015,-73.89052,East Elmhurst
+11371,NA,NA,NA,NA,NA,NA,NA,NA,NA,Jackson Heights & North Corona,58.20215,Flushing,NY,40.772072,-73.87509,Flushing
+11372,46.5347,0,9002,Jackson Heights,NY,48962,16290,23.67%,53.5893,Jackson Heights & North Corona,58.20215,Jackson Heights,NY,40.750146,-73.88433,Jackson Heights
+11373,43.55163,0,9697,Elmhurst,NY,71522,24328,23.12%,51.6763,Elmhurst & South Corona,49.0369,Elmhurst,NY,40.736076,-73.87804,Elmhurst
+11374,74.8264,0,3769,Rego Park,NY,32851,11181,40.75%,65.3839,Forest Hills & Rego Park,74.4135,Rego Park,NY,40.724945,-73.8609,Rego Park
+11375,86.94963,0,1928,Forest Hills,NY,55212,18079,48.94%,83.4431,Forest Hills & Rego Park,74.4135,Forest Hills,NY,40.720535,-73.84582,Forest Hills
+11377,44.9283,0,9379,Woodside,NY,61205,20632,22.97%,53.1408,Sunnyside & Woodside,54.7498,Woodside,NY,40.742869,-73.90377,Woodside
+11378,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Ridgewood, Glendale & Middle Village",79.927,Maspeth,NY,40.724096,-73.90271,Maspeth
+11379,62.61557,0,5718,Middle Village,NY,21622,7798,20.14%,79.927,"Ridgewood, Glendale & Middle Village",79.927,Middle Village,NY,40.716028,-73.87925,Middle Village
+11385,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Ridgewood, Glendale & Middle Village",79.927,Ridgewood,NY,40.703069,-73.89285,Ridgewood
+11411,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Queens Village, Cambria Heights & Rosedale",76.189,Cambria Heights,NY,40.693538,-73.73574,Cambria Heights
+11412,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Jamaica, Hollis & St. Albans",54.5556,Saint Albans,NY,40.697188,-73.75948,Saint Albans
+11413,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Queens Village, Cambria Heights & Rosedale",76.189,Springfield Gardens,NY,40.670138,-73.75141,Springfield Gardens
+11422,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Queens Village, Cambria Heights & Rosedale",76.189,Rosedale,NY,40.662538,-73.73514,Rosedale
+11423,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Jamaica, Hollis & St. Albans",54.5556,Hollis,NY,40.714261,-73.76824,Hollis
+11425,NA,NA,NA,NA,NA,NA,NA,NA,NA,Bay Ridge & Dyker Heights,72.5868,Jamaica,NY,40.651378,-73.870779,Jamaica
+11426,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Queens Village, Cambria Heights & Rosedale",76.189,Bellerose,NY,40.732239,-73.72108,Bellerose
+11427,69.19512,0,4630,Queens Village,NY,15756,6030,28.65%,75.9545,"Queens Village, Cambria Heights & Rosedale",76.189,Queens Village,NY,40.728235,-73.74782,Queens Village
+11428,62.01378,0,5829,Queens Village,NY,13331,5034,20.70%,77.9486,"Queens Village, Cambria Heights & Rosedale",76.189,Queens Village,NY,40.719981,-73.74127,Queens Village
+11429,56.2184,0,6919,Queens Village,NY,17352,6488,18.09%,74.6639,"Queens Village, Cambria Heights & Rosedale",76.189,Queens Village,NY,40.708833,-73.73903,Queens Village
+11432,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Briarwood, Fresh Meadows & Hillcrest",81.44185,Jamaica,NY,40.714144,-73.79324,Jamaica
+11433,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Jamaica, Hollis & St. Albans",54.5556,Jamaica,NY,40.696538,-73.78734,Jamaica
+11434,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Jamaica, Hollis & St. Albans",54.5556,Jamaica,NY,40.674888,-73.7727,Jamaica
+11435,43.3062,0,9747,Jamaica,NY,35290,12590,21.32%,54.5556,"Jamaica, Hollis & St. Albans",54.5556,Jamaica,NY,40.700068,-73.80986,Jamaica
+11436,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Jamaica, Hollis & St. Albans",54.5556,Jamaica,NY,40.674146,-73.79687,Jamaica
+11451,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Jamaica, Hollis & St. Albans",54.5556,Jamaica,NY,40.651378,-73.870779,Jamaica
+11691,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Far Rockaway, Breezy Point & Broad Channel",84.99,Far Rockaway,NY,40.60002,-73.75962,Far Rockaway
+11692,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Far Rockaway, Breezy Point & Broad Channel",84.99,Arverne,NY,40.592939,-73.79568,Arverne
+11693,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Far Rockaway, Breezy Point & Broad Channel",84.99,Far Rockaway,NY,40.596959,-73.81978,Far Rockaway
+11694,79.05356,0,3102,Rockaway Park,NY,14207,4648,34.85%,84.99,"Far Rockaway, Breezy Point & Broad Channel",84.99,Rockaway Park,NY,40.57649,-73.84721,Rockaway Park
+11697,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Far Rockaway, Breezy Point & Broad Channel",84.99,Breezy Point,NY,40.560167,-73.90891,Breezy Point
