@@ -30,6 +30,7 @@ library(dplyr)
 library(tidyr)
 library(extracat)
 require(forcats)
+library(vcd)
 ```
 ```{r}
 sidewalks<-read.csv("Data/Sidewalk Cafes/Sidewalk_Licenses.csv",strip.white=TRUE, na.strings=c("","NA"))
@@ -108,7 +109,12 @@ The list of licenses includes active licenses, expired licenses, licenses for bu
 sidewalks<-sidewalks %>% mutate(STATUS_CLASSIFICATION = ifelse(LIC_STATUS=="Active" & (APP_STATUS=="Application Approved" | APP_STATUS=="Application Review Completed"),"ACTIVE",ifelse(is.na(LICENSE_NBR),"NEW",ifelse((APP_STATUS_DATE>EXPIRATION_DATE | DPQA=="Issued Temp Op Letter") | (LIC_STATUS=="Active" & (APP_STATUS=="Pending Review" | APP_STATUS=="Submitted")),"RENEWAL","OLD"))))
 ```
 
-Now that we have classified the status of the licenses
+Now that we have classified the status of the licenses, we are able to see how these classifications differ between the boroughs. 
+
+```{r fig.align='center'}
+vcd::mosaic(STATUS_CLASSIFICATION ~ BOROUGH, sidewalks,rot_labels=c(90,90,0,0),just_labels=c("left","right","right","right"),labels=TRUE, varnames=FALSE)
+```
+The mosaic plot shows how Bronx and Brooklyn may be getting more new license requests. Interestingly, Bronx is also getting the highest percentage of renewal requests. 
 
 
 #### Liquor License Data - Rohan
