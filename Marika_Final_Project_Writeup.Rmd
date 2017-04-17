@@ -1,0 +1,116 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+## 1. Introduction - Marika
+
+In this section, explain why you chose this topic, and the questions you are interested in studying. Include a brief description of how you found the data, and clear instructions on where the reader can find the data. 
+
+
+## 2. Team - Adam
+
+List team members and a description of how each contributed to the project. (If you're working alone, briefly describe the stages of the project.) 
+
+1. Adam Coviensky -  
+
+2. Rohan Pitre -  
+
+3. Marika Lohmus -  
+
+
+## 3. Analysis of Data Quality - All
+
+#### Zip Code, Neighborhood and Land Value Data - Adam
+
+#### Sidewalk Cafe License Data - Marika
+```{r}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(extracat)
+require(forcats)
+```
+```{r}
+sidewalks<-read.csv("Data/Sidewalk Cafes/Sidewalk_Licenses.csv",strip.white=TRUE, na.strings=c("","NA"))
+```
+One of the most glaring issues in data quality is the naming of the cities in Manhattan and Queens. Capitalization differences like between "NEW YORK" and "New York" grouped cafes in the same city to be categorized differently. Similarly, cities in Queens had some abbreviation differences like between "LONG ISLAND CITY" and "LONG IS CITY" or "JACKSON HEIGHTS" and "JACKSON HTS". I manually replaced all abbreviated or non-capitalized cities with their longer, capitalized forms.
+```{r}
+sidewalks$CITY[sidewalks$CITY=="LONG IS CITY"]<-"LONG ISLAND CITY"
+sidewalks$CITY[sidewalks$CITY=="MIDDLE VLG"]<-"MIDDLE VILLAGE"
+sidewalks$CITY[sidewalks$CITY=="JACKSON HTS"]<-"JACKSON HEIGHTS"
+sidewalks$CITY[sidewalks$CITY=="New York"]<-"NEW YORK"
+```
+```{r}
+master_zip<-read.csv("Data/zip_master.csv")
+colnames(master_zip)[2] <- "ZIP"
+```
+
+
+#### Liquor License Data - Rohan
+
+## 4. Executive Summary - All
+
+Interactive Map of New York City
+
+Provide a short nontechnical summary of the most revealing findings of your analysis with no more than 3 static graphs or one interactive graph (or link), written for a nontechnical audience. The length should be approximately 2 pages (if we were using pages...) Do not show code, and take extra care to clean up your graphs, ensuring that best practices for presentation are followed.
+.  Note: the tips below are not intended to be a complete list of everything we've covered this semester on designing a successful graph.  It's meant to help you avoid some common
+problems.
+.  Title, axis labels, tick mark labels, and legends should be comprehensible (easy to understand) and legible (easy to read / decipher).
+.  Tick marks should not be labeled in scientific notation or with long strings of zeros, such as 3000000000. Instead, convert to smaller numbers and change the units: 3000000000 becomes "3" and the axis label "billions of views".
+.  Units should be intuitive (Extreme example: an axis labeled in month/day/year format is intuitive, one labeled in seconds since January 1, 1970 is not.)
+.  The font size should be large enough to read clearly. The default in ggplot2 is generally too small. You can easily change it by passing the base font size to the theme, such as  + theme_grey(16). (The default base font size is 11.)
+.  The order of items on the axes and legends is logical. (Alphabetical is often not logical.) .  Colors should be color vision deficiency friendly. .  If a legend is taking up too much space on the right, move it to the bottom. .  If categorical variable levels are long, set up the graph so the categorical variable is on the y-axis
+and the names are horizontal.  A better option, if possible, is to shorten the names of the levels.
+.  Not all EDA graphs lend themselves to presentation, either because the graph form is hard to understand without practice or it's not well labeled. The labeling problem can be solved by adding text in an image editor. The downside is that it is not reproducible. If you want to go this route, Paintbrush is a free and simple bitmap image editor for the Mac: https://paintbrush.sourceforge.io/ There are many other options. 
+
+## 5. Main Analysis - All
+
+Provide a detailed, well-organized description of your findings, including textual description, graphs, and code.  Your focus should be on both the results and the process. Include, as reasonable and relevant, approaches that didn't work, challenges, the data cleaning process, etc. .  The guidelines for the Executive Summary above do NOT apply to exploratory data analysis.
+Your main concern is designing graphs that reveal patterns and trends. .  As noted in Hmk #4, do not use circles, that is: bubbles, pie charts, or polar coordinates. .  Use stacked bar charts sparingly. Try grouped bar charts and faceting as alternatives, and only
+choose stacked bar charts if they truly do a better job than the alternatives for observing patterns. 
+
+#### Zip Code, Neighborhood and Land Value Data - Adam
+
+#### Sidewalk Cafe License Data - Marika
+Any business that operates a portion of a restaurant on a public sidewalk must obtain a Sidewalk Cafe License from New Yor City. These licenses must be renewed every two years and fall into three categories: enclosed, unenclosed, or small unenclosed sidewalk cafes. 
+
+First, to help better organize the sidewalk cafe licenses by borough, I added a new column called BOROUGH that is set to MANHATTAN, BROOKLYN, BRONX, or QUEENS. I had to manually check that only the cities in Queens had been called out specifically in the CITY column, so it was easy to distinguish them from BRONX or BROOKLYN.
+```{r}
+sidewalks <- sidewalks %>% mutate(BOROUGH = ifelse(CITY=="NEW YORK"|CITY=="New York","MANHATTAN",ifelse(CITY=="BROOKLYN","BROOKLYN",ifelse(CITY=="BRONX","BRONX","QUEENS"))))
+```
+
+To get a better understanding of the distribution of these licenses, I have provided a bar graph by borough.
+```{r}
+ggplot(sidewalks, aes(x=fct_infreq(BOROUGH)))+geom_bar()+ggtitle("Frequency of Sidewalk Cafe Licenses by Borough")+xlab("Borough")+ylab("Frequency")
+```
+Clearly Manhattan has the most license requests, followed by Brooklyn, then Queens and finally Bronx. Since at the moment we don't have neighborhood information (everything in Manhattan is just classified as New York, Brooklyn has only Brooklyn, and Bronx has only the city of Bronx), we can only dive into the Queens data:
+
+```{r}
+queens_cafes <- sidewalks %>% filter(BOROUGH=="QUEENS")
+ggplot(queens_cafes, aes(x=fct_infreq(CITY)))+geom_bar()+ggtitle("Frequency of Sidewalk Cafe Licenses in Queens")+xlab("City / Neighborhood")+ylab("Frequency")+coord_flip()
+
+```
+
+In queens, a large percentage of license requests come from Astoria, followed by Long Island City and Forest Hills. 
+
+Next, in order to do date comparisons to ascertain which are the new applications vs. renewal applications, I had to convert certain date fields from strings (they were read in as string factors) into dates.
+
+```{r}
+sidewalks$EXPIRATION_DATE<-as.Date(sidewalks$EXPIRATION_DATE, format="%m/%d/%Y")
+sidewalks$APP_STATUS_DATE<-as.Date(sidewalks$APP_STATUS_DATE, format="%m/%d/%Y")
+sidewalks$SUBMIT_DATE<-as.Date(sidewalks$SUBMIT_DATE, format="%m/%d/%Y")
+```
+
+The list of licenses includes active licenses, expired licenses, licenses for businesses that have closed (and are now inactive), licenses which are up for renewal as part of the two year process, or new requests for licenses. To better classify them, I created a new field called STATUS_CLASSIFICATION. Those licenses which are still active and not up for renewal are classified as "ACTIVE". Those licenses that have been submitted for renewal (either because their expiration date is less than the latest application data, or that an active license is up for review) are classified as "RENEWAL". Those licenses that are in the sheet but do not have a license number are classified as "NEW", and the rest are marked as "OLD" to encompass inactive licenses that have not been acted upon.
+
+```{r}
+sidewalks<-sidewalks %>% mutate(STATUS_CLASSIFICATION = ifelse(LIC_STATUS=="Active" & (APP_STATUS=="Application Approved" | APP_STATUS=="Application Review Completed"),"ACTIVE",ifelse(is.na(LICENSE_NBR),"NEW",ifelse((APP_STATUS_DATE>EXPIRATION_DATE | DPQA=="Issued Temp Op Letter") | (LIC_STATUS=="Active" & (APP_STATUS=="Pending Review" | APP_STATUS=="Submitted")),"RENEWAL","OLD"))))
+```
+
+Now that we have classified the status of the licenses
+
+
+#### Liquor License Data - Rohan
+
+## 6. Conclusion - Rohan
