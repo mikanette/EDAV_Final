@@ -1,6 +1,8 @@
 ---
 title: "R Notebook"
-output: html_notebook
+output:
+  html_document: default
+  html_notebook: default
 ---
 
 ## 1. Introduction - Marika
@@ -30,11 +32,14 @@ library(dplyr)
 library(tidyr)
 library(extracat)
 require(forcats)
-library(vcd)
+library(ggmosaic)
+library(ggmap)
+library(gridExtra)
 ```
 ```{r}
 sidewalks<-read.csv("Data/Sidewalk Cafes/Sidewalk_Licenses.csv",strip.white=TRUE, na.strings=c("","NA"))
 ```
+#####Data Quality
 One of the most glaring issues in data quality is the naming of the cities in Manhattan and Queens. Capitalization differences like between "NEW YORK" and "New York" grouped cafes in the same city to be categorized differently. Similarly, cities in Queens had some abbreviation differences like between "LONG ISLAND CITY" and "LONG IS CITY" or "JACKSON HEIGHTS" and "JACKSON HTS". I manually replaced all abbreviated or non-capitalized cities with their longer, capitalized forms.
 ```{r}
 sidewalks$CITY[sidewalks$CITY=="LONG IS CITY"]<-"LONG ISLAND CITY"
@@ -42,9 +47,72 @@ sidewalks$CITY[sidewalks$CITY=="MIDDLE VLG"]<-"MIDDLE VILLAGE"
 sidewalks$CITY[sidewalks$CITY=="JACKSON HTS"]<-"JACKSON HEIGHTS"
 sidewalks$CITY[sidewalks$CITY=="New York"]<-"NEW YORK"
 ```
+
+The second data quality issue I encountered was the longitude and latitude of two restaurants. Plotting all restaurants using qmplot, I got the following result:
+
 ```{r}
-master_zip<-read.csv("Data/zip_master.csv")
-colnames(master_zip)[2] <- "ZIP"
+qmplot(LONGITUDE,LATITUDE,data=sidewalks,maptype="toner-lite",color=I("purple"))
+```
+Note that there is a mysterious dot all the way west of Harrisburg, PA. This should not be the case since the data should only apply to the City and boroughs of New York, so I plotted the longitude and latitude to see any outliers.
+```{r}
+lat<-ggplot(sidewalks, aes(x=LATITUDE))+geom_histogram(binwidth=.01)+ggtitle("Latitude Histogram")
+long<-ggplot(sidewalks,aes(x=LONGITUDE))+geom_histogram(binwidth=.01)+ggtitle("Longitude Histogram")
+grid.arrange(lat,long,nrow=2)
+```
+You can barely see some points beow the 40.25 latitude and -77 longitude, which seem to be quite off from the rest. Next, I zoomed in on those values:
+```{r}
+lat<-ggplot(sidewalks, aes(x=LATITUDE))+geom_histogram(binwidth=.25)+ggtitle("Latitude Histogram")+xlim(39,40.25)
+long<-ggplot(sidewalks,aes(x=LONGITUDE))+geom_histogram(binwidth=.25)+ggtitle("Longitude Histogram")+xlim(-80,-77)
+grid.arrange(lat,long,nrow=2)
+```
+There are two datapoints that have an abnormally low Latitude and Longitude as compared to the rest of the data. Taking a look at these data points, I identified them as the following businesses:
+```{r}
+sidewalks %>% filter(LONGITUDE < -77) %>% select(BUSINESS_NAME2,LONGITUDE,LATITUDE)
+```
+Looking these locations up on Google, it looks like there was an error in entering their longitude and latitude. The correct values are (40.72017,-73.9968) for Mulberry Street Bar and (40.79593,-73.9357) for Prime One 16. I have corrected these values in another CSV, which I will use from here on.
+
+```{r}
+sidewalks<-read.csv("Data/Sidewalk Cafes/Sidewalk_Licenses2.csv",strip.white=TRUE, na.strings=c("","NA"))
+sidewalks$CITY[sidewalks$CITY=="LONG IS CITY"]<-"LONG ISLAND CITY"
+sidewalks$CITY[sidewalks$CITY=="MIDDLE VLG"]<-"MIDDLE VILLAGE"
+sidewalks$CITY[sidewalks$CITY=="JACKSON HTS"]<-"JACKSON HEIGHTS"
+sidewalks$CITY[sidewalks$CITY=="New York"]<-"NEW YORK"
+
+qmplot(LONGITUDE,LATITUDE,data=sidewalks,maptype="toner-lite",color=I("purple"))
+
+```
+Now that the offending datapoints have been fixed, the qmplot accurately zooms in on the New York area. However, since those two data points exist, it is entirely possible that there are other mis-mapped langitude and longitude points. However, without manually going through each data point, it is not easy to deduce where.
+
+##### Missing Data
+To further investigate data quality, I took a look at the main columns that identified a business - its license number, license status, business name (broken into two), building number, street, city, state and zip. To display this data, I used a visna plot which highlights any columns with missing values and shows the frequency of the combinations of those columns.
+```{r fig.height=6}
+visna(sidewalks[,1:9])
+```
+The visna shows that only two variables have missing values - license number and business name number 2. These are expected - only licenses that have been approved would have a license number, and some businesses do not need to use a second line for their business name.   
+
+Next, I looked at additional application information which includes the sidewalk cafe type, the square footage requested, number of tables, number of chairs, Department of Health and Mental Hygiene (DOHMH) identification number, the restaurant's longitude and latitude, the community district and city council district it belongs to, and the URL for the website of the NYC Community District. 
+
+```{r fig.height=6}
+visna(sidewalks[,10:19])
+```
+Two variables have missing values - the square footage of the sidewalk cafe and the Department of Health and Mental Hygene identification number. These are items that the restaurant would have to provide during their application process, and may not have been available at submission. These missing values should not impede with our analysis. However, if we wanted to cross-reference the health grades from the DOHMH datasets, we would have issues with the missing ID numbers.  
+
+The next set of columns to analyze is the set of application-specific fields. These include the application ID, and the sidewalk cafe type, square footage, number of tables and chairs provided by the applicant. It has the app status, the date at which the app status was reached, expiration date, the expiration date of the temporary operating order("TOO" - if available), the application submit date, and whether the application has been received.
+
+```{r fig.height=7}
+visna(sidewalks[,20:29])
+```
+There seem to be a few missing fields in the provided sidewalk cafe squarefootage data. However, we will not be focusing on this data point in our analysis. Expiration dates are also missing from certain licenses. Filtering out those licenses and looking at thei APP_STATUS, we can see that those licenses that are in review may not have an assigned expiration status. Indeed, this makes sense with new applications that have not been given an expiration date.
+
+```{r}
+missing_expiration<-sidewalks %>% filter(is.na(EXPIRATION_DATE)) %>% select(APP_STATUS)
+ggplot(missing_expiration,aes(x=APP_STATUS))+geom_bar()+ggtitle("In Review licenses have a missing expiration date")
+```
+A similar explanation arises about the applications with a missing Temporary Operating Order ("TOO") date - only those applications that have been granted a TOO in cases where the old license has expired but the renewal is in the process of being reviewed.  
+
+The remaining colums track the status of the license approval process through various stages and will not be used in this analysis. Therefore, I will not spend time on investigating any missing data. 
+```{r}
+master_zip<-read.csv("Data/zips_master_no_missing_nbrh.csv")
 ```
 
 
@@ -83,13 +151,13 @@ sidewalks <- sidewalks %>% mutate(BOROUGH = ifelse(CITY=="NEW YORK"|CITY=="New Y
 
 To get a better understanding of the distribution of these licenses, I have provided a bar graph by borough.
 ```{r}
-ggplot(sidewalks, aes(x=fct_infreq(BOROUGH)))+geom_bar()+ggtitle("Frequency of Sidewalk Cafe Licenses by Borough")+xlab("Borough")+ylab("Frequency")
+ggplot(sidewalks, aes(x=fct_infreq(BOROUGH)))+geom_bar(aes(fill=BOROUGH))+ggtitle("Frequency of Sidewalk Cafe Licenses by Borough")+xlab("Borough")+ylab("Frequency")
 ```
 Clearly Manhattan has the most license requests, followed by Brooklyn, then Queens and finally Bronx. Since at the moment we don't have neighborhood information (everything in Manhattan is just classified as New York, Brooklyn has only Brooklyn, and Bronx has only the city of Bronx), we can only dive into the Queens data:
 
 ```{r}
 queens_cafes <- sidewalks %>% filter(BOROUGH=="QUEENS")
-ggplot(queens_cafes, aes(x=fct_infreq(CITY)))+geom_bar()+ggtitle("Frequency of Sidewalk Cafe Licenses in Queens")+xlab("City / Neighborhood")+ylab("Frequency")+coord_flip()
+ggplot(queens_cafes, aes(x=fct_infreq(CITY)))+geom_bar(fill="purple")+ggtitle("Frequency of Sidewalk Cafe Licenses in Queens")+xlab("City / Neighborhood")+ylab("Frequency")+coord_flip()
 
 ```
 
@@ -112,10 +180,45 @@ sidewalks<-sidewalks %>% mutate(STATUS_CLASSIFICATION = ifelse(LIC_STATUS=="Acti
 Now that we have classified the status of the licenses, we are able to see how these classifications differ between the boroughs. 
 
 ```{r fig.align='center'}
-vcd::mosaic(STATUS_CLASSIFICATION ~ BOROUGH, sidewalks,rot_labels=c(90,90,0,0),just_labels=c("left","right","right","right"),labels=TRUE, varnames=FALSE)
+ggplot(sidewalks)+geom_mosaic(aes(x=product(STATUS_CLASSIFICATION,BOROUGH),fill=factor(STATUS_CLASSIFICATION)))+coord_flip()+labs(x="Borough",y="License Status", fill="License Designation")+ggtitle("Boroughs by License Status")
 ```
-The mosaic plot shows how Bronx and Brooklyn may be getting more new license requests. Interestingly, Bronx is also getting the highest percentage of renewal requests. 
+The mosaic plot shows how Bronx and Brooklyn may be getting more new license requests as a percentage of total licenses. Bronx is also getting the highest percentage of renewal requests out of its inactive and active licenses. We can also take a look at the license designations by borough:
 
+```{r}
+ggplot(sidewalks)+geom_mosaic(aes(x=product(BOROUGH,STATUS_CLASSIFICATION),fill=factor(BOROUGH)))+coord_flip()+labs(x="License Status",y="Borough", fill="Borough")+ggtitle("License Status by Borough")
+```
+
+Looking at the data in this way, you can see how Brooklyn has the second-most new license requests, but how Manhattan still dominates in all license status categories.
+
+We can map the data to have a better view of where the datapoints lie. To get an overall picture, I selected a map centered on Long Island City in Queens so that we can get a good view of both Brooklyn and Bronx in addition to Manhattan. 
+```{r}
+map <- get_map( location = c(-73.9485424, 40.7454513),  source = "stamen", zoom = 11, maptype="toner") 
+```
+Plotting each of the restaurants colored by their borough. You can see how Manhattan dominates in the number of sidewalk cafes, and how the sidewalk cafes in Brooklyn and Queens are largely concentrated in the areas closer to Manhattan.
+```{r fig.width=10}
+ggmap(map)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color=BOROUGH),data=sidewalks, alpha=0.3)
+```
+
+```{r fig.width=10}
+g <- ggmap(map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, fill=..level..),data=sidewalks, geom="polygon", alpha=0.2)
+g+scale_fill_gradient(low="yellow",high="red")
+```
+```{r fig.width=10}
+ggmap(map)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color=BOROUGH),data=sidewalks, alpha=0.4)+facet_wrap(~STATUS_CLASSIFICATION)+ggtitle("Sidewalk Cafe Licenses by Status")
+```
+
+```{r fig.width=10}
+new_active <- sidewalks %>% filter(STATUS_CLASSIFICATION=="ACTIVE" | STATUS_CLASSIFICATION=="NEW")
+ggmap(map)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color=BOROUGH),data=new_active)+facet_wrap(~STATUS_CLASSIFICATION)+ggtitle("Active and New Licenses in New York City")
+```
+```{r}
+bronx_map <- get_map("Bronx, NY",  source = "stamen", zoom = 12, maptype="toner") 
+
+```
+```{r fig.width=10}
+ggmap(bronx_map)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color=BOROUGH),data=new_active)+facet_wrap(~STATUS_CLASSIFICATION)+ggtitle("Active and New Licenses in the Bronx")
+
+```
 
 #### Liquor License Data - Rohan
 
