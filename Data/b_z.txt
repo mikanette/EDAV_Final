@@ -1,0 +1,97 @@
+Albemarle-Kenmore Terrace;11226
+Bath Beach;11214
+Bay Ridge;11209
+Bedford Stuyvesant;11216
+Bensonhurst;11214
+Bergen Beach;11234
+Beverley Square East;11226
+Beverley Square West;11226
+Boerum Hill;11201
+Boerum Hill;11217
+Borough Park;11219
+Borough Park;11204
+Brighton Beach;11235
+Broadway Junction;11233
+Brooklyn Heights;11201
+Brownsville;11212
+Bushwick;11221
+Canarsie;11236
+Carroll Gardens;11231
+Caton Park;11218
+City Line;11207
+Clinton Hill;11205
+Cobble Hill;11201
+Coney Island;11224
+Crown Heights;11225
+Crown Heights;11213
+Crown Heights North;11213
+Cypress Hills;11208
+Ditmas Park;11226
+Ditmas Park West;11226
+Downtown;11201
+DUMBO;11201
+Dyker Heights;11228
+East Flatbush;11203
+East New York;11207
+East New York;11208
+East Williamsburg;11206
+Farragut;11210
+Fiske Terrace;11230
+Flatbush;11226
+Flatlands;11236
+Fort Greene;11205
+Fort Hamilton;11209
+Fulton Ferry;11201
+Georgetown;11230
+Gerritsen Beach;11229
+Gowanus;11231
+Gravesend;11223
+Greenpoint;11222
+Greenwood Heights;11232
+Highland Park;11207
+Homecrest;11239
+Kensington;11218
+Mapleton;11204
+Madison;11229
+Manhattan Beach;11234
+Manhattan Terrace;11230
+Marine Park;11234
+Midwood;11230
+Midwood Park;11210
+Mill Basin;11234
+Mill Island;11234
+Navy Yard;11205
+New Lots;11236
+North Side;11211
+Northeast Flatbush;11212
+Ocean Hill;11233
+Ocean Parkway;11230
+Paerdegat Basin;11236
+Park Slope;11215
+Park Slope;11217
+Plum Beach;11235
+Prospect Lefferts Gardens;11225
+Prospect Heights;11217
+Prospect Heights;11238
+Prospect Park South;11217
+Red Hook;11231
+Remsen Village;11236
+Rugby;11203
+Sea Gate;11224
+Sheepshead Bay;11235
+South Midwood;11210
+South Side;11210
+South Park Slope;11215
+Spring Creek;11239
+Stable Brooklyn;11218
+Starrett City;11239
+Stuyvesant Heights;11216
+Sunset Park;11220
+Vinegar Hill;11201
+Weeksville;11233
+West Midwood;11230
+Williamsburg;11206
+Williamsburg;11211
+Williamsburg;11249
+Windsor Terrace;11218
+Wingate;11203

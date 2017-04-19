@@ -1,0 +1,200 @@
+Addisleigh Park;11433
+Addisleigh Park;11434
+Amf/Jfk Incoming Express Mai;11499
+Arverne;11692
+Astoria;11101
+Astoria;11102
+Astoria;11103
+Astoria;11104
+Astoria;11105
+Astoria;11106
+Bay Terrace;11360
+Bayside;11359
+Bayside;11360
+Bayside;11361
+Bayside Hills;11364
+Beechhurst;11357
+Belle Harbor;11694
+Bellerose Manor;11426
+Bellerose Manor;11427
+Bellerose Manor;11428
+Bellerose Manor;11427
+Bellerose Manor;11428
+Borough Hall;11424
+Breezy Point;11697
+Briarwood;11435
+Broad Channel;11693
+Cambria Heights;11411
+Citicorp;11120
+College Point;11356
+Contest and Large Vol;11390
+Corona;11368
+Douglaston;11362
+Douglaston;11363
+East Elmhurst;11369
+East Elmhurst;11370
+East Elmhurst;11371
+Edgemere;11690
+Elmhurst;11373
+Elmhurst;11379
+Elmhurst;11380
+Far Rockaway;11690
+Far Rockaway;11691
+Far Rockaway;11692
+Far Rockaway;11693
+Far Rockaway;11694
+Far Rockaway;11695
+Far Rockaway;11697
+Floral Park;11004
+Floral Park;11005
+Flushing;11351
+Flushing;11352
+Flushing;11354
+Flushing;11355
+Flushing;11356
+Flushing;11357
+Flushing;11358
+Flushing;11359
+Flushing;11360
+Flushing;11361
+Flushing;11362
+Flushing;11363
+Flushing;11364
+Flushing;11365
+Flushing;11366
+Flushing;11367
+Flushing;11368
+Flushing;11369
+Flushing;11370
+Flushing;11371
+Flushing;11372
+Flushing;11373
+Flushing;11374
+Flushing;11375
+Flushing;11377
+Flushing;11378
+Flushing;11379
+Flushing;11380
+Flushing;11381
+Flushing;11385
+Flushing;11386
+Flushing;11390
+Forest Hills;11375
+Forest Hills;11375
+Fort Tilden;11695
+Fort Totten;11359
+Fresh Meadows;11365
+Fresh Meadows;11366
+Fresh Pond;11385
+Glen Oaks;11004
+Glendale;11385
+Hollis Hills;11423
+Hollis Hills;11427
+Horace Harding;11362
+Howard Beach;11414
+Jackson Heights;11372
+Jamaica;11405
+Jamaica;11411
+Jamaica;11412
+Jamaica;11413
+Jamaica;11414
+Jamaica;11415
+Jamaica;11416
+Jamaica;11417
+Jamaica;11418
+Jamaica;11419
+Jamaica;11420
+Jamaica;11421
+Jamaica;11422
+Jamaica;11423
+Jamaica;11424
+Jamaica;11425
+Jamaica;11426
+Jamaica;11427
+Jamaica;11428
+Jamaica;11429
+Jamaica;11430
+Jamaica;11431
+Jamaica;11432
+Jamaica;11433
+Jamaica;11434
+Jamaica;11435
+Jamaica;11436
+Jamaica;11439
+Jamaica;11451
+Jamaica;11499
+Jamaica Est;11432
+Jf Kennedy Ap;11430
+John F Kennedy Airport;11430
+Kew Garden Hl;11367
+Kew Gardens;11415
+Kew Gardens;11418
+Kew Gardens;11424
+Kew Gardens Hills;11367
+La Guardia Airport;11371
+La Gurda Arpt;11371
+Laurelton;11413
+Linden Hill;11354
+Little Neck;11362
+Little Neck;11363
+Long Island City;11101
+Long Island City;11102
+Long Island City;11103
+Long Island City;11104
+Long Island City;11105
+Long Island City;11106
+Long Island City;11109
+Long Island City;11120
+Long Island City;11101
+Long Island City;11102
+Long Island City;11103
+Long Island City;11104
+Long Island City;11105
+Long Island City;11106
+Long Island City;11109
+Long Island City;11120
+Malba;11357
+Maspeth;11378
+Metropolitan Museum of Art;11381
+Middle Village;11379
+Motor Vehicle Bureau;11405
+Neponsit;11694
+Oakland Gardens;11364
+Oakland Gdns;11364
+Ozone Park;11416
+Ozone Park;11417
+Parkside;11375
+Pomonok;11365
+Queens Village;11427
+Queens Village;11428
+Queens Village;11429
+Rego Park;11374
+Richmond Hill;11418
+Ridgewood;11385
+Ridgewood;11386
+Rochdale;11434
+Rochdale;11434
+Rochdale;11434
+Rockaway Beach;11693
+Rockaway Beach;11693
+Rockaway Park;11694
+Rockaway Point;11697
+Rosedale;11422
+Saint Albans;11412
+Saint John University;11439
+South Ozone Park;11420
+South Ozone Park;11436
+South Richmond Hill;11419
+South Richmond Hl;11419
+Springfield Gardens;11413
+Sprngfld Gdns;11413
+Sta A;11358
+Sunnyside;11104
+Trainsmeadow;11370
+Utopia;11366
+Vet Admin Ext Care Center;11425
+Wave Crest;11690
+Whitestone;11357
+Woodhaven;11421
+Woodside;11377
+York College;11451
