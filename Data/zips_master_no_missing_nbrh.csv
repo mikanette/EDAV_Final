@@ -1,46 +1,46 @@
 ZIP,percentile,superzip,rank,city.x,state.x,adultpop,households,college,income.,area,avg,city.y,state.y,latitude,longitude,nbh
-10001,78.93413,0,3120,Manhattan,NY,12961,2711,50.16%,58.3699,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.750742,-73.99653,West Midtown 
+10001,78.93413,0,3120,Manhattan,NY,12961,2711,50.16%,58.3699,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.750742,-73.99653,Midtown 
 10002,13.30883,0,18943,Manhattan,NY,59323,18859,16.83%,35.786,Chinatown & Lower East Side,70.1926,New York,NY,40.71704,-73.987,Lower East Side 
 10003,97.68859,1,385,Manhattan,NY,40319,7504,70.12%,121.43,Chinatown & Lower East Side,70.1926,New York,NY,40.732509,-73.98935,Greenwich Village 
 10004,99.43828,1,93,Manhattan,NY,1020,221,75.98%,170.258,"Battery Park City, Greenwich Village & Soho",131.63891,New York,NJ,40.699226,-74.04118,Financial District 
 10005,99.36517,1,107,Manhattan,NY,703,119,74.68%,167.23,"Battery Park City, Greenwich Village & Soho",131.63891,New York,NY,40.706019,-74.00858,Financial District 
 10006,98.65981,1,228,Manhattan,NY,1174,230,70.95%,138.78,"Battery Park City, Greenwich Village & Soho",131.63891,New York,NY,40.707904,-74.01342,Financial District 
 10007,99.38902,1,100,Manhattan,NY,2814,563,56.89%,199.713,"Battery Park City, Greenwich Village & Soho",131.63891,New York,NY,40.714754,-74.00721,Financial District 
-10009,71.88912,0,4213,Manhattan,NY,43663,11823,44.55%,53.3618,Chinatown & Lower East Side,70.1926,New York,NY,40.727093,-73.97864,East Greenwich Village 
+10009,71.88912,0,4213,Manhattan,NY,43663,11823,44.55%,53.3618,Chinatown & Lower East Side,70.1926,New York,NY,40.727093,-73.97864,Greenwich Village 
 10010,98.17231,1,320,Manhattan,NY,21221,4819,71.23%,126,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,New York,NY,40.739022,-73.98205,Gramercy 
-10011,98.13351,1,326,Manhattan,NY,39951,6704,68.57%,130.999,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.741012,-74.00012,Chelsea Greenwich Village 
+10011,98.13351,1,326,Manhattan,NY,39951,6704,68.57%,130.999,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.741012,-74.00012,Chelsea 
 10012,94.66093,0,840,Manhattan,NY,20476,4501,64.63%,95.9752,"Battery Park City, Greenwich Village & Soho",131.63891,New York,NY,40.72596,-73.99834,Village NoHo 
-10013,69.03775,0,4647,Manhattan,NY,18344,5447,40.66%,55.1401,"Battery Park City, Greenwich Village & Soho",131.63891,New York,NY,40.720666,-74.00526,"Tribeca, Soho "
-10014,99.0041,1,167,Manhattan,NY,28445,4763,74.39%,145.505,"Battery Park City, Greenwich Village & Soho",131.63891,New York,NY,40.734718,-74.00532,West Greenwich Village 
+10013,69.03775,0,4647,Manhattan,NY,18344,5447,40.66%,55.1401,"Battery Park City, Greenwich Village & Soho",131.63891,New York,NY,40.720666,-74.00526,Soho 
+10014,99.0041,1,167,Manhattan,NY,28445,4763,74.39%,145.505,"Battery Park City, Greenwich Village & Soho",131.63891,New York,NY,40.734718,-74.00532,Greenwich Village 
 10016,98.56199,1,243,Manhattan,NY,41544,7973,68.79%,140.174,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,New York,NY,40.74618,-73.97759,Murray Hill 
-10017,99.12652,1,150,Manhattan,NY,14064,2742,73.99%,152.385,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,New York,NY,40.752159,-73.97231,East Midtown 
-10018,82.75207,0,2549,Manhattan,NY,3534,626,51.33%,66.3136,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.755101,-73.99337,West Midtown 
-10019,94.55955,0,854,Manhattan,NY,30339,5984,61.50%,100.511,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.765714,-73.9856,West Midtown 
+10017,99.12652,1,150,Manhattan,NY,14064,2742,73.99%,152.385,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,New York,NY,40.752159,-73.97231,Midtown 
+10018,82.75207,0,2549,Manhattan,NY,3534,626,51.33%,66.3136,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.755101,-73.99337,Midtown 
+10019,94.55955,0,854,Manhattan,NY,30339,5984,61.50%,100.511,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.765714,-73.9856,Midtown 
 10020,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.758667,-73.98024,Midtown Center 
 10021,99.78984,1,46,Manhattan,NY,86540,20928,75.28%,195.312,Upper East Side,165.20488,New York,NY,40.76842,-73.96045,Upper East Side 
-10022,99.83436,1,42,Manhattan,NY,26893,6274,71.96%,203.584,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,New York,NY,40.759015,-73.96732,East Midtown 
+10022,99.83436,1,42,Manhattan,NY,26893,6274,71.96%,203.584,"Murray Hill, Gramercy & Stuyvesant Town",125.082138,New York,NY,40.759015,-73.96732,Midtown 
 10023,99.29218,1,120,Manhattan,NY,51494,11604,73.32%,162.015,Upper West Side & West Side,156.587,New York,NY,40.776099,-73.98285,Upper West Side 
 10024,99.5659,1,77,Manhattan,NY,49837,12623,73.93%,180.668,Upper West Side & West Side,156.587,New York,NY,40.786387,-73.97709,Upper West Side 
 10025,91.02995,0,1363,Manhattan,NY,71769,19247,58.40%,83.655,Upper West Side & West Side,156.587,New York,NY,40.798502,-73.96811,Upper West Side 
 10026,16.26024,0,17737,Manhattan,NY,19105,6812,19.67%,34.2146,Central Harlem,32.703175,New York,NY,40.802853,-73.95471,Harlem 
 10027,35.87317,0,11625,Manhattan,NY,34172,10798,28.93%,34.7324,"Hamilton Heights, Manhattanville & West Harlem",35.024,New York,NY,40.812665,-73.95499,Morningside Heights 
 10028,99.86842,1,38,Manhattan,NY,36366,9188,77.74%,197.116,Upper East Side,165.20488,New York,NY,40.776777,-73.9541,Upper East Side 
-10029,7.188779,0,21302,Manhattan,NY,45347,17413,14.39%,32.35,East Harlem,28.70635,New York,NY,40.791586,-73.94575,East Harlem 
+10029,7.188779,0,21302,Manhattan,NY,45347,17413,14.39%,32.35,East Harlem,28.70635,New York,NY,40.791586,-73.94575,Harlem 
 10030,3.608121,0,22743,Manhattan,NY,15888,5853,12.44%,28.267,Central Harlem,32.703175,New York,NY,40.818151,-73.94351,Harlem 
 10031,7.86562,0,21060,Manhattan,NY,37700,12996,13.19%,35.3156,"Hamilton Heights, Manhattanville & West Harlem",35.024,New York,NY,40.826201,-73.94879,Harlem 
 10032,11.30932,0,19675,Manhattan,NY,39631,13451,15.12%,36.526,"Washington Heights, Inwood & Marble Hill",37.67195,New York,NY,40.840686,-73.94154,Washington Heights 
 10033,27.69628,0,13998,Manhattan,NY,36538,12954,21.39%,41.0246,"Washington Heights, Inwood & Marble Hill",37.67195,New York,NY,40.848764,-73.93496,Washington Heights 
 10034,23.28298,0,15381,Manhattan,NY,26273,9856,21.59%,37.02,"Washington Heights, Inwood & Marble Hill",37.67195,New York,NY,40.867653,-73.92,Inwood 
-10035,1.037593,0,23597,Manhattan,NY,20025,6586,8.67%,25.0627,East Harlem,28.70635,New York,NY,40.802395,-73.93359,East Harlem 
-10036,85.7291,0,2107,Manhattan,NY,15723,2480,52.79%,72.6371,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.759511,-73.99019,West Midtown 
+10035,1.037593,0,23597,Manhattan,NY,20025,6586,8.67%,25.0627,East Harlem,28.70635,New York,NY,40.802395,-73.93359,Harlem 
+10036,85.7291,0,2107,Manhattan,NY,15723,2480,52.79%,72.6371,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.759511,-73.99019,Midtown 
 10037,21.08418,0,16070,Manhattan,NY,12320,3836,18.51%,40.5852,Central Harlem,32.703175,New York,NY,40.813385,-73.93616,Harlem 
-10038,58.65752,0,6446,Manhattan,NY,10406,3010,35.35%,48.0608,"Battery Park City, Greenwich Village & Soho",131.63891,New York,NY,40.709677,-74.00365,"Financial District, Seaport "
+10038,58.65752,0,6446,Manhattan,NY,10406,3010,35.35%,48.0608,"Battery Park City, Greenwich Village & Soho",131.63891,New York,NY,40.709677,-74.00365,Financial District 
 10039,1.349182,0,23485,Manhattan,NY,13056,5297,8.36%,27.7459,Central Harlem,32.703175,New York,NY,40.826181,-73.9371,Harlem 
 10040,19.30757,0,16699,Manhattan,NY,29590,10759,20.22%,36.1172,"Washington Heights, Inwood & Marble Hill",37.67195,New York,NY,40.858704,-73.92853,Washington Heights 
 10044,83.96834,0,2369,Manhattan,NY,6640,1840,45.90%,79.0744,Upper East Side,165.20488,New York,NY,40.762174,-73.94917,Roosevelt Island 
-10065,NA,NA,NA,NA,NA,NA,NA,NA,NA,Upper East Side,165.20488,New York,NY,40.76,-73.96,Midtown Upper East Side 
+10065,NA,NA,NA,NA,NA,NA,NA,NA,NA,Upper East Side,165.20488,New York,NY,40.76,-73.96,Upper East Side 
 10069,99.93251,1,23,Manhattan,NY,1376,422,84.16%,200.01,Upper West Side & West Side,156.587,New York,NY,40.775477,-73.9905,Upper West Side 
-10075,NA,NA,NA,NA,NA,NA,NA,NA,NA,Upper East Side,165.20488,New York,NY,40.77,-73.95,Midtown Upper East Side 
+10075,NA,NA,NA,NA,NA,NA,NA,NA,NA,Upper East Side,165.20488,New York,NY,40.77,-73.95,Upper East Side 
 10103,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.760915,-73.97785,Midtown 
 10110,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.753987,-73.980811,Midtown 
 10111,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Chelsea, Clinton & Midtown Business District",85.76612,New York,NY,40.759235,-73.97775,Midtown 
@@ -188,3 +188,6 @@ ZIP,percentile,superzip,rank,city.x,state.x,adultpop,households,college,income.,
 11693,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Far Rockaway, Breezy Point & Broad Channel",84.99,Far Rockaway,NY,40.596959,-73.81978,Far Rockaway
 11694,79.05356,0,3102,Rockaway Park,NY,14207,4648,34.85%,84.99,"Far Rockaway, Breezy Point & Broad Channel",84.99,Rockaway Park,NY,40.57649,-73.84721,Rockaway Park
 11697,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Far Rockaway, Breezy Point & Broad Channel",84.99,Breezy Point,NY,40.560167,-73.90891,Breezy Point
+10106,NA,NA,NA,Manhattan,NY,NA,NA,NA,NA,NA,NA,New York,NY,40.7655654,-73.9809827,Midtown
+10281,NA,NA,NA,Manhattan,NY,NA,NA,NA,NA,NA,NA,New York,NY,40.7111146,-74.0145738,Lower Manhattan 
+11249,NA,NA,NA,Brooklyn,NY,NA,NA,NA,NA,NA,NA,Brooklyn,NY,40.7119031,-73.9660683,Williamsburg
