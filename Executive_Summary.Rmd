@@ -1,3 +1,4 @@
+
 ---
 title: "Investigating 'Up & Coming' Areas Through Data"
 runtime: shiny
@@ -42,3 +43,175 @@ Interestingly, Queens is the only area where both the number of sidewalk cafes a
 Bronx is the hardest borough to deduce any trends for. In fact, there close to no correlation between average income and the number of bars or sidewalk cafes. 
 
 There seems to be some clustering in Fordham, around the New York Botanical Garden. There also seems to be a sudden increase in liquor license requests along an avenue in Throgs Neck in 2016. Otherwise, the bars seem to be distributed along major avenues.
+=======
+
+```{r}
+require(shiny)
+require(ggplot2)
+require(ggrepel)
+require(dplyr)
+require(ggmap)
+require(viridis)
+require(reshape2)
+```
+
+
+
+
+```{r}
+queens_names<-read.csv("Data/QU_Locations.csv",strip.white=TRUE)
+brooklyn_names<-read.csv("Data/BK_Locations.csv",strip.white=TRUE)
+manhattan_names<-read.csv("Data/MA_Locations.csv",strip.white=TRUE)
+bronx_names<-read.csv("Data/BX_Locations.csv",strip.white=TRUE)
+empty_names<-read.csv("Data/Empty_Locations.csv")
+
+sidewalks_manhattan<-read.csv("Data/Sidewalk Cafes/sidewalks_manhattan.csv")
+sidewalks_brooklyn<-read.csv("Data/Sidewalk Cafes/sidewalks_brooklyn.csv")
+sidewalks_queens<-read.csv("Data/Sidewalk Cafes/sidewalks_queens.csv")
+sidewalks_bronx<-read.csv("Data/Sidewalk Cafes/sidewalks_bronx.csv")
+sidewalks_nbh<-read.csv("Data/Sidewalk Cafes/sidewalks_nbh.csv")
+
+plotting_zips<-read.csv("Data/NY_shapefiles.csv")
+plotting_zips_manhattan <- plotting_zips %>% filter(city.y == "New York")
+plotting_zips_brooklyn <- plotting_zips %>% filter(city.y == "Brooklyn")
+plotting_zips_bronx <- plotting_zips %>% filter(city.y == "Bronx")
+plotting_zips_queens <- plotting_zips %>% filter(!(city.y %in% c("New York", "Brooklyn", "Bronx", "Staten Island")))
+
+liquor<-read.csv("Data/liquor_licenses/massaged_data.csv") %>% filter(Classification=="LIQUOR")
+liquor_manhattan<-liquor %>% filter(BOROUGH == "MANHATTAN")
+liquor_bronx<-liquor %>% filter(BOROUGH == "BRONX")
+liquor_brooklyn<-liquor %>% filter(BOROUGH == "BROOKLYN")
+liquor_queens<-liquor %>% filter(BOROUGH == "QUEENS")
+```
+
+
+
+```{r maps, echo = FALSE}
+  inputPanel(
+selectInput(inputId="borough",label="Choose Borough:",choices=c("Manhattan","Brooklyn", "Queens", "Bronx")),
+sliderInput(inputId="year",label="Choose Year:",value=2015, min=2015, max=2017),
+selectInput(inputId="license", label="Choose License:", choices=c("Cafe", "Liquor", "Both", "None")))
+
+  selectedMap <-reactive({
+    
+    if(input$borough=="All Boroughs"){
+      if(!exists("all_map")){
+        all_map <- get_map( location = c(-73.9485424, 40.7454513),  source = "google", zoom = 11, maptype="roadmap", color="bw") 
+      }
+      all_map
+    }
+    
+    else if(input$borough=="Manhattan"){
+      if(!exists("manhattan_map")){
+        manhattan_map <- get_map("Manhattan, NY", source="google", maptype="roadmap", zoom=12, color="bw")
+      }
+      manhattan_map
+    }
+    else if(input$borough=="Brooklyn"){
+      if(!exists("brooklyn_map")){
+        brooklyn_map <- get_map("Brooklyn, NY",  source = "google", zoom = 12, maptype="roadmap", color="bw") 
+      }
+      brooklyn_map
+    }
+    else if(input$borough == "Queens"){
+      if(!exists("queens_map")){
+        queens_map <- get_map("Astoria, NY",  source = "google", zoom = 12, maptype="roadmap", color="bw")
+      }
+      queens_map
+    }
+    else{
+      if(!exists("bronx_map")){
+        bronx_map <- get_map("Bronx, NY",  source = "google", zoom = 12, maptype="roadmap", color="bw") 
+      }
+      bronx_map
+    } }) 
+  
+  
+  selectedDataSidewalk <- reactive({
+    if(input$borough=="All Boroughs"){
+      sidewalks_nbh
+    }
+    else if(input$borough=="Manhattan"){
+      sidewalks_manhattan
+    }
+    else if(input$borough=="Brooklyn"){
+      sidewalks_brooklyn
+    }
+    else if(input$borough == "Queens"){
+      sidewalks_queens
+    }
+    else{
+      sidewalks_bronx
+    } })
+  
+  selectedDataZips <- reactive({
+    if(input$borough=="All Boroughs"){
+      plotting_zips
+    }
+    else if(input$borough=="Manhattan"){
+      plotting_zips_manhattan
+    }
+    else if(input$borough=="Brooklyn"){
+      plotting_zips_brooklyn
+    }
+    else if(input$borough == "Queens"){
+      plotting_zips_queens
+    }
+    else{
+      plotting_zips_bronx
+    } })
+  
+    selectedDataLiquor <- reactive({
+    if(input$borough=="All Boroughs"){
+      liquor
+    }
+    else if(input$borough=="Manhattan"){
+      liquor_manhattan
+    }
+    else if(input$borough=="Brooklyn"){
+      liquor_brooklyn
+    }
+    else if(input$borough == "Queens"){
+      liquor_queens
+    }
+    else{
+      liquor_bronx
+    } })
+  
+  selectedNames <- reactive({
+    if(input$borough=="All Boroughs"){
+      empty_names
+    }
+    else if(input$borough=="Manhattan"){
+      manhattan_names
+    }
+    else if(input$borough=="Brooklyn"){
+      brooklyn_names
+    }
+    else if(input$borough == "Queens"){
+      queens_names
+    }
+    else{
+      bronx_names
+    } })
+
+  
+  renderPlot({
+      selectedMap()
+      if(input$license=="Cafe"){
+        ggmap(selectedMap()) + geom_polygon(aes(fill = income., x = long, y = lat, group = group), data = selectedDataZips(), alpha = 0.3) + geom_point(aes(x=LONGITUDE,y=LATITUDE), color="red", shape=18, size=3.5,data=selectedDataSidewalk()%>%filter(SUBMIT_YEAR==input$year), alpha=0.85)+geom_text_repel(data=selectedNames(), aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)+xlab("") + ylab("")+theme(axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank(),axis.line = element_line(color = NA)) + scale_fill_viridis(option = "magma", name="Income in \nThousands $") 
+      }
+      else if(input$license=="Liquor"){
+        ggmap(selectedMap()) + geom_polygon(aes(fill = income., x = long, y = lat, group = group), data = selectedDataZips(), alpha = 0.3) + geom_point(aes(x=Longitude,y=Latitude), color="yellow", size=2.5, data=selectedDataLiquor()%>%filter(effective_year==input$year), alpha=0.85)+geom_text_repel(data=selectedNames(), aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)+xlab("") + ylab("")+theme(axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank(),axis.line = element_line(color = NA)) + scale_fill_viridis(option = "magma", name="Income in \nThousands $") 
+      }
+      else if(input$license=="None"){
+        ggmap(selectedMap()) + geom_polygon(aes(fill = income., x = long, y = lat, group = group), data = selectedDataZips(), alpha = 0.3) + geom_text_repel(data=selectedNames(), aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)+xlab("") + ylab("")+theme(axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank(),axis.line = element_line(color = NA)) + scale_fill_viridis(option = "magma", name="Income in \nThousands $") 
+      }
+      else{
+        ggmap(selectedMap()) + geom_polygon(aes(fill = income., x = long, y = lat, group = group), data = selectedDataZips(), alpha = 0.3) + geom_point(aes(x=Longitude,y=Latitude), color="yellow", size=2.5,data=selectedDataLiquor()%>%filter(effective_year==input$year), alpha=0.85) + geom_point(aes(x=LONGITUDE,y=LATITUDE), color="red", shape=18, size=3.5,data=selectedDataSidewalk()%>%filter(SUBMIT_YEAR==input$year), alpha=0.85) + geom_text_repel(data=selectedNames(), aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)+xlab("") + ylab("")+theme(axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank(),axis.line = element_line(color = NA)) + scale_fill_viridis(option = "magma", name="Income in \nThousands $")        
+      }
+      
+      },width=800,height=800)
+
+```
+
