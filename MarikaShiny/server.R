@@ -1,17 +1,20 @@
-library(shiny)
-library(ggmap)
+require(shiny)
+require(ggplot2)
+require(ggrepel)
+require(dplyr)
+require(ggmap)
 
-queens_names<-read.csv("../Data/QU_Locations.csv",strip.white=TRUE)
-brooklyn_names<-read.csv("../Data/BK_Locations.csv",strip.white=TRUE)
-manhattan_names<-read.csv("../Data/MA_Locations.csv",strip.white=TRUE)
-bronx_names<-read.csv("../Data/BX_Locations.csv",strip.white=TRUE)
-empty_names<-read.csv("../Data/Empty_Locations.csv")
+queens_names<-read.csv("Data/QU_Locations.csv",strip.white=TRUE)
+brooklyn_names<-read.csv("Data/BK_Locations.csv",strip.white=TRUE)
+manhattan_names<-read.csv("Data/MA_Locations.csv",strip.white=TRUE)
+bronx_names<-read.csv("Data/BX_Locations.csv",strip.white=TRUE)
+empty_names<-read.csv("Data/Empty_Locations.csv")
 
-sidewalks_manhattan<-read.csv("../Data/Sidewalk Cafes/sidewalks_manhattan.csv")
-sidewalks_brooklyn<-read.csv("../Data/Sidewalk Cafes/sidewalks_brooklyn.csv")
-sidewalks_queens<-read.csv("../Data/Sidewalk Cafes/sidewalks_queens.csv")
-sidewalks_bronx<-read.csv("../Data/Sidewalk Cafes/sidewalks_bronx.csv")
-sidewalks_nbh<-read.csv("../Data/Sidewalk Cafes/sidewalks_nbh.csv")
+sidewalks_manhattan<-read.csv("Data/sidewalks_manhattan.csv")
+sidewalks_brooklyn<-read.csv("Data/sidewalks_brooklyn.csv")
+sidewalks_queens<-read.csv("Data/sidewalks_queens.csv")
+sidewalks_bronx<-read.csv("Data/sidewalks_bronx.csv")
+sidewalks_nbh<-read.csv("Data/sidewalks_nbh.csv")
 
 
 
