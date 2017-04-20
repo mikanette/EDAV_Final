@@ -1,0 +1,49 @@
+---
+title: "EDAV FInal;"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+ny_liquor_licenses <- read.csv('Data/liquor_licenses/active_liquor.csv')
+head(ny_liquor_licenses)
+```
+
+
+This is a dataframe where each row corresponds to an active liquor license. To make this analysis consistent with the analysis of the sidewalk cafes and income, I need to look at the zip code column. Upon further inspection:
+```{r}
+unique(ny_liquor_licenses$City)[1:60]
+```
+
+this dataset includes every city in New York, not just New York City. There are a few zip codes that are clearly entered wrong based on their length:
+```{r}
+ny_liquor_licenses %>% filter(nchar(as.character(Zip)) != 5) %>% filter(nchar(as.character(Zip)) != 9)
+```
+These zip codes are improper length, so at least the first three which are in New York City, I googled the correct zip code based on the address and city. Each one seemed to be a typo. I recoded these zip codes, then changed the 9-character zip codes to five character zip codes, and finally changed the column to a numeric column to merge with the other datasets.
+
+```{r}
+zips <- levels(ny_liquor_licenses$Zip)
+zips[zips == "112209"] <- "11209"
+zips[zips == "1238"] <- "11238"
+zips[zips == "1369"] <- "11369"
+levels(ny_liquor_licenses$Zip) <- zips
+ny_liquor_licenses$Zip <- as.character(ny_liquor_licenses$Zip)
+ny_liquor_licenses <- ny_liquor_licenses %>% mutate(Zip, mod_zip = substr(Zip, 1, 5))
+ny_liquor_licenses$mod_zip <- as.numeric(ny_liquor_licenses$mod_zip)
+```
+Now, I inner join this dataframe with the master zip code dataframe to start analysis. 
+```{r}
+zipcodes <- read.csv('Data/zips_master_no_missing_nbrh.csv')
+nyc_liquor_licenses <- merge(ny_liquor_licenses, zipcodes, by.x = "mod_zip", by.y = "ZIP")
+```
+
+
