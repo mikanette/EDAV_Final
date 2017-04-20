@@ -1,5 +1,5 @@
 ---
-title: "Executive_Summary"
+title: "Investigating 'Up & Coming' Areas Through Data"
 runtime: shiny
 output: html_document
 ---
@@ -8,50 +8,37 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-This R Markdown document is made interactive using Shiny. Unlike the more traditional workflow of creating static reports, you can now create documents that allow your readers to change the assumptions underlying your analysis and see the results immediately. 
+###Summary
+You have probably heard of 'emerging' or 'up and coming' areas like Williamsburg, Brooklyn or Astoria, Queens. These are neighborhoods that are growing in popularity, especially among young professionals, and that have a lot of new business popping up. We wanted to investigate whether it would be possible to identify these neighborhoods through data. The interactive map below allows you to look at new liquor and sidewalk cafe licenses popping up from 2015 to 2017, and compare it to the mean incomes of the associated areas. Please note that as we are still in the beginning of 2017, we do not have much data for the year.
 
-To learn more, see [Interactive Documents](http://rmarkdown.rstudio.com/authoring_shiny.html).
+###Findings
+Overall, Manhattan unsurprisingly has the most sidewalk cafes and bars (by our definitions, institutions with an on-premise liquor license). In addition, there is evidence that both the number of bars and number of sidewalk cafes are correlated with higher average income in the area (with the exception of Queens - but more on that later). This could indicate that as the average income increases in an area, more bars and cafes will be established there. However, this could also indicate that wealthier individuals are more attracted to areas with cafe and nightlife options - the data does not show causation.
 
-## Inputs and Outputs
+####Manhattan
+Not surprisingly, lower Manhattan and mid-town neighborhoods are more populated with bars and sidewalk cafes than other areas. With the opening of the High Line, many more food and liquor establishments are moving to the Lower East side, concentrating in the Chelsea and Greenwich Village neighborhoods. 
 
-You can embed Shiny inputs and outputs in your document. Outputs are automatically updated whenever inputs change.  This demonstrates how a standard R plot can be made interactive by wrapping it in the Shiny `renderPlot` function. The `selectInput` and `sliderInput` functions create the input widgets used to drive the plot.
+Mid-town Manhattan has a plethora of bars, but very few, if any, sidewalk cafes through the years. This may have to do with zoning laws - indeed, anyone that has been to Times Square would see the difficulty restaurants might have with managing a sidewalk cafe.  
 
-```{r eruptions, echo=FALSE}
-inputPanel(
-  selectInput("n_breaks", label = "Number of bins:",
-              choices = c(10, 20, 35, 50), selected = 20),
-  
-  sliderInput("bw_adjust", label = "Bandwidth adjustment:",
-              min = 0.2, max = 2, value = 1, step = 0.2)
-)
+Both the Upper West Side and Upper East side are populated with bars and sidewalk cafes, but those on the west reach further up north than those on the east, indicating a lack of establishments as you reach East Harlem. Western Harlem, especially the area immediately East of Morningside Heights, can definitely be seen as a 'hot' area, with new liquor licenses and sidewalk cafes established right next to Morningside Park in 2015-2016.
 
-renderPlot({
-  hist(faithful$eruptions, probability = TRUE, breaks = as.numeric(input$n_breaks),
-       xlab = "Duration (minutes)", main = "Geyser eruption duration")
-  
-  dens <- density(faithful$eruptions, adjust = input$bw_adjust)
-  lines(dens, col = "blue")
-})
-```
+There is also an increase in the number of both kinds of establishments in Washington Heights from 2015 to 2016. It will be interesting to see whether this trend will continue into 2017.
 
-## Embedded Application
+####Brooklyn
+The data clearly shows the emergence of Williamsburg as a major 'hot spot' in terms of bars and restaurants. There is a noticeable increase of licenses from 2015 to 2016 in the area. You can also see an increase of licenses east of Williamsburg, along the L subway line.
 
-It's also possible to embed an entire Shiny application within an R Markdown document using the `shinyAppDir` function. This example embeds a Shiny application located in another directory:
+There is also a lot of activity happening around Brooklyn Heights immediately South of New York, and in Propect Heights & Park Slope, south-east of that. Both of these areas have been popular among young professionals working in Manhattan for some time.
 
-```{r tabsets, echo=FALSE}
-shinyAppDir(
-  system.file("examples/06_tabsets", package = "shiny"),
-  options = list(
-    width = "100%", height = 550
-  )
-)
-```
+There is also noticeable activity along two avenues in Bay Ridge, and increasing activity from 2015 to 2016 along the main street leading from Red Hook to Carroll Gardens. 
 
-Note the use of the `height` parameter to determine how much vertical space the embedded application should occupy.
+Due to the missing income data in Williamsburg, there's no clear correlation between income and number of sidewalk cafes. However, the team predicts that the average income for Williamsburg has risen significantly in the last few years - this will need to be verified as data comes available.
 
-You can also use the `shinyApp` function to define an application inline rather then in an external directory.
+####Queens
+Data from Queens highlight Astoria, Long Island City, and Sunnyside as the hottest areas. Further away from Manhattan, Parkside and Forest Hills also seem to have many establishments. The avenue from Sunnyside to Jackson Heights is littered with bars, but you will not be able to find many sidewalk cafes there.
 
-In all of R code chunks above the `echo = FALSE` attribute is used. This is to prevent the R code within the chunk from rendering in the document alongside the Shiny components.
+Interestingly, Queens is the only area where both the number of sidewalk cafes and number of bars seem to be negatively correlated with average income. This may be skewed due to missing income data, or also that the average income in Astoria is still relatively low.
 
+####Bronx
 
+Bronx is the hardest borough to deduce any trends for. In fact, there close to no correlation between average income and the number of bars or sidewalk cafes. 
 
+There seems to be some clustering in Fordham, around the New York Botanical Garden. There also seems to be a sudden increase in liquor license requests along an avenue in Throgs Neck in 2016. Otherwise, the bars seem to be distributed along major avenues.
