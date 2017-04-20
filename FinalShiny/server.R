@@ -1,18 +1,20 @@
-library(shiny)
-library(ggmap)
+require(shiny)
+require(ggplot2)
+require(ggrepel)
+require(dplyr)
+require(ggmap)
 
-queens_names<-read.csv("../Data/QU_Locations.csv",strip.white=TRUE)
-brooklyn_names<-read.csv("../Data/BK_Locations.csv",strip.white=TRUE)
-manhattan_names<-read.csv("../Data/MA_Locations.csv",strip.white=TRUE)
-bronx_names<-read.csv("../Data/BX_Locations.csv",strip.white=TRUE)
-empty_names<-read.csv("../Data/Empty_Locations.csv")
+queens_names<-read.csv("Data/QU_Locations.csv",strip.white=TRUE)
+brooklyn_names<-read.csv("Data/BK_Locations.csv",strip.white=TRUE)
+manhattan_names<-read.csv("Data/MA_Locations.csv",strip.white=TRUE)
+bronx_names<-read.csv("Data/BX_Locations.csv",strip.white=TRUE)
+empty_names<-read.csv("Data/Empty_Locations.csv")
 
-sidewalks_manhattan<-read.csv("../Data/Sidewalk Cafes/sidewalks_manhattan.csv")
-sidewalks_brooklyn<-read.csv("../Data/Sidewalk Cafes/sidewalks_brooklyn.csv")
-sidewalks_queens<-read.csv("../Data/Sidewalk Cafes/sidewalks_queens.csv")
-sidewalks_bronx<-read.csv("../Data/Sidewalk Cafes/sidewalks_bronx.csv")
-sidewalks_nbh<-read.csv("../Data/Sidewalk Cafes/sidewalks_nbh.csv")
-
+sidewalks_manhattan<-read.csv("Data/sidewalks_manhattan.csv")
+sidewalks_brooklyn<-read.csv("Data/sidewalks_brooklyn.csv")
+sidewalks_queens<-read.csv("Data/sidewalks_queens.csv")
+sidewalks_bronx<-read.csv("Data/sidewalks_bronx.csv")
+sidewalks_nbh<-read.csv("Data/sidewalks_nbh.csv")
 
 
 shinyServer(function(input,output) {
@@ -27,25 +29,25 @@ shinyServer(function(input,output) {
     }
     
     else if(input$borough=="Manhattan"){
-      if(!exists(manhattan_map)){
+      if(!exists("manhattan_map")){
         manhattan_map <- get_map("Manhattan, NY", source="google", maptype="roadmap", zoom=12, color="bw")
       }
       manhattan_map
     }
     else if(input$borough=="Brooklyn"){
-      if(!exists(brooklyn_map)){
+      if(!exists("brooklyn_map")){
         brooklyn_map <- get_map("Brooklyn, NY",  source = "google", zoom = 12, maptype="roadmap", color="bw") 
       }
       brooklyn_map
     }
     else if(input$borough == "Queens"){
-      if(!exists(queens_map)){
+      if(!exists("queens_map")){
         queens_map <- get_map("Astoria, NY",  source = "google", zoom = 12, maptype="roadmap", color="bw")
       }
       queens_map
     }
     else{
-      if(!exists(bronx_map)){
+      if(!exists("bronx_map")){
         bronx_map <- get_map("Bronx, NY",  source = "google", zoom = 12, maptype="roadmap", color="bw") 
       }
       bronx_map
