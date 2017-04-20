@@ -5,6 +5,9 @@ output:
   html_notebook: default
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+```
 ## 1. Introduction - Marika
 
 In this section, explain why you chose this topic, and the questions you are interested in studying. Include a brief description of how you found the data, and clear instructions on where the reader can find the data. 
@@ -27,19 +30,25 @@ List team members and a description of how each contributed to the project. (If 
 
 #### Sidewalk Cafe License Data - Marika
 ```{r}
-library(ggplot2)
-library(dplyr)
-library(tidyr)
-library(extracat)
+
+require(ggplot2)
+require(dplyr)
+require(tidyr)
+require(extracat)
 require(forcats)
-library(ggmosaic)
-library(ggmap)
-library(gridExtra)
-library(ggrepel)
-library(lubridate)
-library(shiny)
+require(ggmosaic)
+require(ggmap)
+require(gridExtra)
+require(ggrepel)
+require(lubridate)
+require(shiny)
 ```
 ```{r}
+queens_names<-read.csv("Data/QU_Locations.csv",strip.white=TRUE)
+brooklyn_names<-read.csv("Data/BK_Locations.csv",strip.white=TRUE)
+manhattan_names<-read.csv("Data/MA_Locations.csv",strip.white=TRUE)
+bronx_names<-read.csv("Data/BX_Locations.csv",strip.white=TRUE)
+
 sidewalks<-read.csv("Data/Sidewalk Cafes/Sidewalk_Licenses.csv",strip.white=TRUE, na.strings=c("","NA"))
 ```
 #####Data Quality
@@ -64,8 +73,8 @@ grid.arrange(lat,long,nrow=2)
 ```
 You can barely see some points beow the 40.25 latitude and -77 longitude, which seem to be quite off from the rest. Next, I zoomed in on those values:
 ```{r}
-lat<-ggplot(sidewalks, aes(x=LATITUDE))+geom_histogram(binwidth=.25)+ggtitle("Latitude Histogram")+xlim(39,40.25)
-long<-ggplot(sidewalks,aes(x=LONGITUDE))+geom_histogram(binwidth=.25)+ggtitle("Longitude Histogram")+xlim(-80,-77)
+lat<-ggplot(sidewalks, aes(x=LATITUDE))+geom_histogram(binwidth=.25)+ggtitle("Zoomed Latitude Histogram")+xlim(39,40.25)
+long<-ggplot(sidewalks,aes(x=LONGITUDE))+geom_histogram(binwidth=.25)+ggtitle("Zoomed Longitude Histogram")+xlim(-80,-77)
 grid.arrange(lat,long,nrow=2)
 ```
 There are two datapoints that have an abnormally low Latitude and Longitude as compared to the rest of the data. Taking a look at these data points, I identified them as the following businesses:
@@ -210,7 +219,7 @@ Looking at the data in this way, you can see how Brooklyn has the second-most ne
 
 We can map the data to have a better view of where the datapoints lie. To get an overall picture, I selected a map centered on Long Island City in Queens so that we can get a good view of both Brooklyn and Bronx in addition to Manhattan. 
 ```{r}
-map <- get_map( location = c(-73.9485424, 40.7454513),  source = "stamen", zoom = 11, maptype="toner") 
+map <- get_map( location = c(-73.9485424, 40.7454513),  source = "google", zoom = 11, maptype="roadmap", color="bw") 
 ```
 Plotting each of the restaurants colored by their borough. You can see how Manhattan dominates in the number of sidewalk cafes, and how the sidewalk cafes in Brooklyn and Queens are largely concentrated in the areas closer to Manhattan.
 ```{r fig.width=10}
@@ -251,26 +260,22 @@ sidewalks_nbh <- merge(sidewalks, master_zip, by="ZIP", all.x=TRUE)
 sidewalks_nbh <- sidewalks_nbh %>% mutate(SUBMIT_YEAR=year(SUBMIT_DATE))
 
 sidewalks_manhattan_active <- sidewalks_nbh %>% filter(BOROUGH=="MANHATTAN" & (STATUS_CLASSIFICATION2=="ACTIVE" | STATUS_CLASSIFICATION2=="NEW"))
-sidewalks_brooklyn_active <- sidewalks_nbh %>% filter(BOROUGH=="BROOKLYN" & (STATUS_CLASSIFICATION2=="ACTIVE" | STATUS_CLASSIFICATION2=="NEW"))
-sidewalks_bronx_active <- sidewalks_nbh %>% filter(BOROUGH=="BRONX" & (STATUS_CLASSIFICATION2=="ACTIVE" | STATUS_CLASSIFICATION2=="NEW"))
-sidewalks_queens_active <- sidewalks_nbh %>% filter(BOROUGH=="QUEENS" & (STATUS_CLASSIFICATION2=="ACTIVE" | STATUS_CLASSIFICATION2=="NEW"))
 
 manhattan_map <- get_map("Manhattan, NY", source="google", maptype="roadmap", zoom=12, color="bw")
 ```
+I have also calculated the average locations of the neighborhoods in each borough based on their assigned Zip codes. 
 ```{r fig.width=10}
 
 ggmap(manhattan_map)+geom_point(aes(x=LONGITUDE, y=LATITUDE, color=nbh), data=sidewalks_manhattan_active)+ggtitle("All active or new sidewalk cafes in Manhattan")
 
-manhattan_names <- sidewalks_manhattan_active %>% distinct(nbh, latitude, longitude) %>% group_by(nbh) %>% summarise(mean_lon=mean(longitude), mean_lat=mean(latitude))
-brooklyn_names <- sidewalks_brooklyn_active %>% distinct(nbh, latitude, longitude) %>% group_by(nbh) %>% summarise(mean_lon=mean(longitude), mean_lat=mean(latitude))
-queens_names <- sidewalks_queens_active %>% distinct(nbh, latitude, longitude) %>% group_by(nbh) %>% summarise(mean_lon=mean(longitude), mean_lat=mean(latitude))
-bronx_names <- sidewalks_bronx_active %>% distinct(nbh, latitude, longitude) %>% group_by(nbh) %>% summarise(mean_lon=mean(longitude), mean_lat=mean(latitude))
+sidewalks_bronx<- sidewalks_nbh %>% filter(BOROUGH=="BRONX")
+
 ```
 This view shows all of the distribution of all currently active or new sidewalk cafes in Manhattan. To get a better idea of density, we can also look at a heatmap of this view. 
 
 ```{r fig.width=10}
 g <- ggmap(manhattan_map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, fill=..level..),data=sidewalks_manhattan_active, geom="polygon", alpha=0.3)
-g+scale_fill_gradient(low="yellow",high="red")+ggtitle("Heatmap of Sidewalk Cafe Licenses in Manhattan")+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=nbh),fontface="bold", size=3)
+g+scale_fill_gradient(low="yellow",high="red")+ggtitle("Heatmap of Sidewalk Cafe Licenses in Manhattan")+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)
 
 ```
 
@@ -278,109 +283,62 @@ This heatmap shows the highest concentration of sidewalk cafes in Greenwich Vill
 
 ```{r fig.width=10}
 g <- ggmap(manhattan_map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, fill=..level..),data=sidewalks_manhattan_active, geom="polygon", alpha=0.3)+facet_wrap(~STATUS_CLASSIFICATION2)
-g+scale_fill_gradient(low="yellow",high="red")+ggtitle("Heatmap of Sidewalk Cafe Licenses in Manhattan")+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=nbh),fontface="bold", size=3)
+g+scale_fill_gradient(low="yellow",high="red")+ggtitle("Heatmap of Sidewalk Cafe Licenses in Manhattan")+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)
 ```
 The heatmap view of the map is not a great one - it is difficult to tell the differences on the same scales in a heatmap. Looking at the same view, but by using geom_point again, we get the following view: 
 ```{r fig.width=10}
-ggmap(manhattan_map)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color=nbh),data=sidewalks_manhattan_active)+facet_wrap(~STATUS_CLASSIFICATION2)+ggtitle("Active and New Licenses in Manhattan") + guides(color=FALSE)+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=nbh),fontface="bold", size=3)
+ggmap(manhattan_map)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color=nbh),data=sidewalks_manhattan_active)+facet_wrap(~STATUS_CLASSIFICATION2)+ggtitle("Active and New Licenses in Manhattan") + guides(color=FALSE)+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)
 ```
-Once again, the data is not telling us too much since there are very few new requests. Perhaps a better way to categorize this data is to look at the years that applications were submitted. 
+Once again, the data is not telling us too much since there are very few new requests. Perhaps a better way to categorize this data is to look at the years that applications were submitted, therefore ignoring whether a license is currently active or not.
 
 ```{r}
-ggplot(sidewalks_manhattan_active, aes(x=SUBMIT_YEAR))+geom_bar()
+year_bxp<-ggplot(sidewalks_nbh, aes(y=SUBMIT_YEAR,x=1))+geom_boxplot()+ggtitle("Boxplot of Submission Years")
+year_bar<-ggplot(sidewalks_nbh,aes(x=SUBMIT_YEAR))+geom_bar()+ggtitle("Bar Graph of Submission Years")
+grid.arrange(year_bxp, year_bar, ncol=2)
 ```
-Since there are only one submission in both 2000 and 2014, I will be removing these outliers as potential mistakes where the submit dates were not updated once the licenses were renewed. Now we can look at a mosaic plot of the different neighborhoods and the years that the licenses were requested.
+
+Since there are very few submissions between 2000 and 2014, I will be removing these outliers as potential mistakes where the submit dates were not updated once the licenses were renewed. Now we can look at a mosaic plot of the different neighborhoods and the years that the licenses were requested.
 
 ```{r}
-sidewalks_manhattan_active<-sidewalks_manhattan_active %>% filter(SUBMIT_YEAR > 2014)
+sidewalks_nbh<- sidewalks_nbh %>% filter(SUBMIT_YEAR>2014)
 
-manhattan_counts <- sidewalks_manhattan_active %>% group_by(nbh, SUBMIT_YEAR) %>% summarise(count=n())
+sidewalks_manhattan<- sidewalks_nbh %>% filter(BOROUGH=="MANHATTAN")
+
+manhattan_counts <- sidewalks_manhattan %>% group_by(nbh, SUBMIT_YEAR) %>% summarise(count=n())
 
 manhattan_counts$SUBMIT_YEAR<-as.factor(manhattan_counts$SUBMIT_YEAR)
 
 manhattan_counts$SUBMIT_YEAR<-factor(manhattan_counts$SUBMIT_YEAR, c("2017", "2016","2015"))
 
-ggplot(manhattan_counts, aes(x=reorder(nbh, count), y=count, fill=SUBMIT_YEAR))+geom_bar(stat="identity",position=position_dodge())+coord_flip()+xlab("Neighborhood")
+ggplot(manhattan_counts, aes(x=reorder(nbh, count), y=count, fill=SUBMIT_YEAR))+geom_bar(stat="identity",position=position_dodge())+coord_flip()+xlab("Neighborhood")+ggtitle("License Requests per Neighborhood and Year")
 ```
-It makes sense that 2016 would have more applications than 2015, since many of the 2015 applications have been renewed by now. However, to get a better understanding of the distribution of areas, we can create three separate heatmaps.
+It makes sense that 2016 would have more applications than 2015, since many of the 2015 applications have been renewed by now. It looks like Greenwich Village, Upper West Side, and Upper Easy Side consistently have the highest number of requests throughout the three years. However, to get a better understanding of the distribution of areas, we can create three separate heatmaps.
 
 ```{r}
-map2015 <- ggmap(manhattan_map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, fill=..level..),data=sidewalks_manhattan_active%>%filter(SUBMIT_YEAR=="2015"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")+ggtitle("Manhattan Licenses Applied for in 2015")+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=nbh),fontface="bold", size=3)
+map2015 <- ggmap(manhattan_map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, fill=..level..),data=sidewalks_manhattan%>%filter(SUBMIT_YEAR=="2015"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")+ggtitle("Manhattan Licenses Applied for in 2015")+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)
 map2015
 ```
 ```{r}
-map2016<-ggmap(manhattan_map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, fill=..level..),data=sidewalks_manhattan_active%>%filter(SUBMIT_YEAR=="2016"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")+ggtitle("Manhattan Licenses Applied for in 2016")+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=nbh),fontface="bold", size=3)
+map2016<-ggmap(manhattan_map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, fill=..level..),data=sidewalks_manhattan%>%filter(SUBMIT_YEAR=="2016"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")+ggtitle("Manhattan Licenses Applied for in 2016")+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)
 map2016
 ```
 
 ```{r}
-map2017 <- ggmap(manhattan_map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, fill=..level..),data=sidewalks_manhattan_active%>%filter(SUBMIT_YEAR=="2017"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")+ggtitle("Manhattan Licenses Applied for in 2017")+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=nbh),fontface="bold", size=3)
+map2017 <- ggmap(manhattan_map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, fill=..level..),data=sidewalks_manhattan%>%filter(SUBMIT_YEAR=="2017"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")+ggtitle("Manhattan Licenses Applied for in 2017")+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)
 map2017
 
 ```
-Across all three years, you can see how the concentrated area of licenses remains in the Greenwich and Village NoHo area. However, it looks like the number of applicants in the Upper West Side in 2017 has dropped. 
+Across all three years, you can see how the concentrated area of licenses remains in the Greenwich Village area. However, it looks like the concentration of applicants in the Upper West Side in 2017 has dropped. This map is more useful than the bar chart because it shows the location of the cafes that may be straddling two neighborhoods - information that is not apparent from the grouped bar chart. 
+
+We can do the same sort of analysis in all four boroughs that we have sidewalk cafe information about. To make this analysis easier to view, I have created a shiny app which can be found by following this link: 
 
 ```{r}
+sidewalks_brooklyn <- sidewalks_nbh %>% filter(BOROUGH=="BROOKLYN")
+sidewalks_queens <- sidewalks_nbh %>% filter(BOROUGH=="QUEENS")
+sidewalks_bronx <- sidewalks_nbh %>% filter(BOROUGH=="BRONX")
+
 brooklyn_map <- get_map("Brooklyn, NY",  source = "google", zoom = 12, maptype="roadmap", color="bw") 
 queens_map <- get_map("Astoria, NY",  source = "google", zoom = 12, maptype="roadmap", color="bw") 
-```
-```{r, echo = FALSE}
-shinyApp(
-  
-  ui <- fluidPage(
-  sidebarLayout(
-    
-  sidebarPanel(
-selectInput(inputId="borough",label="Choose Borough:",choices=c("Manhattan","Brooklyn", "Queens", "Bronx")),
-sliderInput(inputId="year",label="Choose Year:",value=2015, min=2015, max=2017)),
-  mainPanel(plotOutput("map"))
-)
-),
-
-server <- function(input, output) {
-  selectedMap <-reactive({
-    if(input$borough=="Manhattan"){
-      manhattan_map
-    }
-    else if(input$borough=="Brooklyn"){
-      brooklyn_map
-    }
-    else if(input$borough == "Queens"){
-      queens_map
-    }
-    else{
-      bronx_map
-    } }) 
-  selectedData <- reactive({
-    if(input$borough=="Manhattan"){
-      sidewalks_manhattan_active
-    }
-    else if(input$borough=="Brooklyn"){
-      sidewalks_brooklyn_active
-    }
-    else if(input$borough == "Queens"){
-      sidewalks_queens_active
-    }
-    else{
-      sidewalks_bronx_active
-    } })
-  
-  selectedNames <- reactive({
-    if(input$borough=="Manhattan"){
-      manhattan_names
-    }
-    else if(input$borough=="Brooklyn"){
-      brooklyn_names
-    }
-    else if(input$borough == "Queens"){
-      queens_names
-    }
-    else{
-      bronx_names
-    } })
-  output$map <- renderPlot({ggmap(selectedMap())+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, fill=..level..),data=selectedData()%>%filter(SUBMIT_YEAR==input$year), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")+geom_text_repel(data=selectedNames(), aes(mean_lon, mean_lat, label=nbh),fontface="bold", size=3)})
-}
-)
 ```
 
 #### Liquor License Data - Rohan
