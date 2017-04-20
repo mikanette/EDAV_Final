@@ -1,14 +1,36 @@
 ---
 title: "R Notebook"
 output:
-  html_document: default
   html_notebook: default
+  html_document: default
 ---
 
-## 1. Introduction - Marika
+## 1. Introduction
 
-In this section, explain why you chose this topic, and the questions you are interested in studying. Include a brief description of how you found the data, and clear instructions on where the reader can find the data. 
+One of our teammates lives in Hamilton Heights, in an 'up and coming' area called Sugar Hill which has seen a lot of new bars and restaurants open up (we highly suggest checking out Harlem Public). We were wondering how one could easily identify an 'up and coming' area before all the land values rise. Could they be identified by new winebars and pubs? Or perhaps by sidewalk cafes that pop up as soon as the weather gets warmer?  
 
+We found a dataset for liquor licenses in New York State at data.ny.gov. Called ["Liquor Authority Quarterly List of Active Licenses"](https://data.ny.gov/Economic-Development/Liquor-Authority-Quarterly-List-of-Active-Licenses/hrvs-fxs2), this dataset gives information about all of the currently active liquor licenses as of April, 2017.
+
+We also found a dataset about all requested and active sidewalk cafe license applications in New York City (and the surrounding boroughs excluding Long Island) called ["Sidewalk Café Licenses and Applications"](https://data.cityofnewyork.us/Business/Sidewalk-Caf-Licenses-and-Applications/qcdj-rwhu). This has also been updated in April, 2017.
+
+Finally, we wanted to know whether there is a clear correlation between the average income of neighborhood inhabitants and the number of sidewalk cafes and bars in that area. To do this, we used the following datasets:   
+
+* [Income Tied to Zipcode](https://github.com/jcheng5/superzip/tree/master/data)  
+
+* [Mapping of ZipCodes to Neighborhoods and Lon/Lat data](https://www.baruch.cuny.edu/confluence/display/geoportal/NYC+Geographies)  
+
+* [Zipcode Shapefiles](https://data.cityofnewyork.us/Business/Zip-Code-Boundaries/i8iw-xf4u)  
+
+
+We realized that there is no authoritative datasource mapping each zip code to a single neighborhood. In order to be able to map neighborhood locations on a map, we wrote a python scraper to pull zipcode to neighborhood data from the following locations, and then joined it with the zipcode to location data:  
+
+* [Manhattan Neighborhoods](https://www.google.com/maps/d/u/0/viewer?mid=1P6ChdyZdDkC2N3X4biEE0yg5d90&hl=en_US&ll=40.78691478971282%2C-73.96563848461915&z=12)  
+
+* [Brooklyn Neighborhoods](http://www.brooklyn.com/zipcodes.php)  
+ 
+* [Queens Neighborhoods](http://queens.about.com/od/neighborhoods/a/zip-codes-queens-ny.htm)  
+
+* [Bronx Neighborhoods](http://statisticalatlas.com/county-subdivision/New-York/Bronx-County/Bronx/Overview)
 
 ## 2. Team - Adam
 
@@ -38,6 +60,7 @@ require(shiny)
 require(zipcode)
 require(viridis)
 require(rgdal)
+require(maptools)
 ```
 
 ## 3. Analysis of Data Quality - All
@@ -236,7 +259,7 @@ There seem to be a few missing fields in the provided sidewalk cafe squarefootag
 
 ```{r}
 missing_expiration<-sidewalks %>% filter(is.na(EXPIRATION_DATE)) %>% select(APP_STATUS)
-ggplot(missing_expiration,aes(x=APP_STATUS))+geom_bar()+ggtitle("In Review licenses have a missing expiration date")
+missing_expiration %>% unique()
 ```
 A similar explanation arises about the applications with a missing Temporary Operating Order ("TOO") date - only those applications that have been granted a TOO in cases where the old license has expired but the renewal is in the process of being reviewed.  
 
@@ -312,11 +335,7 @@ This shows us the average salary throughout the zipcodes in Brooklyn and we can 
 At this point, I had realized that it would be hard to make a combined map illustrating both the income data and licenses data by displaying the zips like this. Thus, I found zipcode shapefile data for NYC and imported it in order to make better maps to be used as a base layer for the licensing data. I also begun labelling the neighborhoods using the labels Marika had created.
 
 ```{r}
-shapefiles <- readOGR("Data/ZIP_CODE_040114") %>% spTransform(CRS("+proj=longlat +datum=WGS84"))
-shapefiles.f <- shapefiles %>% fortify(region = 'ZIPCODE')
-shapefiles.f$id <- as.factor(shapefiles.f$id)
-plotting_zips1 <- merge(census, shapefiles.f, by.x = "ZIP", by.y = "id", all.x = TRUE)
-write.csv(plotting_zips1, file = "Data/NY_shapefiles.csv")
+plotting_zips1<-read.csv("Data/NY_shapefiles.csv")
 ```
 
 
@@ -400,7 +419,7 @@ ggplot(queens_cafes, aes(x=fct_infreq(CITY)))+geom_bar(fill="purple")+ggtitle("F
 
 ```
 
-In queens, a large percentage of license requests come from Astoria, followed by Long Island City and Forest Hills. 
+In Queens, a large percentage of license requests come from Astoria, followed by Long Island City and Forest Hills. 
 
 Next, in order to do date comparisons to ascertain which are the new applications vs. renewal applications, I had to convert certain date fields from strings (they were read in as string factors) into dates.
 
@@ -456,7 +475,7 @@ sidewalks <- sidewalks %>% mutate(STATUS_CLASSIFICATION2=ifelse(STATUS_CLASSIFIC
 new_active <- sidewalks %>% filter(STATUS_CLASSIFICATION2=="ACTIVE" | STATUS_CLASSIFICATION2=="NEW")
 ggmap(map)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color=BOROUGH),data=new_active, alpha=0.3)+facet_wrap(~STATUS_CLASSIFICATION2)+ggtitle("Active and New Licenses in New York City")
 ```
-Since we are quite zoomed out, it is difficult to see what exactly is happening with the New requests. However, if we zoomed in, we would lose information about the Bronx or lower Brooklyn. In order to determine whether there is any useful information there, I have zoomed in on the Brooklyn region. 
+Since we are quite zoomed out, it is difficult to see what exactly is happening with the New requests. However, if we zoomed in, we would lose information about the Bronx or lower Brooklyn. In order to determine whether there is any useful information there, I have zoomed in on the Bronx region. 
 
 ##### Geographic Analysis - Bronx
 ```{r}
@@ -546,7 +565,7 @@ map2017
 ```
 Across all three years, you can see how the concentrated area of licenses remains in the Greenwich Village area. However, it looks like the concentration of applicants in the Upper West Side in 2017 has dropped. This map is more useful than the bar chart because it shows the location of the cafes that may be straddling two neighborhoods - information that is not apparent from the grouped bar chart. 
 
-We can do the same sort of analysis in all four boroughs that we have sidewalk cafe information about. To make this analysis easier to view, I have created a shiny app which can be found by following this link: 
+We can do the same sort of analysis in all four boroughs that we have sidewalk cafe information about. To make this analysis easier to view, I have created a shiny app which can be found by following this link: [ShinyCafe](https://marikalohmus.shinyapps.io/cafeshiny/)
 
 ```{r}
 sidewalks_brooklyn <- sidewalks_nbh %>% filter(BOROUGH=="BROOKLYN")
@@ -556,6 +575,49 @@ sidewalks_bronx <- sidewalks_nbh %>% filter(BOROUGH=="BRONX")
 brooklyn_map <- get_map("Brooklyn, NY",  source = "google", zoom = 12, maptype="roadmap", color="bw") 
 queens_map <- get_map("Astoria, NY",  source = "google", zoom = 12, maptype="roadmap", color="bw") 
 ```
+The Shiny app has a brief blurb explaining what each borough can tell us about the movement of sidewalk cafe applications.
+
+Next, I added Adam's income distribution ploygons to the background of these maps to see what the relationship is to income. 
+
+```{r fig.width=10}
+ggmap(manhattan_map)+geom_polygon(aes(fill = income., x = long, y = lat, group = group), data = plotting_zips_manhattan, alpha = 0.7)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color="purple"),data=sidewalks_manhattan, size=1)+ scale_fill_viridis()+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)+guides(color=F)
+```
+Manhattan has a pretty clear clustering of sidewalk cafes in the higher income areas, with the exception of Lower Mahattan and the Financial District.
+
+```{r fig.width=10}
+ggmap(brooklyn_map)+geom_polygon(aes(fill = income., x = long, y = lat, group = group), data = plotting_zips_brooklyn, alpha = 0.7)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color="purple"),data=sidewalks_brooklyn, size=1)+ scale_fill_viridis()+guides(color=FALSE)
+```
+The missing data in Williamsburg is hindering this analysis, but we do see how the average income in Brooklyn Heights, Park Slope, and Red Hook correlate with more sidewalk cafes.
+
+```{r fig.width=10}
+ggmap(queens_map)+geom_polygon(aes(fill = income., x = long, y = lat, group = group), data = plotting_zips_queens, alpha = 0.7)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color="purple"),data=sidewalks_queens, size=1)+ scale_fill_viridis()+geom_text_repel(data=queens_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)+guides(color=F)
+```
+Astoria and Long Island City are interesting cases with relatively low average incomes but a high concentration of sidewalk cafes. The other area to the south-east, around Parkside and Forest Hills, has a high concentration of cafes and high income.
+```{r fig.width=10}
+ggmap(bronx_map)+geom_polygon(aes(fill = income., x = long, y = lat, group = group), data = plotting_zips_bronx, alpha = 0.7)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color="purple"),data=sidewalks_bronx, size=1)+ scale_fill_viridis()+geom_text_repel(data=bronx_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)+guides(color=F)
+```
+With the very low number of Bronx datapoints, it is not easy to see a realtionship between income and where the sidewalk cafes are located.
+
+```{r}
+mean_incomes <- plotting_zips1 %>% group_by(ZIP) %>% summarise(mean_income=mean(income.))
+zip_sidewalk <- sidewalks_nbh %>% group_by(ZIP, BOROUGH) %>% summarise(n_cafes=n())
+summary_cafe <- merge(zip_sidewalk, mean_incomes, by="ZIP")
+```
+```{r}
+ggplot(summary_cafe, aes(x=mean_income, y=n_cafes))+geom_point()+xlab("Average Income (in Thousands of Dollars)")+ylab("Number of Sidewalk Cafes")+geom_smooth(method=lm) 
+```
+```{r}
+cafe.lm = lm(mean_income~n_cafes, data=summary_cafe) 
+summary(cafe.lm)$r.squared
+```
+On all the data, there is pretty weak correlation between income and number of sidewalk cafes, with an r-squares of 0.196.
+
+```{r}
+ggplot(summary_cafe, aes(x=mean_income, y=n_cafes))+geom_point()+xlab("Average Income (in Thousands of Dollars)")+ylab("Number of Sidewalk Cafes")+geom_smooth(method=lm)+facet_wrap(~BOROUGH, scales="free")
+```
+
+Faceting by Borough, we can see how the relationship is actually negative in Bronx and Queens, but positive in Manhattan and Brooklyn (with the strongest relationship in Manhattan). 
+
 
 #### Liquor License Data - Rohan
 
