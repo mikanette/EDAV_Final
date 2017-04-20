@@ -314,7 +314,72 @@ Indeed, this dataset includes liquor licenses across the entire state. Furthermo
 ```{r}
 ny_liquor_licenses %>% filter(City == 'ALBANY') %>% filter(License.Type.Name == 'GROCERY STORE BEER')
 ```
-In order to make this analysis consistent with the other datasets, I will use the zipcode column. Even in the plot above, we can see city names like Jackson Heights, and Astoria, which are traditionally thought of as part of New York. Therefore, filtering by city name will be difficult. Luckily, Marika and Adam were able to generate a master zip file for all neighborhoods in New York. Therefore, I will merge this dataset with the master dataset
+In order to make this analysis consistent with the other datasets, I will use the zipcode column. Even in the plot above, we can see city names like Jackson Heights, and Astoria, which are traditionally thought of as part of New York. Therefore, filtering by city name will be difficult. Luckily, Marika and Adam were able to generate a master zip file for all neighborhoods in New York. Therefore, I will merge this dataset with the master dataset. First, as a sanity check, all zip codes should have 5 or 9 characters:
+
+```{r}
+sum(is.na(ny_liquor_licenses$Zip))
+```
+
+
+```{r}
+ny_liquor_licenses %>% filter(nchar(as.character(Zip)) != 5) %>% filter(nchar(as.character(Zip)) != 9)
+```
+
+There seem to be three zip codes with typos, which I manually googled and confirmed that the zip codes were one character off. Hence, I will replace these zip codes by the proper ones. Then I will take the first five characters of every zip code to keep everything standard. Then, I will be able to merge with the zip codes that Marika and Adam compiled.
+
+```{r}
+zips <- levels(ny_liquor_licenses$Zip)
+zips[zips == "112209"] <- "11209"
+zips[zips == "1238"] <- "11238"
+zips[zips == "1369"] <- "11369"
+levels(ny_liquor_licenses$Zip) <- zips
+ny_liquor_licenses$Zip <- as.character(ny_liquor_licenses$Zip)
+ny_liquor_licenses <- ny_liquor_licenses %>% mutate(Zip, mod_zip = substr(Zip, 1, 5))
+ny_liquor_licenses$mod_zip <- as.numeric(ny_liquor_licenses$mod_zip)
+
+zipcodes <- read.csv('Data/zips_master_no_missing_nbrh.csv')
+nyc_liquor_licenses <- merge(ny_liquor_licenses, zipcodes, by.x = "mod_zip", by.y = "ZIP", all.y = TRUE)
+```
+
+I inspected which zip codes didn't merge cleanly
+```{r}
+nyc_liquor_licenses %>% filter(is.na(City)) %>% select(mod_zip)
+```
+According to the table above, nobody should be able to serve liquor in the following zip codes. Upon inspection, I found an example, Redeye Grill located in zip code 10106. https://www.zomato.com/new-york-city/redeye-grill-midtown/menu
+This restaurant seems to be serving bloody mary's and prosecco even though this is not confirmed by the data. This shows that this dataset is incomplete. I did not do a thorough check of all restaurants in New York City, but I would guess that several restaurants serve alcohol even though they aren't listed in the dataset. For the continuing analysis, I will only focus on the zip codes with clean matches. 
+
+```{r}
+nyc_liquor_licenses <- merge(ny_liquor_licenses, zipcodes, by.x = "mod_zip", by.y = "ZIP")
+```
+
+Next, I want to make sure all latitudes and longitudes are included
+```{r}
+sum(is.na(nyc_liquor_licenses$Latitude))
+```
+
+This might cause issues in further analysis. However because of the merge, we have an estimate for the latitude and longitude for each zip code. I will impute these missing values using the latitude and longitude from the neighborhood.
+
+```{r}
+nyc_liquor_licenses$Latitude[is.na(nyc_liquor_licenses$Latitude)] <- 
+  nyc_liquor_licenses$latitude[is.na(nyc_liquor_licenses$Latitude)]
+
+
+nyc_liquor_licenses$Longitude[is.na(nyc_liquor_licenses$longitude)] <- 
+  nyc_liquor_licenses$longitude[is.na(nyc_liquor_licenses$Longitude)]
+```
+
+Finally, I would like to clean up the dates. They are in string format. Using lubridate, I will convert them to dates and add some columns corresponding to the the year. This will make analysis easier with the other datasets.
+
+```{r}
+nyc_liquor_licenses$License.Original.Issue.Date <- mdy(nyc_liquor_licenses$License.Original.Issue.Date)
+nyc_liquor_licenses$License.Effective.Date <- mdy(nyc_liquor_licenses$License.Effective.Date)
+nyc_liquor_licenses$License.Expiration.Date <- mdy(nyc_liquor_licenses$License.Expiration.Date)
+nyc_liquor_licenses$issue_year <- year(nyc_liquor_licenses$License.Original.Issue.Date)
+nyc_liquor_licenses$effective_year <- year(nyc_liquor_licenses$License.Effective.Date)
+nyc_liquor_licenses$expiration_year <- year(nyc_liquor_licenses$License.Expiration.Date)
+```
+
+
 
 ## 4. Executive Summary - All
 
