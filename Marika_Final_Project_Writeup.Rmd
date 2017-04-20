@@ -282,6 +282,40 @@ There were a lot of missing values originally from the master_zip analysis, whic
 
 #### Liquor License Data - Rohan
 
+```{r}
+ny_liquor_licenses <- read.csv('Data/liquor_licenses/active_liquor.csv')
+head(ny_liquor_licenses)
+```
+This is a dataframe where each row corresponds to an active liquor license. There are several columns identifying the type of liquor license, the dates it is effective as well as some geographic information.
+
+As a sanity check, I wanted to make sure, the state was NY for every row because this is a New York dataset.
+```{r}
+levels(ny_liquor_licenses$State)
+```
+Much to my surprise, it seems that all states are included
+
+```{r}
+ny_liquor_licenses %>% filter(State != "NY") %>% group_by(License.Type.Name) %>% summarise(count = n())
+```
+Out of the 1280 records outside of New York 1250 of them correspond to direct wine shipments which makes sense. 
+
+```{r}
+ny_liquor_licenses %>% filter(License.Type.Name == 'MASTER FOLDER STATUS RECORD')
+```
+Through inspection of the dataframe, I notice a few things. FIrst, a lot of these MASTER FOLDER STATUS RECORD licenses correspond to supermarkets and big chains. But what appears more troubling is that there might be records outside of New York City. 
+
+```{r}
+ny_liquor_licenses %>% group_by(City) %>% 
+  summarise(num = n()) %>% filter(num > 100) %>% 
+  ggplot(., aes(x=fct_infreq(City), y=num)) + geom_bar(stat = 'identity') + coord_flip()
+```
+Indeed, this dataset includes liquor licenses across the entire state. Furthermore, these don't correspond to shipments into New York City either
+
+```{r}
+ny_liquor_licenses %>% filter(City == 'ALBANY') %>% filter(License.Type.Name == 'GROCERY STORE BEER')
+```
+In order to make this analysis consistent with the other datasets, I will use the zipcode column. Even in the plot above, we can see city names like Jackson Heights, and Astoria, which are traditionally thought of as part of New York. Therefore, filtering by city name will be difficult. Luckily, Marika and Adam were able to generate a master zip file for all neighborhoods in New York. Therefore, I will merge this dataset with the master dataset
+
 ## 4. Executive Summary - All
 
 Interactive Map of New York City
