@@ -334,11 +334,12 @@ ny_liquor_licenses %>% filter(State != "NY") %>% group_by(License.Type.Name) %>%
 Out of the 1280 records outside of New York 1250 of them correspond to direct wine shipments which makes sense. 
 
 ```{r}
-ny_liquor_licenses %>% filter(License.Type.Name == 'MASTER FOLDER STATUS RECORD')
+ny_liquor_licenses %>% filter(License.Type.Name == 'MASTER FOLDER STATUS RECORD') %>% head %>% 
+  select(Premises.Name)
 ```
 Through inspection of the dataframe, I notice a few things. FIrst, a lot of these MASTER FOLDER STATUS RECORD licenses correspond to supermarkets and big chains. But what appears more troubling is that there might be records outside of New York City. 
 
-```{r}
+```{r, fig.height=10}
 ny_liquor_licenses %>% group_by(City) %>% 
   summarise(num = n()) %>% filter(num > 100) %>% 
   ggplot(., aes(x=fct_infreq(City), y=num)) + geom_bar(stat = 'identity') + coord_flip()
@@ -346,9 +347,75 @@ ny_liquor_licenses %>% group_by(City) %>%
 Indeed, this dataset includes liquor licenses across the entire state. Furthermore, these don't correspond to shipments into New York City either
 
 ```{r}
-ny_liquor_licenses %>% filter(City == 'ALBANY') %>% filter(License.Type.Name == 'GROCERY STORE BEER')
+ny_liquor_licenses %>% filter(City == 'ALBANY') %>% filter(License.Type.Name == 'GROCERY STORE BEER') %>% head %>% 
+  select(Premises.Name, License.Serial.Number)
 ```
-In order to make this analysis consistent with the other datasets, I will use the zipcode column. Even in the plot above, we can see city names like Jackson Heights, and Astoria, which are traditionally thought of as part of New York. Therefore, filtering by city name will be difficult. Luckily, Marika and Adam were able to generate a master zip file for all neighborhoods in New York. Therefore, I will merge this dataset with the master dataset
+In order to make this analysis consistent with the other datasets, I will use the zipcode column. Even in the plot above, we can see city names like Jackson Heights, and Astoria, which are traditionally thought of as part of New York. Therefore, filtering by city name will be difficult. Luckily, Marika and Adam were able to generate a master zip file for all neighborhoods in New York. Therefore, I will merge this dataset with the master dataset. First, as a sanity check, all zip codes should have 5 or 9 characters:
+
+```{r}
+sum(is.na(ny_liquor_licenses$Zip))
+```
+
+
+```{r}
+ny_liquor_licenses %>% filter(nchar(as.character(Zip)) != 5) %>% filter(nchar(as.character(Zip)) != 9) %>% 
+  select(Zip, Actual.Address.of.Premises..Address1., City)
+```
+
+There seem to be three zip codes with typos, which I manually googled and confirmed that the zip codes were one character off. Hence, I will replace these zip codes by the proper ones. Then I will take the first five characters of every zip code to keep everything standard. Then, I will be able to merge with the zip codes that Marika and Adam compiled.
+
+```{r}
+zips <- levels(ny_liquor_licenses$Zip)
+zips[zips == "112209"] <- "11209"
+zips[zips == "1238"] <- "11238"
+zips[zips == "1369"] <- "11369"
+levels(ny_liquor_licenses$Zip) <- zips
+ny_liquor_licenses$Zip <- as.character(ny_liquor_licenses$Zip)
+ny_liquor_licenses <- ny_liquor_licenses %>% mutate(Zip, mod_zip = substr(Zip, 1, 5))
+ny_liquor_licenses$mod_zip <- as.numeric(ny_liquor_licenses$mod_zip)
+
+zipcodes <- read.csv('Data/zips_master_no_missing_nbrh.csv')
+nyc_liquor_licenses <- merge(ny_liquor_licenses, zipcodes, by.x = "mod_zip", by.y = "ZIP", all.y = TRUE)
+```
+
+I inspected which zip codes didn't merge cleanly
+```{r}
+nyc_liquor_licenses %>% filter(is.na(City)) %>% select(mod_zip) %>% head
+```
+According to the table above, nobody should be able to serve liquor in the following zip codes. Upon inspection, I found an example, Redeye Grill located in zip code 10106. https://www.zomato.com/new-york-city/redeye-grill-midtown/menu
+This restaurant seems to be serving bloody mary's and prosecco even though this is not confirmed by the data. This shows that this dataset is incomplete. I did not do a thorough check of all restaurants in New York City, but I would guess that several restaurants serve alcohol even though they aren't listed in the dataset. For the continuing analysis, I will only focus on the zip codes with clean matches. 
+
+```{r}
+nyc_liquor_licenses <- merge(ny_liquor_licenses, zipcodes, by.x = "mod_zip", by.y = "ZIP")
+```
+
+Next, I want to make sure all latitudes and longitudes are included
+```{r}
+sum(is.na(nyc_liquor_licenses$Latitude))
+```
+
+This might cause issues in further analysis. However because of the merge, we have an estimate for the latitude and longitude for each zip code. I will impute these missing values using the latitude and longitude from the neighborhood.
+
+```{r}
+nyc_liquor_licenses$Latitude[is.na(nyc_liquor_licenses$Latitude)] <- 
+  nyc_liquor_licenses$latitude[is.na(nyc_liquor_licenses$Latitude)]
+
+
+nyc_liquor_licenses$Longitude[is.na(nyc_liquor_licenses$longitude)] <- 
+  nyc_liquor_licenses$longitude[is.na(nyc_liquor_licenses$Longitude)]
+```
+
+Finally, I would like to clean up the dates. They are in string format. Using lubridate, I will convert them to dates and add some columns corresponding to the the year. This will make analysis easier with the other datasets.
+
+```{r}
+nyc_liquor_licenses$License.Original.Issue.Date <- mdy(nyc_liquor_licenses$License.Original.Issue.Date)
+nyc_liquor_licenses$License.Effective.Date <- mdy(nyc_liquor_licenses$License.Effective.Date)
+nyc_liquor_licenses$License.Expiration.Date <- mdy(nyc_liquor_licenses$License.Expiration.Date)
+nyc_liquor_licenses$issue_year <- year(nyc_liquor_licenses$License.Original.Issue.Date)
+nyc_liquor_licenses$effective_year <- year(nyc_liquor_licenses$License.Effective.Date)
+nyc_liquor_licenses$expiration_year <- year(nyc_liquor_licenses$License.Expiration.Date)
+```
+
 
 ## 4. Executive Summary - All
 
@@ -703,5 +770,126 @@ ggmap(map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, color=TYPE),size=2, alpha=
 The graph shows how in 2015, most establishments are concentrated mostly in Manhattan, with bubbles in Brooklyn Heights, Williamsburg, and Astoria. However, in 2016, you can see the bars density contours spread out to neighborhoods next to Manhattan, especially in Brooklyn. In 2017, we are seeing the same happen with sidewalk cafes.
 
 #### Liquor License Data - Rohan
+
+First I checked the distribution of liquor licenses by zip code.
+
+
+```{r}
+temp <- nyc_liquor_licenses %>% group_by(mod_zip) %>% summarise(num = n())
+qplot(temp$num, binwidth = 10)
+```
+It is not surprising that this is a long tailed distribution, however it is very surprising that some zip codes have very high concentrations of liquor licenses. I looked into the zip codes with especially high number of licenses.
+
+```{r}
+nyc_liquor_licenses %>% group_by(mod_zip, nbh) %>% summarise(num = n()) %>% filter(num > 400)
+```
+Unsurprisingly, 3 of these 5 highly concentrated areas are in Midtown. One interesting thing I found while investigating these zip codes were the singular premises with the highest concentrations.
+```{r}
+nyc_liquor_licenses %>% group_by(Actual.Address.of.Premises..Address1.) %>% summarise(num = n()) %>% filter(num>15)
+```
+Both of these are transportation hubs. As a frequent commuter from Grand Central, I seemed very surprised that there were 101 places there that sell alcohol.
+
+```{r}
+nyc_liquor_licenses %>% filter(Actual.Address.of.Premises..Address1. == "GRAND CENTRAL TERMINAL") %>% group_by(Premises.Name) %>% summarise(num = n())
+```
+This was even more surprising to me as I have never been able to purchase alcohol on Metro North. Upon further inspection
+```{r}
+nyc_liquor_licenses %>% filter(Actual.Address.of.Premises..Address1. == "GRAND CENTRAL TERMINAL") %>%
+  filter(Premises.Name == 'METRO NORTH COMMUTER RAILROAD') %>% group_by(Agency.Zone.Office.Name) %>% 
+  summarise(num = n())
+```
+
+Albany issues all the licenses. I have never been on a train to Albany, but next time I am, I will definitely ask for an adult beverage. 
+
+This made me want to know more about the different types of liquor licenses that are granted.
+
+```{r, fig.height=10}
+nyc_liquor_licenses %>%  ggplot(., aes(x=fct_infreq(License.Type.Name))) + geom_bar() + coord_flip() 
+```
+
+There are a lot of fringe categories such as Distiller B-1 and Distiller A that are offered to a few places. However, the active liquor licenses are unsurprisingly dominated by on-premise liquor establishments, sometimes known as bars. There is also a distinction between beer and wine. I would like to explore that further.
+
+Another basic variable I wanted to investigate was the how effective liquor licences have grown over the years. 
+
+```{r}
+nyc_liquor_licenses %>% group_by(effective_year) %>% summarise(num = n()) %>% 
+  ggplot(., aes(x=effective_year, y = num)) + geom_bar(stat='identity')
+```
+The biggest years represented are 2015 and 2016. I am not surprised by the fact that 2017 has fewer records. The year is only 1/3 done, and I don't know how quickly it takes an active liquor license to be successfully recorded so it might be possible that liquor licenses that have been granted in Februrary and March are not included in the dataset. I do want to look a little further at 2014.
+
+My first hypothesis is that only licenses in later months were included
+```{r}
+nyc_liquor_licenses %>% mutate(month = months(License.Effective.Date)) %>% 
+  mutate(month_ind = month(License.Effective.Date)) %>% group_by(month, month_ind, effective_year) %>% 
+  summarise(num = n()) %>% ggplot(., aes(x = reorder(month, -month_ind), y = num)) + geom_bar(stat='identity') +
+  facet_wrap(~effective_year) + coord_flip()
+```
+Although this data would be better shown in a time-series plot, the pattern is clear. The distributon of bars in 2014 by month does not suggest that my hypothesis is correct as the number of active licenses from March to December in that year is roughly constant and all other years other than 2017 show that licenses that are effective in January and February are fewer in comparison to other months. It might be coincidental, but in 2014-2016, March and October have a slightly higher number of licenses that become effective that month. 
+
+I then decided to look into license type. 
+
+```{r}
+nyc_liquor_licenses %>%  filter(effective_year == 2014) %>% ggplot(., aes(x=fct_infreq(License.Type.Name))) + geom_bar() + coord_flip()
+```
+Astonishingly, there are way fewer types of licenses in 2014. Additionally, there are almost no on-premise liquor licenses. My guess as to why this happens is that the liquor licenses for bars expire quicker. I wanted to look into how long licenses are effective for.
+
+```{r}
+temp <- nyc_liquor_licenses %>% mutate(active_length = License.Expiration.Date - License.Effective.Date)
+qplot(temp$active_length, binwidth = 7)
+```
+Essentially, there seem to be two huge spikes which seem to correspond to 2 and 3 years
+
+```{r}
+nyc_liquor_licenses %>% mutate(active_length = License.Expiration.Date - License.Effective.Date) %>% 
+  group_by(active_length) %>% summarise(num = n()) %>% arrange(desc(num)) %>% head
+```
+By far, the most common lengths of licenses are 730 and 1095 which are 2 and 3 years respectively. Looking at the graph, the rest of the lengths are close to these lengths
+
+```{r}
+nyc_liquor_licenses %>% filter(License.Type.Name == 'ON-PREMISES LIQUOR') %>% 
+  mutate(active_length = License.Expiration.Date - License.Effective.Date) %>% 
+  qplot(x = active_length, data = ., binwidth = 7)
+```
+It does look like on-premise liquor licenses are for two years.
+
+```{r}
+nyc_liquor_licenses %>% filter(License.Type.Name == 'GROCERY BEER, WINE PROD') %>% 
+  mutate(active_length = License.Expiration.Date - License.Effective.Date) %>% 
+  qplot(x = active_length, data = ., binwidth = 7)
+```
+In contrast, grocery licenses look to be for around 3 years
+
+The month plot made me question how licenses become active during the month.
+
+```{r}
+nyc_liquor_licenses %>% mutate(dom  = day(License.Effective.Date)) %>% qplot(x=dom, data=.)
+```
+
+And for expiring date,
+```{r}
+nyc_liquor_licenses %>% mutate(dom  = day(License.Expiration.Date)) %>% qplot(x=dom, data=.)
+```
+From these two plots, we can see that licenses seem to become effective at the beginning of the month and expire at the end of the month,
+
+I also wanted to look at the spatial distribution.
+
+```{r}
+ggmap(manhattan_map)+stat_density2d(aes(x=Longitude,y=Latitude, fill=..level..),data=nyc_liquor_licenses%>%filter(effective_year=="2015") %>% 
+                                      filter(city.x == "Manhattan"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")
+```
+```{r}
+ggmap(manhattan_map)+stat_density2d(aes(x=Longitude,y=Latitude, fill=..level..),data=nyc_liquor_licenses%>%filter(effective_year=="2016") %>% 
+                                      filter(city.x == "Manhattan"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")
+```
+```{r}
+ggmap(manhattan_map)+stat_density2d(aes(x=Longitude,y=Latitude, fill=..level..),
+                                    data=nyc_liquor_licenses%>% filter(city.x == "Manhattan") %>% 
+                                      filter(License.Type.Name == "EATING PLACE BEER"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")
+```
+```{r}
+ggmap(manhattan_map)+stat_density2d(aes(x=Longitude,y=Latitude, fill=..level..),
+                                    data=nyc_liquor_licenses%>% filter(city.x == "Manhattan") %>% 
+                                      filter(License.Type.Name == "RESTAURANT WINE"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")
+```
 
 ## 6. Conclusion - Rohan
