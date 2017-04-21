@@ -1,5 +1,5 @@
 ---
-title: "R Notebook"
+title: "EDAV Final Project - NYC License and Income Data"
 output:
   html_document: default
   html_notebook:
@@ -95,11 +95,12 @@ require(zipcode)
 require(viridis)
 require(rgdal)
 require(maptools)
+require(ggthemes)
 ```
 
-## 3. Analysis of Data Quality - All
+## 3. Analysis of Data Quality
 
-#### Zip Code, Neighborhood and Land Value Data - Adam
+#### Zip Code, Neighborhood and Land Value Data
 
 We realized that the original data was not going to be sufficient. We only had a few rental observations from Staten Island, Queens and the Bronx, and all of the observations were directly bordering Manhattan. We decided to find new data. We found the data for a Shiny project titled Superzip with Income per zipcode for the entire United States. Since we also wanted the income per neighborhood, we found a mapping from zipcode to neighborhood name that we will use for our final observations. It proved rather difficult to actually clean this mapping.
 
@@ -178,8 +179,8 @@ census <- read.csv("Data/zips_master_no_missing_nbrh.csv")
 ```
 
 
-```{r}
-ggplot(census, aes(reorder(city.x, -avg, FUN = median), avg)) + geom_boxplot(varwidth = TRUE) + ggtitle("Boxplots of Income by Borough") + labs(x="Borough", y="Average Income per neighborhood") + coord_flip()
+```{r message=FALSE, warning=FALSE}
+ggplot(census, aes(reorder(city.x, -avg, FUN = median), avg)) + geom_boxplot(varwidth = TRUE) + ggtitle("Boxplots of Income by Borough") + labs(x="Borough", y="Average Income per neighborhood") + coord_flip()+theme_fivethirtyeight()
 ```
 
 Here we see the distributions of the average income per area in each of the 5 boroughs. This plot appears to show that Queens Villge does not have very much data in it as this is a variable width boxplot. However, it turns out it is because all of the other single point neighborhoods are actually a part of Queens. This is a problem we had to fix. These are the 18 zipcodes we added back into the data.
@@ -189,32 +190,32 @@ census$city.x[!(census$city.y %in% c("Brooklyn", "New York", "Bronx", "Staten Is
 census$city.y[!(census$city.y %in% c("Brooklyn", "New York", "Bronx", "Staten Island"))] <- "Queens Village"
 ```
 
-```{r}
-ggplot(census, aes(reorder(city.x, -avg, FUN = median), avg)) + geom_boxplot(varwidth = TRUE) + ggtitle("Boxplots of Income by Borough") + labs(x="Borough", y="Average Income per neighborhood")
+```{r message=FALSE, warning=FALSE}
+ggplot(census, aes(reorder(city.x, -avg, FUN = median), avg)) + geom_boxplot(varwidth = TRUE) + ggtitle("Boxplots of Income by Borough") + labs(x="Borough", y="Average Income per neighborhood")+theme_fivethirtyeight()
 ```
 
 
 Also, there is very little spread in the distribution for Bronx and Brooklyn compared to Manhattan, which has a massive spread. The missing values occur from zipcodes which occur in the neighborhood data and not in the superzip data. We can see that the average income calculated for these zipcodes in general are high. We can thus infer they are likely from New York and looking back at the census data and filtering for the NAs, which was indeed the case.
 
-```{r}
-ggplot(census, aes(reorder(city.y, -avg, FUN = median), avg)) + geom_boxplot(varwidth = TRUE) + ggtitle("Boxplots of Income by Borough") + labs(x="Borough", y="Average Income per neighborhood")
+```{r message=FALSE, warning=FALSE}
+ggplot(census, aes(reorder(city.y, -avg, FUN = median), avg)) + geom_boxplot(varwidth = TRUE) + ggtitle("Boxplots of Income by Borough") + labs(x="Borough", y="Average Income per neighborhood")+theme_fivethirtyeight()
 ```
 
 Here we see with the plot with the null values removed.
 
-```{r}
-census %>% filter(!is.na(census$city.x)) %>% ggplot(aes(city.x, income., color=city.x, alpha(0.1))) + geom_point(size = 2, shape = 1) + guides(color=FALSE) + ggtitle("Strip Plot of Incomes by Borough") + labs(x="Borough", y="Income")
+```{r message=FALSE, warning=FALSE}
+census %>% filter(!is.na(census$city.x)) %>% ggplot(aes(city.x, income., color=city.x, alpha(0.1))) + geom_point(size = 2, shape = 1) + guides(color=FALSE) + ggtitle("Strip Plot of Incomes by Borough") + labs(x="Borough", y="Income")+theme_fivethirtyeight()
 ```
 
 Similarly to the boxplot, this shows the distribution of the income for each of the boroughs. We can see we do not have too much data on Staten Island again.
 
 ```{r}
-ggplot(census, aes(x=reorder(city.x, -table(city.x)[city.x]))) + geom_bar() + xlab("City") + ylab("Number of Zipcodes") + ggtitle("Number of zipcodes with observations per borough")
+ggplot(census, aes(x=reorder(city.x, -table(city.x)[city.x]))) + geom_bar() + xlab("City") + ylab("Number of Zipcodes") + ggtitle("Number of zipcodes with observations per borough")+theme_fivethirtyeight()
 ```
 
 Again the NAs here correspond to not having an actual income value for said zipcode. It was derived from the average for that neighborhood. This shows that approximately 25 of the zipcodes had no income data and we were forced to impute it with the average for that neighborhood. Also, this data is certainly better than the last set, although ideally we would still have more data on Queens and Staten Island especially if there are many liquor licenses and sidewalk cafes popping up in zipcodes which we are missing.
 
-#### Sidewalk Cafe License Data - Marika
+#### Sidewalk Cafe License Data
 
 ```{r}
 queens_names<-read.csv("Data/QU_Locations.csv",strip.white=TRUE)
@@ -240,15 +241,14 @@ qmplot(LONGITUDE,LATITUDE,data=sidewalks,maptype="toner-lite",color=I("purple"))
 ```
 Note that there is a mysterious dot all the way west of Harrisburg, PA. This should not be the case since the data should only apply to the City and boroughs of New York, so I plotted the longitude and latitude to see any outliers.
 ```{r}
-lat<-ggplot(sidewalks, aes(x=LATITUDE))+geom_histogram(binwidth=.01)+ggtitle("Latitude Histogram")
-long<-ggplot(sidewalks,aes(x=LONGITUDE))+geom_histogram(binwidth=.01)+ggtitle("Longitude Histogram")
+lat<-ggplot(sidewalks, aes(x=LATITUDE))+geom_histogram(binwidth=.01)+ggtitle("Latitude Histogram")+theme_fivethirtyeight()
+long<-ggplot(sidewalks,aes(x=LONGITUDE))+geom_histogram(binwidth=.01)+ggtitle("Longitude Histogram")+theme_fivethirtyeight()
 grid.arrange(lat,long,nrow=2)
 ```
 You can barely see some points beow the 40.25 latitude and -77 longitude, which seem to be quite off from the rest. Next, I zoomed in on those values:
 ```{r message=FALSE, warning=FALSE}
-lat<-ggplot(sidewalks, aes(x=LATITUDE))+geom_histogram(binwidth=.25)+ggtitle("Zoomed Latitude Histogram")+xlim(39,40.25)
 long<-ggplot(sidewalks,aes(x=LONGITUDE))+geom_histogram(binwidth=.25)+ggtitle("Zoomed Longitude Histogram")+xlim(-80,-77)
-grid.arrange(lat,long,nrow=2)
+long
 ```
 There are two datapoints that have an abnormally low Latitude and Longitude as compared to the rest of the data. Taking a look at these data points, I identified them as the following businesses:
 ```{r}
@@ -280,14 +280,14 @@ Next, I looked at additional application information which includes the sidewalk
 ```{r fig.height=6}
 visna(sidewalks[,10:19])
 ```
-Two variables have missing values - the square footage of the sidewalk cafe and the Department of Health and Mental Hygene identification number. These are items that the restaurant would have to provide during their application process, and may not have been available at submission. These missing values should not impede with our analysis. However, if we wanted to cross-reference the health grades from the DOHMH datasets, we would have issues with the missing ID numbers.  
+Two variables have missing values - the square footage of the sidewalk cafe and the Department of Health and Mental Hygiene identification number. These are items that the restaurant would have to provide during their application process, and may not have been available at submission. These missing values should not impede with our analysis. However, if we wanted to cross-reference the health grades from the DOHMH datasets, we would have issues with the missing ID numbers.  
 
 The next set of columns to analyze is the set of application-specific fields. These include the application ID, and the sidewalk cafe type, square footage, number of tables and chairs provided by the applicant. It has the app status, the date at which the app status was reached, expiration date, the expiration date of the temporary operating order("TOO" - if available), the application submit date, and whether the application has been received.
 
 ```{r fig.height=7}
 visna(sidewalks[,20:29])
 ```
-There seem to be a few missing fields in the provided sidewalk cafe squarefootage data. However, we will not be focusing on this data point in our analysis. Expiration dates are also missing from certain licenses. Filtering out those licenses and looking at thei APP_STATUS, we can see that those licenses that are in review may not have an assigned expiration status. Indeed, this makes sense with new applications that have not been given an expiration date.
+There seem to be a few missing fields in the provided sidewalk cafe squarefootage data. However, we will not be focusing on this data point in our analysis. Expiration dates are also missing from certain licenses. Filtering out those licenses and looking at their APP_STATUS, we can see that those licenses that are in review may not have an assigned expiration status. Indeed, this makes sense with new applications that have not been given an expiration date.
 
 ```{r}
 missing_expiration<-sidewalks %>% filter(is.na(EXPIRATION_DATE)) %>% select(APP_STATUS)
@@ -312,19 +312,18 @@ There were a lot of missing values originally from the master_zip analysis, whic
 
 
 
-#### Liquor License Data - Rohan
+#### Liquor License Data
 
 ```{r}
 ny_liquor_licenses <- read.csv('Data/liquor_licenses/active_liquor.csv')
-str(ny_liquor_licenses)
 ```
-This is a dataframe where each row corresponds to an active liquor license. There are several columns identifying the type of liquor license, the dates it is effective as well as some geographic information.
+This is a dataframe where each row corresponds to an active liquor license. There are several columns identifying the type of liquor license, the date the license is effective, as well as some geographic information.
 
-As a sanity check, I wanted to make sure, the state was NY for every row because this is a New York dataset.
+As a sanity check, I wanted to make sure that this dataset was only for NY state data.
 ```{r}
 levels(ny_liquor_licenses$State)
 ```
-Much to my surprise, it seems that all states are included
+Much to my surprise, it seems that all states are included!
 
 ```{r}
 ny_liquor_licenses %>% filter(State != "NY") %>% group_by(License.Type.Name) %>% summarise(count = n())
@@ -335,14 +334,14 @@ Out of the 1280 records outside of New York 1250 of them correspond to direct wi
 ny_liquor_licenses %>% filter(License.Type.Name == 'MASTER FOLDER STATUS RECORD') %>% head %>% 
   select(Premises.Name)
 ```
-Through inspection of the dataframe, I notice a few things. FIrst, a lot of these MASTER FOLDER STATUS RECORD licenses correspond to supermarkets and big chains. But what appears more troubling is that there might be records outside of New York City. 
+Through inspection of the dataframe, I noticed a few things. First, a lot of these MASTER FOLDER STATUS RECORD licenses correspond to supermarkets and big chains. But what appears more troubling is that there might be records outside of New York City. 
 
 ```{r, fig.height=10}
 ny_liquor_licenses %>% group_by(City) %>% 
   summarise(num = n()) %>% filter(num > 100) %>% 
-  ggplot(., aes(x=fct_infreq(City), y=num)) + geom_bar(stat = 'identity') + coord_flip()
+  ggplot(., aes(x=fct_infreq(City), y=num)) + geom_bar(stat = 'identity') + coord_flip()+theme_fivethirtyeight()
 ```
-Indeed, this dataset includes liquor licenses across the entire state. Furthermore, these don't correspond to shipments into New York City either
+Indeed, this dataset includes liquor licenses across the entire state. Furthermore, these don't correspond to shipments into New York City either.
 
 ```{r}
 ny_liquor_licenses %>% filter(City == 'ALBANY') %>% filter(License.Type.Name == 'GROCERY STORE BEER') %>% head %>% 
@@ -415,27 +414,23 @@ nyc_liquor_licenses$expiration_year <- year(nyc_liquor_licenses$License.Expirati
 ```
 
 
-## 4. Executive Summary - All
+## 4. Executive Summary 
 
 [Link to Executive Summary](https://marikalohmus.shinyapps.io/executive_summary/)
 
-## 5. Main Analysis - All
+## 5. Main Analysis 
 
-Provide a detailed, well-organized description of your findings, including textual description, graphs, and code.  Your focus should be on both the results and the process. Include, as reasonable and relevant, approaches that didn't work, challenges, the data cleaning process, etc. .  The guidelines for the Executive Summary above do NOT apply to exploratory data analysis.
-Your main concern is designing graphs that reveal patterns and trends. .  As noted in Hmk #4, do not use circles, that is: bubbles, pie charts, or polar coordinates. .  Use stacked bar charts sparingly. Try grouped bar charts and faceting as alternatives, and only
-choose stacked bar charts if they truly do a better job than the alternatives for observing patterns. 
-
-#### Zip Code, Neighborhood and Land Value Data - Adam
+#### Zip Code, Neighborhood and Land Value Data 
 
 One of our other main questions in this project was looking at how the wealth was distributed amongst each of the zipcodes in the five boroughs. Using the census data from the superzip dataset and mapping that to the zipcode shapefile document we found, we managed to visualize the wealth of each neighborhood. We will later be able to plot the license applications over this mapping of the wealth distribution.
 
-```{r}
-map <- get_map("New York City", source = "google", maptype = "roadmap", zoom = 11)
+```{r message=FALSE, warning=FALSE}
+map <- get_map("New York City", source = "google", maptype = "roadmap", zoom = 11, color="bw")
 
 ggmap(map, base_layer = ggplot(aes(x = longitude, y = latitude, color = avg), data = census))  + geom_point(size = 3, alpha=0.7) + scale_color_viridis() + ggtitle("Average Salary of each Zipcode in New York")
 ```
 
-This map shows all of the zipcodes and we can clearly see that by far the greatest incomes per zipcode are in the Upper East Side and Upper West Side. There appears to be some grey areaa if you look closely at the Upper West Side. This corresponds to about 150 on the color map. Then, midtown and downtown also have high incomes. After that, they all fall towards the bottom of the spectrum. Thus, I think it would be useful to make a map showing only Manhattan, and then the everything excluding Manhattan. This should give us a better idea of what areas outside of Manhattan might see more bar/cafe openings.
+This map shows all of the zipcodes and we can clearly see that by far the greatest incomes per zipcode are in the Upper East Side and Upper West Side. There appears to be some grey areaa if you look closely at the Upper West Side. This corresponds to about $150,000/per year on the color map. Then, midtown and downtown also have high incomes. After that, they all fall towards the bottom of the spectrum. Thus, I think it would be useful to make a map showing only Manhattan, and then the everything excluding Manhattan. This should give us a better idea of what areas outside of Manhattan might see more bar/cafe openings.
 
 
 ```{r}
@@ -446,7 +441,7 @@ ggmap(map, base_layer = ggplot(aes(x = longitude, y = latitude, color = avg), da
 This graph shows all of the data filtered for Manhattan only. We can see that once we get to Harlem and above, the average median income per neighborhood drops heavily. The rest of the city is pretty similar.
 
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 brooklyn_map2 <- get_map("Brooklyn, NY",  source = "google", zoom = 12, maptype="roadmap", color="bw")
 census_brooklyn <- census %>% dplyr:: filter(city.x == 'Brooklyn')
 ggmap(brooklyn_map2, base_layer = ggplot(aes(x = longitude, y = latitude, color = avg), data = census_brooklyn))  + geom_point(size = 4, alpha=0.7) + scale_color_viridis() + ggtitle("Average Salary of each Zipcode in Brooklyn")
@@ -477,7 +472,7 @@ Here we see a full distribution using the viridis color scheme. This will be use
 ##### Wealth by borough - Adam
 
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 plotting_zips_manhattan <- plotting_zips1 %>% filter(city.y == "New York")
 plotting_zips_brooklyn <- plotting_zips1 %>% filter(city.y == "Brooklyn")
 plotting_zips_bronx <- plotting_zips1 %>% filter(city.y == "Bronx")
@@ -495,7 +490,7 @@ g_manhattan <- ggmap(map) + geom_polygon(aes(fill = income., x = long, y = lat, 
 g_manhattan + ggtitle("Distribution of Wealth in Manhattan") + geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3) + scale_fill_viridis()
 ```
 
-This map show us the wealth in Manhattan alone by zipcode. We are now using the viridis color scale so that it is perceptually uniform and easier to see differences in color. This clearly shows that the income is very low at Harlem and above, including Morningside Heights. This is likely due to the fact that it is almost exclusively students living in Morningside Heights and Harlem is cheaper. Also, it is interesting to see that Lower East Side and has a similar income to Harlem. The wealthiest areas are by far Upper West Side and Upper East Side. We can also see that we are missing what seems to be data for two zipcodes in the Upper East side. This corresponds to some of the data that Marika had found was missing and still did not appear in the superzip dataset.
+This map show us the wealth in Manhattan alone by zipcode. We are now using the viridis color scale so that it is perceptually uniform and easier to see differences in color. This clearly shows that the income is very low at Harlem and above, including Morningside Heights. This is likely due to the fact that it is almost exclusively students living in Morningside Heights and Harlem is cheaper. Also, it is interesting to see that Lower East Side has a similar average income to Harlem. The wealthiest areas are by far Upper West Side and Upper East Side. We can also see that we are missing what seems to be data for two zipcodes in the Upper East side. This corresponds to some of the data that Marika had found was missing and still did not appear in the superzip dataset.
 
 ```{r figwidth=10}
 g_brooklyn <- ggmap(brooklyn_map) + geom_polygon(aes(fill = income., x = long, y = lat, group = group), data = plotting_zips_brooklyn, alpha = 0.5)
@@ -504,7 +499,7 @@ g_brooklyn + ggtitle("Distribution of Wealth in Brooklyn") + geom_text_repel(dat
 
 By observing the income distribution in Brooklyn, we see that in general, the areas closer to Manhattan have the highest income such as Brooklyn Heights and Crown Heights.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 g_bronx <- ggmap(bronx_map) + geom_polygon(aes(fill = income., x = long, y = lat, group = group), data = plotting_zips_bronx, alpha = 0.5)
 g_bronx + ggtitle("Distribution of Wealth in Bronx") + geom_text_repel(data=bronx_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3) + scale_fill_viridis()
 ```
@@ -518,8 +513,8 @@ g_queens + ggtitle("Distribution of Wealth in Queens") + geom_text_repel(data=qu
 
 Surprisingly, it seems that in Queens, some of the higher income areas actually appear further away from Manhattan like in Flushing and Forest Hills and Rego Park. However, there are some higher income areas closer to Manhattan as well like East Elmhurst. 
 
-#### Sidewalk Cafe License Data - Marika
-Any business that operates a portion of a restaurant on a public sidewalk must obtain a Sidewalk Cafe License from New Yor City. These licenses must be renewed every two years and fall into three categories: enclosed, unenclosed, or small unenclosed sidewalk cafes. 
+#### Sidewalk Cafe License Data 
+Any business that operates a portion of a restaurant on a public sidewalk must obtain a Sidewalk Cafe License from New York City. These licenses must be renewed every two years and fall into three categories: enclosed, unenclosed, or small unenclosed sidewalk cafes. 
 
 ##### Analyzing by Borough
 
@@ -529,14 +524,14 @@ sidewalks <- sidewalks %>% mutate(BOROUGH = ifelse(CITY=="NEW YORK"|CITY=="New Y
 ```
 
 To get a better understanding of the distribution of these licenses, I have provided a bar graph by borough.
-```{r}
-ggplot(sidewalks, aes(x=fct_infreq(BOROUGH)))+geom_bar(aes(fill=BOROUGH))+ggtitle("Frequency of Sidewalk Cafe Licenses by Borough")+xlab("Borough")+ylab("Frequency")
+```{r message=FALSE, warning=FALSE}
+ggplot(sidewalks, aes(x=fct_infreq(BOROUGH)))+geom_bar(aes(fill=BOROUGH))+ggtitle("Frequency of Sidewalk Cafe Licenses by Borough")+xlab("Borough")+ylab("Frequency")+theme_fivethirtyeight()
 ```
 Clearly Manhattan has the most license requests, followed by Brooklyn, then Queens and finally Bronx. Since at the moment we don't have neighborhood information (everything in Manhattan is just classified as New York, Brooklyn has only Brooklyn, and Bronx has only the city of Bronx), we can only dive into the Queens data:
 
 ```{r}
 queens_cafes <- sidewalks %>% filter(BOROUGH=="QUEENS")
-ggplot(queens_cafes, aes(x=fct_infreq(CITY)))+geom_bar(fill="purple")+ggtitle("Frequency of Sidewalk Cafe Licenses in Queens")+xlab("City / Neighborhood")+ylab("Frequency")+coord_flip()
+ggplot(queens_cafes, aes(x=fct_infreq(CITY)))+geom_bar(fill="purple")+ggtitle("Frequency of Sidewalk Cafe Licenses in Queens")+xlab("City / Neighborhood")+ylab("Frequency")+coord_flip()+theme_fivethirtyeight()
 
 ```
 
@@ -561,12 +556,12 @@ sidewalks<-sidewalks %>% mutate(STATUS_CLASSIFICATION = ifelse(LIC_STATUS=="Acti
 Now that we have classified the status of the licenses, we are able to see how these classifications differ between the boroughs. 
 
 ```{r fig.align='center'}
-ggplot(sidewalks)+geom_mosaic(aes(x=product(STATUS_CLASSIFICATION,BOROUGH),fill=factor(STATUS_CLASSIFICATION)))+coord_flip()+labs(x="Borough",y="License Status", fill="License Designation")+ggtitle("Boroughs by License Status")
+ggplot(sidewalks)+geom_mosaic(aes(x=product(STATUS_CLASSIFICATION,BOROUGH),fill=factor(STATUS_CLASSIFICATION)))+coord_flip()+labs(x="Borough",y="License Status", fill="License Designation")+ggtitle("Boroughs by License Status")+theme_fivethirtyeight()
 ```
 The mosaic plot shows how Bronx and Brooklyn may be getting more new license requests as a percentage of total licenses. Bronx is also getting the highest percentage of renewal requests out of its inactive and active licenses. We can also take a look at the license designations by borough:
 
 ```{r}
-ggplot(sidewalks)+geom_mosaic(aes(x=product(BOROUGH,STATUS_CLASSIFICATION),fill=factor(BOROUGH)))+coord_flip()+labs(x="License Status",y="Borough", fill="Borough")+ggtitle("License Status by Borough")
+ggplot(sidewalks)+geom_mosaic(aes(x=product(BOROUGH,STATUS_CLASSIFICATION),fill=factor(BOROUGH)))+coord_flip()+labs(x="License Status",y="Borough", fill="Borough")+ggtitle("License Status by Borough")+theme_fivethirtyeight()
 ```
 
 Looking at the data in this way, you can see how Brooklyn has the second-most new license requests, but how Manhattan still dominates in all license status categories.
@@ -603,7 +598,7 @@ Since we are quite zoomed out, it is difficult to see what exactly is happening 
 bronx_map <- get_map("Bronx, NY",  source = "google", zoom = 12, maptype="roadmap", color="bw") 
 ```
 ```{r fig.width=10, message=FALSE, warning=FALSE}
-ggmap(bronx_map)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color=BOROUGH),data=new_active)+facet_wrap(~STATUS_CLASSIFICATION2)+ggtitle("Active and New Licenses in the Bronx")
+ggmap(bronx_map)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color=BOROUGH),data=new_active)+facet_wrap(~STATUS_CLASSIFICATION2)+ggtitle("Active and New Licenses in the Bronx")+theme_fivethirtyeight()
 ```
 Since there are very few active or new licenses in the Bronx, I feel comfortable in zooming in on the rest of Manhattan / Brooklyn and Queens in order to be able to better see what is happening at the expense of Bronx. 
 
@@ -639,17 +634,17 @@ This heatmap shows the highest concentration of sidewalk cafes in Greenwich Vill
 
 ```{r fig.width=10, message=FALSE, warning=FALSE}
 g <- ggmap(manhattan_map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, fill=..level..),data=sidewalks_manhattan_active, geom="polygon", alpha=0.3)+facet_wrap(~STATUS_CLASSIFICATION2)
-g+scale_fill_gradient(low="yellow",high="red")+ggtitle("Heatmap of Sidewalk Cafe Licenses in Manhattan")+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)
+g+scale_fill_gradient(low="yellow",high="red")+ggtitle("Heatmap of Sidewalk Cafe Licenses in Manhattan")+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)+theme_fivethirtyeight()+guides(fill=FALSE)
 ```
 The heatmap view of the map is not a great one - it is difficult to tell the differences on the same scales in a heatmap. Looking at the same view, but by using geom_point again, we get the following view: 
 ```{r fig.width=10, message=FALSE, warning=FALSE}
-ggmap(manhattan_map)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color=nbh),data=sidewalks_manhattan_active)+facet_wrap(~STATUS_CLASSIFICATION2)+ggtitle("Active and New Licenses in Manhattan") + guides(color=FALSE)+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)
+ggmap(manhattan_map)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color=nbh),data=sidewalks_manhattan_active)+facet_wrap(~STATUS_CLASSIFICATION2)+ggtitle("Active and New Licenses in Manhattan") + guides(color=FALSE)+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)+theme_fivethirtyeight()
 ```
 Once again, the data is not telling us too much since there are very few new requests. Perhaps a better way to categorize this data is to look at the years that applications were submitted, therefore ignoring whether a license is currently active or not.
 
 ```{r}
-year_bxp<-ggplot(sidewalks_nbh, aes(y=SUBMIT_YEAR,x=1))+geom_boxplot()+ggtitle("Boxplot of Submission Years")
-year_bar<-ggplot(sidewalks_nbh,aes(x=SUBMIT_YEAR))+geom_bar()+ggtitle("Bar Graph of Submission Years")
+year_bxp<-ggplot(sidewalks_nbh, aes(y=SUBMIT_YEAR,x=1))+geom_boxplot()+ggtitle("Boxplot of Submission Years")+theme_fivethirtyeight()
+year_bar<-ggplot(sidewalks_nbh,aes(x=SUBMIT_YEAR))+geom_bar()+ggtitle("Bar Graph of Submission Years")+theme_fivethirtyeight()
 grid.arrange(year_bxp, year_bar, ncol=2)
 ```
 
@@ -666,7 +661,7 @@ manhattan_counts$SUBMIT_YEAR<-as.factor(manhattan_counts$SUBMIT_YEAR)
 
 manhattan_counts$SUBMIT_YEAR<-factor(manhattan_counts$SUBMIT_YEAR, c("2017", "2016","2015"))
 
-ggplot(manhattan_counts, aes(x=reorder(nbh, count), y=count, fill=SUBMIT_YEAR))+geom_bar(stat="identity",position=position_dodge())+coord_flip()+xlab("Neighborhood")+ggtitle("License Requests per Neighborhood and Year")
+ggplot(manhattan_counts, aes(x=reorder(nbh, count), y=count, fill=SUBMIT_YEAR))+geom_bar(stat="identity",position=position_dodge())+coord_flip()+xlab("Neighborhood")+ggtitle("License Requests per Neighborhood and Year")+theme_fivethirtyeight()
 ```
 It makes sense that 2016 would have more applications than 2015, since many of the 2015 applications have been renewed by now. It looks like Greenwich Village, Upper West Side, and Upper Easy Side consistently have the highest number of requests throughout the three years. However, to get a better understanding of the distribution of areas, we can create three separate heatmaps.
 
@@ -675,12 +670,12 @@ map2015 <- ggmap(manhattan_map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, fill=
 map2015
 ```
 ```{r message=FALSE, warning=FALSE}
-map2016<-ggmap(manhattan_map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, fill=..level..),data=sidewalks_manhattan%>%filter(SUBMIT_YEAR=="2016"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")+ggtitle("Manhattan Licenses Applied for in 2016")+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)
+map2016<-ggmap(manhattan_map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, fill=..level..),data=sidewalks_manhattan%>%filter(SUBMIT_YEAR=="2016"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")+ggtitle("Manhattan Licenses Applied for in 2016")+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)+guides(fill=FALSE)
 map2016
 ```
 
 ```{r message=FALSE, warning=FALSE}
-map2017 <- ggmap(manhattan_map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, fill=..level..),data=sidewalks_manhattan%>%filter(SUBMIT_YEAR=="2017"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")+ggtitle("Manhattan Licenses Applied for in 2017")+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)
+map2017 <- ggmap(manhattan_map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, fill=..level..),data=sidewalks_manhattan%>%filter(SUBMIT_YEAR=="2017"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")+ggtitle("Manhattan Licenses Applied for in 2017")+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)+guides(fill=FALSE)
 map2017
 
 ```
@@ -725,7 +720,7 @@ zip_sidewalk <- sidewalks_nbh %>% group_by(ZIP, BOROUGH) %>% summarise(n_cafes=n
 summary_cafe <- merge(zip_sidewalk, mean_incomes, by="ZIP")
 ```
 ```{r message=FALSE, warning=FALSE}
-ggplot(summary_cafe, aes(x=mean_income, y=n_cafes))+geom_point()+xlab("Average Income (in Thousands of Dollars)")+ylab("Number of Sidewalk Cafes")+geom_smooth(method=lm) 
+ggplot(summary_cafe, aes(x=mean_income, y=n_cafes))+geom_point()+xlab("Average Income (in Thousands of Dollars)")+ylab("Number of Sidewalk Cafes")+geom_smooth(method=lm)+theme_fivethirtyeight()
 ```
 ```{r}
 cafe.lm = lm(mean_income~n_cafes, data=summary_cafe) 
@@ -734,7 +729,7 @@ summary(cafe.lm)$r.squared
 On all the data, there is pretty weak correlation between income and number of sidewalk cafes, with an r-squares of 0.196.
 
 ```{r message=FALSE, warning=FALSE}
-ggplot(summary_cafe, aes(x=mean_income, y=n_cafes))+geom_point()+xlab("Average Income (in Thousands of Dollars)")+ylab("Number of Sidewalk Cafes")+geom_smooth(method=lm)+facet_wrap(~BOROUGH, scales="free")
+ggplot(summary_cafe, aes(x=mean_income, y=n_cafes))+geom_point()+xlab("Average Income (in Thousands of Dollars)")+ylab("Number of Sidewalk Cafes")+geom_smooth(method=lm)+facet_wrap(~BOROUGH, scales="free")+theme_fivethirtyeight()
 ```
 
 Faceting by Borough, we can see how the relationship is actually negative in Bronx and Queens, but positive in Manhattan and Brooklyn (with the strongest relationship in Manhattan). 
@@ -761,19 +756,19 @@ liq <-liq %>% mutate(TYPE="Bar")
 total <- rbind(liq,side)
 ```
 ```{r fig.width=20, message=FALSE, warning=FALSE}
-ggmap(map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, color=TYPE),size=2, alpha=.5,contour=TRUE,data=total, geom="density2d")+xlab("") + ylab("")+theme(axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank(),axis.line = element_line(color = NA))+ guides(fill=FALSE,alpha=FALSE)+facet_wrap(~YEAR)
+ggmap(map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, color=TYPE),size=2, alpha=.5,contour=TRUE,data=total, geom="density2d")+xlab("") + ylab("")+theme(axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank(),axis.line = element_line(color = NA))+ guides(fill=FALSE,alpha=FALSE)+facet_wrap(~YEAR)+theme_fivethirtyeight()
 ```
 
 The graph shows how in 2015, most establishments are concentrated mostly in Manhattan, with bubbles in Brooklyn Heights, Williamsburg, and Astoria. However, in 2016, you can see the bars density contours spread out to neighborhoods next to Manhattan, especially in Brooklyn. In 2017, we are seeing the same happen with sidewalk cafes.
 
-#### Liquor License Data - Rohan
+#### Liquor License Data
 
 First I checked the distribution of liquor licenses by zip code.
 
 
 ```{r}
 temp <- nyc_liquor_licenses %>% group_by(mod_zip) %>% summarise(num = n())
-qplot(temp$num, binwidth = 10)
+qplot(temp$num, binwidth = 10)+theme_fivethirtyeight()
 ```
 It is not surprising that this is a long tailed distribution, however it is very surprising that some zip codes have very high concentrations of liquor licenses. I looked into the zip codes with especially high number of licenses.
 
@@ -801,16 +796,16 @@ Albany issues all the licenses. I have never been on a train to Albany, but next
 This made me want to know more about the different types of liquor licenses that are granted.
 
 ```{r, fig.height=10}
-nyc_liquor_licenses %>%  ggplot(., aes(x=fct_infreq(License.Type.Name))) + geom_bar() + coord_flip() 
+nyc_liquor_licenses %>%  ggplot(., aes(x=fct_infreq(License.Type.Name))) + geom_bar() + coord_flip() +theme_fivethirtyeight()
 ```
 
 There are a lot of fringe categories such as Distiller B-1 and Distiller A that are offered to a few places. However, the active liquor licenses are unsurprisingly dominated by on-premise liquor establishments, sometimes known as bars. There is also a distinction between beer and wine. I would like to explore that further.
 
 Another basic variable I wanted to investigate was the how effective liquor licences have grown over the years. 
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 nyc_liquor_licenses %>% group_by(effective_year) %>% summarise(num = n()) %>% 
-  ggplot(., aes(x=effective_year, y = num)) + geom_bar(stat='identity')
+  ggplot(., aes(x=effective_year, y = num)) + geom_bar(stat='identity')+theme_fivethirtyeight()
 ```
 The biggest years represented are 2015 and 2016. I am not surprised by the fact that 2017 has fewer records. The year is only 1/3 done, and I don't know how quickly it takes an active liquor license to be successfully recorded so it might be possible that liquor licenses that have been granted in Februrary and March are not included in the dataset. I do want to look a little further at 2014.
 
@@ -819,20 +814,20 @@ My first hypothesis is that only licenses in later months were included
 nyc_liquor_licenses %>% mutate(month = months(License.Effective.Date)) %>% 
   mutate(month_ind = month(License.Effective.Date)) %>% group_by(month, month_ind, effective_year) %>% 
   summarise(num = n()) %>% ggplot(., aes(x = reorder(month, -month_ind), y = num)) + geom_bar(stat='identity') +
-  facet_wrap(~effective_year) + coord_flip()
+  facet_wrap(~effective_year) + coord_flip()+theme_fivethirtyeight()
 ```
 Although this data would be better shown in a time-series plot, the pattern is clear. The distributon of bars in 2014 by month does not suggest that my hypothesis is correct as the number of active licenses from March to December in that year is roughly constant and all other years other than 2017 show that licenses that are effective in January and February are fewer in comparison to other months. It might be coincidental, but in 2014-2016, March and October have a slightly higher number of licenses that become effective that month. 
 
 I then decided to look into license type. 
 
 ```{r}
-nyc_liquor_licenses %>%  filter(effective_year == 2014) %>% ggplot(., aes(x=fct_infreq(License.Type.Name))) + geom_bar() + coord_flip()
+nyc_liquor_licenses %>%  filter(effective_year == 2014) %>% ggplot(., aes(x=fct_infreq(License.Type.Name))) + geom_bar() + coord_flip()+theme_fivethirtyeight()
 ```
 Astonishingly, there are way fewer types of licenses in 2014. Additionally, there are almost no on-premise liquor licenses. My guess as to why this happens is that the liquor licenses for bars expire quicker. I wanted to look into how long licenses are effective for.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 temp <- nyc_liquor_licenses %>% mutate(active_length = License.Expiration.Date - License.Effective.Date)
-qplot(temp$active_length, binwidth = 7)
+qplot(temp$active_length, binwidth = 7)+theme_fivethirtyeight()
 ```
 Essentially, there seem to be two huge spikes which seem to correspond to 2 and 3 years
 
@@ -842,52 +837,61 @@ nyc_liquor_licenses %>% mutate(active_length = License.Expiration.Date - License
 ```
 By far, the most common lengths of licenses are 730 and 1095 which are 2 and 3 years respectively. Looking at the graph, the rest of the lengths are close to these lengths
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 nyc_liquor_licenses %>% filter(License.Type.Name == 'ON-PREMISES LIQUOR') %>% 
   mutate(active_length = License.Expiration.Date - License.Effective.Date) %>% 
-  qplot(x = active_length, data = ., binwidth = 7)
+  qplot(x = active_length, data = ., binwidth = 7)+theme_fivethirtyeight()
 ```
 It does look like on-premise liquor licenses are for two years.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 nyc_liquor_licenses %>% filter(License.Type.Name == 'GROCERY BEER, WINE PROD') %>% 
   mutate(active_length = License.Expiration.Date - License.Effective.Date) %>% 
-  qplot(x = active_length, data = ., binwidth = 7)
+  qplot(x = active_length, data = ., binwidth = 7)+theme_fivethirtyeight()
 ```
 In contrast, grocery licenses look to be for around 3 years
 
 The month plot made me question how licenses become active during the month.
 
-```{r}
-nyc_liquor_licenses %>% mutate(dom  = day(License.Effective.Date)) %>% qplot(x=dom, data=.)
+```{r message=FALSE, warning=FALSE}
+nyc_liquor_licenses %>% mutate(dom  = day(License.Effective.Date)) %>% qplot(x=dom, data=.)+theme_fivethirtyeight()
 ```
 
 And for expiring date,
-```{r}
-nyc_liquor_licenses %>% mutate(dom  = day(License.Expiration.Date)) %>% qplot(x=dom, data=.)
+```{r message=FALSE, warning=FALSE}
+nyc_liquor_licenses %>% mutate(dom  = day(License.Expiration.Date)) %>% qplot(x=dom, data=.)+theme_fivethirtyeight()
 ```
 From these two plots, we can see that licenses seem to become effective at the beginning of the month and expire at the end of the month,
 
 I also wanted to look at the spatial distribution.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 ggmap(manhattan_map)+stat_density2d(aes(x=Longitude,y=Latitude, fill=..level..),data=nyc_liquor_licenses%>%filter(effective_year=="2015") %>% 
                                       filter(city.x == "Manhattan"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")
 ```
-```{r}
+```{r message=FALSE, warning=FALSE}
 ggmap(manhattan_map)+stat_density2d(aes(x=Longitude,y=Latitude, fill=..level..),data=nyc_liquor_licenses%>%filter(effective_year=="2016") %>% 
                                       filter(city.x == "Manhattan"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")
 ```
 In these two maps we see the spatial distribution between two years in which the license became effective. They are both very similar with the Midtown and Lower East Side having the highest density. The biggest difference between the two is that Morningside heights and north has more activity in 2016. Again, this isn't to say that new places popped up in these neighborhoods, but licensed became active in this year. 
-```{r}
+```{r message=FALSE, warning=FALSE}
 ggmap(manhattan_map)+stat_density2d(aes(x=Longitude,y=Latitude, fill=..level..),
                                     data=nyc_liquor_licenses%>% filter(city.x == "Manhattan") %>% 
                                       filter(License.Type.Name == "EATING PLACE BEER"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")
 ```
-```{r}
+```{r message=FALSE, warning=FALSE}
 ggmap(manhattan_map)+stat_density2d(aes(x=Longitude,y=Latitude, fill=..level..),
                                     data=nyc_liquor_licenses%>% filter(city.x == "Manhattan") %>% 
                                       filter(License.Type.Name == "RESTAURANT WINE"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")
 ```
 These two maps compare wine in restaurants to beer in eating places. In the top map, the hotspot for beer stretches from Midtown all the way down to the Lower East Side. Additionally, outside of the upper east side and upper west side, the map is pretty much covered. In contrast, for wine, the concentration is clearly concentrated in the South and the East. Furthermore, the areas not covered in the beer map are covered in the wine map outside of Central Park. These areas tend to be more affluent, so this gives some evidence that wine is enjoyed more by more affluent people. 
-## 6. Conclusion - Rohan
+## 6. Conclusion  
+This project delved into exploring where sidewalk cafe and liquor licenses are issued and the geospatial relationship between these variables and income. Intuitively, areas generally associated as up and coming neighborhoods such as WIlliamsburg were found to see increases in the past two years. However, in Queens, there was found to be a negative correlation between income and sidewalk cafe and liquor licenses.  
+
+All of these conclusions should be taken with a grain of salt. First, we can't be sure that the data for either sidewalk cafes or liquor licenses is complete. There might be places who operate without a license or places that aren't recorded properly in the dataset. One such example was found in the liquor license data. Additionally, only two liquor licenses were granted to non rail-cars in Grand Central. This seems to be underestimating the true value. There were also two missing zip codes in the data and 15 zip codes that were not found in the liquor license data, giving further evidence that this dataset was incomplete.  
+
+The income data was collected by the census. While this data should be high quality, the most recent census was conducted in 2010 which means data might not be recent, especially considering the analysis focused on the years 2015-2016.  Also, we used when the license was issued as a proxy for which neighborhoods were growing. In the sidewalk cafe data, renewed licenses overwrote the existing license for the place. In the liquor license data, it was seen that licenses had to renewed every two years for bars. Without access to all the historical data it is hard to separate growth from the renewal of licenses.  
+
+In terms of correlation, some neighborhoods such as MIdtown were found to have a high number of liquor licenses and sidewalk cafes. These correlations might be spurious as more people tend to live in these areas. This analysis only focused on how income affected sidewalk cafes and bars popping up, but the real cause might be something we didn't account for such as demographic information, ease of transportation, etc.   
+
+For an introductory study, we were able to identify several trends in how licenses are issued, how wealth is distributed geographically across New York City, and correlations between these two variables. Without doing any modelling, we were able to generate and assess the validity of several hypotheses, and some of our preconceived notions were proven wrong. Hopefully, this study was able to show promise in how visualizing and mapping licenses can help provide insight about the what drives certain institutions to grow. 
