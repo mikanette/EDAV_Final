@@ -881,6 +881,7 @@ ggmap(manhattan_map)+stat_density2d(aes(x=Longitude,y=Latitude, fill=..level..),
 ggmap(manhattan_map)+stat_density2d(aes(x=Longitude,y=Latitude, fill=..level..),data=nyc_liquor_licenses%>%filter(effective_year=="2016") %>% 
                                       filter(city.x == "Manhattan"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")
 ```
+In these two maps we see the spatial distribution between two years in which the license became effective. They are both very similar with the Midtown and Lower East Side having the highest density. The biggest difference between the two is that Morningside heights and north has more activity in 2016. Again, this isn't to say that new places popped up in these neighborhoods, but licensed became active in this year. 
 ```{r}
 ggmap(manhattan_map)+stat_density2d(aes(x=Longitude,y=Latitude, fill=..level..),
                                     data=nyc_liquor_licenses%>% filter(city.x == "Manhattan") %>% 
@@ -891,5 +892,5 @@ ggmap(manhattan_map)+stat_density2d(aes(x=Longitude,y=Latitude, fill=..level..),
                                     data=nyc_liquor_licenses%>% filter(city.x == "Manhattan") %>% 
                                       filter(License.Type.Name == "RESTAURANT WINE"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")
 ```
-
+These two maps compare wine in restaurants to beer in eating places. In the top map, the hotspot for beer stretches from Midtown all the way down to the Lower East Side. Additionally, outside of the upper east side and upper west side, the map is pretty much covered. In contrast, for wine, the concentration is clearly concentrated in the South and the East. Furthermore, the areas not covered in the beer map are covered in the wine map outside of Central Park. These areas tend to be more affluent, so this gives some evidence that wine is enjoyed more by more affluent people. 
 ## 6. Conclusion - Rohan
