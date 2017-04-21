@@ -1,8 +1,9 @@
 ---
 title: "R Notebook"
 output:
-  html_notebook: default
   html_document: default
+  html_notebook:
+    theme: journal
 ---
 
 ## 1. Introduction
@@ -32,19 +33,52 @@ We realized that there is no authoritative datasource mapping each zip code to a
 
 * [Bronx Neighborhoods](http://statisticalatlas.com/county-subdivision/New-York/Bronx-County/Bronx/Overview)
 
-## 2. Team - Adam
+## 2. Team
 
-List team members and a description of how each contributed to the project. (If you're working alone, briefly describe the stages of the project.) 
+1. Adam Coviensky - in charge of the income per zipcode data
 
-1. Adam Coviensky -  
-Adam was mostly in charge of the income per zipcode data. He found and analyzed the original property value dataset which we did not end up using once we determined that it would be hard to map the neighborhoods and cafe and liquor license data without zipcodes. He found and cleaned new superzip dataset and helped join the zipcodes to neighborhoods. He also did the zipcode shapefile graphs by income and wrote the writeup corresponding to his sections. He helped to combine the analysis and make observations.
+* Found and analyzed the original property value dataset which we did not end up using once we determined that it would be hard to map the neighborhoods and cafe and liquor license data without zipcodes. 
+
+* Found and cleaned new superzip dataset 
+
+* Joined the zipcodes to initial set of neighborhoods
+
+* Created zipcode shapefile graphs by income 
+
+* Wrote the data quality analysis and exploration corresponding to his sections
+
+* Developed Shiny component of the Executive Summary
 
 
-2. Rohan Pitre -  
+2. Rohan Pitre -
 
-3. Marika Lohmus -  
+* Analysed and cleaned Liquor License dataset
 
-```{r}
+* Wrote the data quality analysis and exploration corresponding to his sections
+
+* Wrote Conclusion
+
+3. Marika Lohmus -
+
+* Wrote Summary 
+
+* Identified and filled in missing zipcodes and neighborhoods in the master zip file
+
+* Coded web-scrapers to fill in zipcode to neighborhood mappings
+
+* Generated base template maps for the project to work on
+
+* Set up and uploaded Shiny apps to server
+
+* Analysed and cleaned Sidewalk License dataset
+
+* Wrote the data quality analysis and exploration corresponding to her sections
+
+* Wrote Executive Summary
+
+
+
+```{r message=FALSE, warning=FALSE}
 
 require(ggplot2)
 require(dplyr)
@@ -203,7 +237,7 @@ sidewalks$CITY[sidewalks$CITY=="New York"]<-"NEW YORK"
 
 The second data quality issue I encountered was the longitude and latitude of two restaurants. Plotting all restaurants using qmplot, I got the following result:
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 qmplot(LONGITUDE,LATITUDE,data=sidewalks,maptype="toner-lite",color=I("purple"))
 ```
 Note that there is a mysterious dot all the way west of Harrisburg, PA. This should not be the case since the data should only apply to the City and boroughs of New York, so I plotted the longitude and latitude to see any outliers.
@@ -213,7 +247,7 @@ long<-ggplot(sidewalks,aes(x=LONGITUDE))+geom_histogram(binwidth=.01)+ggtitle("L
 grid.arrange(lat,long,nrow=2)
 ```
 You can barely see some points beow the 40.25 latitude and -77 longitude, which seem to be quite off from the rest. Next, I zoomed in on those values:
-```{r}
+```{r message=FALSE, warning=FALSE}
 lat<-ggplot(sidewalks, aes(x=LATITUDE))+geom_histogram(binwidth=.25)+ggtitle("Zoomed Latitude Histogram")+xlim(39,40.25)
 long<-ggplot(sidewalks,aes(x=LONGITUDE))+geom_histogram(binwidth=.25)+ggtitle("Zoomed Longitude Histogram")+xlim(-80,-77)
 grid.arrange(lat,long,nrow=2)
@@ -224,7 +258,7 @@ sidewalks %>% filter(LONGITUDE < -77) %>% select(BUSINESS_NAME2,LONGITUDE,LATITU
 ```
 Looking these locations up on Google, it looks like there was an error in entering their longitude and latitude. The correct values are (40.72017,-73.9968) for Mulberry Street Bar and (40.79593,-73.9357) for Prime One 16. I have corrected these values in another CSV, which I will use from here on.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 sidewalks<-read.csv("Data/Sidewalk Cafes/Sidewalk_Licenses2.csv",strip.white=TRUE, na.strings=c("","NA"))
 sidewalks$CITY[sidewalks$CITY=="LONG IS CITY"]<-"LONG ISLAND CITY"
 sidewalks$CITY[sidewalks$CITY=="MIDDLE VLG"]<-"MIDDLE VILLAGE"
@@ -318,18 +352,7 @@ In order to make this analysis consistent with the other datasets, I will use th
 
 ## 4. Executive Summary - All
 
-Interactive Map of New York City
-
-Provide a short nontechnical summary of the most revealing findings of your analysis with no more than 3 static graphs or one interactive graph (or link), written for a nontechnical audience. The length should be approximately 2 pages (if we were using pages...) Do not show code, and take extra care to clean up your graphs, ensuring that best practices for presentation are followed.
-.  Note: the tips below are not intended to be a complete list of everything we've covered this semester on designing a successful graph.  It's meant to help you avoid some common
-problems.
-.  Title, axis labels, tick mark labels, and legends should be comprehensible (easy to understand) and legible (easy to read / decipher).
-.  Tick marks should not be labeled in scientific notation or with long strings of zeros, such as 3000000000. Instead, convert to smaller numbers and change the units: 3000000000 becomes "3" and the axis label "billions of views".
-.  Units should be intuitive (Extreme example: an axis labeled in month/day/year format is intuitive, one labeled in seconds since January 1, 1970 is not.)
-.  The font size should be large enough to read clearly. The default in ggplot2 is generally too small. You can easily change it by passing the base font size to the theme, such as  + theme_grey(16). (The default base font size is 11.)
-.  The order of items on the axes and legends is logical. (Alphabetical is often not logical.) .  Colors should be color vision deficiency friendly. .  If a legend is taking up too much space on the right, move it to the bottom. .  If categorical variable levels are long, set up the graph so the categorical variable is on the y-axis
-and the names are horizontal.  A better option, if possible, is to shorten the names of the levels.
-.  Not all EDA graphs lend themselves to presentation, either because the graph form is hard to understand without practice or it's not well labeled. The labeling problem can be solved by adding text in an image editor. The downside is that it is not reproducible. If you want to go this route, Paintbrush is a free and simple bitmap image editor for the Mac: https://paintbrush.sourceforge.io/ There are many other options. 
+[Link to Executive Summary](https://marikalohmus.shinyapps.io/executive_summary/)
 
 ## 5. Main Analysis - All
 
@@ -487,15 +510,15 @@ Looking at the data in this way, you can see how Brooklyn has the second-most ne
 ##### Mapping Licenses
 
 We can map the data to have a better view of where the datapoints lie. To get an overall picture, I selected a map centered on Long Island City in Queens so that we can get a good view of both Brooklyn and Bronx in addition to Manhattan. 
-```{r}
+```{r message=FALSE, warning=FALSE}
 map <- get_map( location = c(-73.9485424, 40.7454513),  source = "google", zoom = 11, maptype="roadmap", color="bw") 
 ```
 Plotting each of the restaurants colored by their borough. You can see how Manhattan dominates in the number of sidewalk cafes, and how the sidewalk cafes in Brooklyn and Queens are largely concentrated in the areas closer to Manhattan.
-```{r fig.width=10}
+```{r fig.width=10, message=FALSE, warning=FALSE}
 ggmap(map)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color=BOROUGH),data=sidewalks, alpha=0.3)+ggtitle("Distribution of all licenses (inactive or active) in NYC")
 ```
 Even with alpha, it is difficult to tell exactly where the largest concentrations of sidewalk cafes lie. Using a density plot, we can better see the concentration of sidewalk cafes around mid-to lower Manhattan, and the clusters in Astoria and Williamsburg. 
-```{r fig.width=10}
+```{r fig.width=10, message=FALSE, warning=FALSE}
 g <- ggmap(map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, fill=..level..),data=sidewalks, geom="polygon", alpha=0.2)
 g+scale_fill_gradient(low="yellow",high="red")+ggtitle("Heatmap of Sidewalk Cafe Licenses in NYC")
 ```

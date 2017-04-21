@@ -7,11 +7,11 @@ output:
     theme: journal
 ---
 
-```{r setup, include=FALSE, warnings=FALSE, messages=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+```{r setup, include=FALSE, warnings=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning=FALSE, message=FALSE)
 ```
 
-```{r}
+```{r libraries, echo=FALSE, warning=FALSE, message=FALSE}
 require(shiny)
 require(ggplot2)
 require(ggrepel)
@@ -26,7 +26,7 @@ require(reshape2)
 ###Summary
 You have probably heard of 'emerging' or 'up and coming' areas like Williamsburg, Brooklyn or Astoria, Queens. These are neighborhoods that are growing in popularity, especially among young professionals, and that have a lot of new business popping up. We wanted to investigate whether it would be possible to identify these neighborhoods through data. The interactive map below allows you to look at new liquor and sidewalk cafe licenses popping up from 2015 to 2017, and compare it to the mean incomes of the associated areas. Please note that as we are still in the beginning of 2017, we do not have much data for the year.
 
-```{r}
+```{r loader, echo=FALSE, warning=FALSE, message=FALSE}
 queens_names<-read.csv("Data/QU_Locations.csv",strip.white=TRUE)
 brooklyn_names<-read.csv("Data/BK_Locations.csv",strip.white=TRUE)
 manhattan_names<-read.csv("Data/MA_Locations.csv",strip.white=TRUE)
@@ -54,7 +54,7 @@ liquor_queens<-liquor %>% filter(BOROUGH == "QUEENS")
 
 
 
-```{r maps, echo = FALSE}
+```{r maps, echo = FALSE, warning=FALSE, messages=FALSE}
   inputPanel(
 selectInput(inputId="borough",label="Choose Borough:",choices=c("Manhattan","Brooklyn", "Queens", "Bronx")),
 sliderInput(inputId="year",label="Choose Year:",value=2015, min=2015, max=2017),
