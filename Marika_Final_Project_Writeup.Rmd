@@ -16,7 +16,7 @@ We also found a dataset about all requested and active sidewalk cafe license app
 
 Finally, we wanted to know whether there is a clear correlation between the average income of neighborhood inhabitants and the number of sidewalk cafes and bars in that area. To do this, we used the following datasets:   
 
-* [Income Tied to Zipcode](https://github.com/jcheng5/superzip/tree/master/data)  
+* [Income Tied to Zipcode - 2010](https://github.com/jcheng5/superzip/tree/master/data)  
 
 * [Mapping of ZipCodes to Neighborhoods and Lon/Lat data](https://www.baruch.cuny.edu/confluence/display/geoportal/NYC+Geographies)  
 
@@ -102,7 +102,7 @@ require(ggthemes)
 
 #### Zip Code, Neighborhood and Land Value Data
 
-We realized that the original data was not going to be sufficient. We only had a few rental observations from Staten Island, Queens and the Bronx, and all of the observations were directly bordering Manhattan. We decided to find new data. We found the data for a Shiny project titled Superzip with Income per zipcode for the entire United States. Since we also wanted the income per neighborhood, we found a mapping from zipcode to neighborhood name that we will use for our final observations. It proved rather difficult to actually clean this mapping.
+We realized that the original data we chose to illustrate wealth (rental prices) was not going to be sufficient. We only had a few rental observations from Staten Island, Queens and the Bronx, and all of the observations were directly bordering Manhattan. We decided to find new data. We found the data for a Shiny project titled Superzip with Income per zipcode for the entire United States. Since we also wanted the income per neighborhood, we found a mapping from zipcode to neighborhood name that we will use for our final observations. It proved rather difficult to actually clean this mapping.
 
 ```{r}
 superzip <- read.table('Data/superzip.csv', header = TRUE)
@@ -119,7 +119,7 @@ superzip3 <- superzip2 %>% filter(city %in% c("Brooklyn", "Queens Village", "Sta
 superzip3$city[superzip3$city=="New York"] = "Manhattan"
 ```
 
-Without filtering for the state == NY, we found we had some extra rows. When we looked up these zipcodes online, we found that there were 6 other Brooklyns in the United States. Thus, we had to first filter for NY, then only containing the boroughs. Then, we changed the borough from New York to be Manhattan
+Without filtering for the state == NY, we found we had some extra rows. When we looked up these zipcodes online, we found that there were 6 other Brooklyns in the United States. Thus, we had to first filter for NY, and then for all of the boroughs.
 
 
 ```{r}
@@ -127,14 +127,14 @@ master_zip <- full_join(superzip3, neighborhood2, by = 'zipcode')
 colnames(master_zip)[11] <- "area"
 ```
 
-This showed me the rows which have NAs. As we can clearly see, there were more zipcodes in the neighborhood data than in the superzip data. Our way of adjusting for this will be to determine an average income for each neighborhood. Then, we will be imputing the missing incomes using the average incomes for the zipcodes which we do have in that neighborhood.
+This showed me the rows which have NAs. As we can see, there were more zipcodes in the neighborhood data than in the superzip data. Our way of adjusting for this will be to determine an average income for each neighborhood. Then, we will be imputing the missing incomes using the average incomes for the zipcodes which we do have in that neighborhood.
 
 
 ```{r}
 AVG_INCOME_NEIGHBORHOOD <- master_zip %>% group_by(area) %>% summarise(avg = mean(income., na.rm=TRUE))
 ```
 
-Upon viewing the output, we still have many NAs in the avg column, when looking at the master_zip dataframe filtered for "Astoria & Long Island City", which is the first neighborhood with an avg of NA, we see that it's because we have no income data for any zipcodes in this area. Therefore, once we join the average income with the master_zip dataframe we will drop these rows with NAs.
+Upon viewing the output, we still have many NAs in the avg column. When looking at the master_zip dataframe filtered for "Astoria & Long Island City", which is the first neighborhood with an avg of NA, we see that it's because we have no income data for any zipcodes in this area. Therefore, once we join the average income with the master_zip dataframe we will drop these rows with NAs.
 
 ```{r}
 master_zip2 <- left_join(master_zip, AVG_INCOME_NEIGHBORHOOD, by = "area")
@@ -183,7 +183,7 @@ census <- read.csv("Data/zips_master_no_missing_nbrh.csv")
 ggplot(census, aes(reorder(city.x, -avg, FUN = median), avg)) + geom_boxplot(varwidth = TRUE) + ggtitle("Boxplots of Income by Borough") + labs(x="Borough", y="Average Income per neighborhood") + coord_flip()+theme_fivethirtyeight()
 ```
 
-Here we see the distributions of the average income per area in each of the 5 boroughs. This plot appears to show that Queens Villge does not have very much data in it as this is a variable width boxplot. However, it turns out it is because all of the other single point neighborhoods are actually a part of Queens. This is a problem we had to fix. These are the 18 zipcodes we added back into the data.
+Here we see the distributions of the average income per area in each of the 5 boroughs. This plot appears to show that Queens Village does not have very much data in it as this is a variable width boxplot. This is because all of the other single point neighborhoods are actually a part of Queens. This is a problem we had to fix. These are the 18 zipcodes we added back into the data.
 
 ```{r}
 census$city.x[!(census$city.y %in% c("Brooklyn", "New York", "Bronx", "Staten Island"))] <- "Queens Village"
@@ -195,13 +195,13 @@ ggplot(census, aes(reorder(city.x, -avg, FUN = median), avg)) + geom_boxplot(var
 ```
 
 
-Also, there is very little spread in the distribution for Bronx and Brooklyn compared to Manhattan, which has a massive spread. The missing values occur from zipcodes which occur in the neighborhood data and not in the superzip data. We can see that the average income calculated for these zipcodes in general are high. We can thus infer they are likely from New York and looking back at the census data and filtering for the NAs, which was indeed the case.
+Also, there is very little spread in the distribution for Bronx and Brooklyn compared to Manhattan, which has a massive spread. The missing values occur from zipcodes which occur in the neighborhood data and not in the superzip data. We can see that the average income calculated for these zipcodes in general are high. We can thus infer they are likely from New York. Looking back at the census data and filtering for the NAs, which was indeed the case.
 
 ```{r message=FALSE, warning=FALSE}
 ggplot(census, aes(reorder(city.y, -avg, FUN = median), avg)) + geom_boxplot(varwidth = TRUE) + ggtitle("Boxplots of Income by Borough") + labs(x="Borough", y="Average Income per neighborhood")+theme_fivethirtyeight()
 ```
 
-Here we see with the plot with the null values removed.
+Here we see the plot with the null values removed.
 
 ```{r message=FALSE, warning=FALSE}
 census %>% filter(!is.na(census$city.x)) %>% ggplot(aes(city.x, income., color=city.x, alpha(0.1))) + geom_point(size = 2, shape = 1) + guides(color=FALSE) + ggtitle("Strip Plot of Incomes by Borough") + labs(x="Borough", y="Income")+theme_fivethirtyeight()
@@ -430,7 +430,7 @@ map <- get_map("New York City", source = "google", maptype = "roadmap", zoom = 1
 ggmap(map, base_layer = ggplot(aes(x = longitude, y = latitude, color = avg), data = census))  + geom_point(size = 3, alpha=0.7) + scale_color_viridis() + ggtitle("Average Salary of each Zipcode in New York")
 ```
 
-This map shows all of the zipcodes and we can clearly see that by far the greatest incomes per zipcode are in the Upper East Side and Upper West Side. There appears to be some grey areaa if you look closely at the Upper West Side. This corresponds to about $150,000/per year on the color map. Then, midtown and downtown also have high incomes. After that, they all fall towards the bottom of the spectrum. Thus, I think it would be useful to make a map showing only Manhattan, and then the everything excluding Manhattan. This should give us a better idea of what areas outside of Manhattan might see more bar/cafe openings.
+This map shows all of the zipcodes and we can clearly see that by far the greatest incomes per zipcode are in the Upper East Side and Upper West Side. There appears to be some grey area if you look closely at the Upper West Side. This corresponds to about $150,000/per year on the color map. Then, midtown and downtown also have high incomes. After that, they all fall towards the bottom of the spectrum. Thus, I think it would be useful to make a map showing only Manhattan, and then everything excluding Manhattan. This should give us a better idea of what areas outside of Manhattan might see more bar/cafe openings.
 
 
 ```{r}
@@ -469,7 +469,7 @@ g_all + ggtitle("Distribution of Wealth in New York") + scale_fill_viridis()
 
 Here we see a full distribution using the viridis color scheme. This will be used as the base for the overlaid plots later on and we will then filter by each borough.
 
-##### Wealth by borough - Adam
+##### Wealth by borough
 
 
 ```{r message=FALSE, warning=FALSE}
@@ -490,7 +490,7 @@ g_manhattan <- ggmap(map) + geom_polygon(aes(fill = income., x = long, y = lat, 
 g_manhattan + ggtitle("Distribution of Wealth in Manhattan") + geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3) + scale_fill_viridis()
 ```
 
-This map show us the wealth in Manhattan alone by zipcode. We are now using the viridis color scale so that it is perceptually uniform and easier to see differences in color. This clearly shows that the income is very low at Harlem and above, including Morningside Heights. This is likely due to the fact that it is almost exclusively students living in Morningside Heights and Harlem is cheaper. Also, it is interesting to see that Lower East Side has a similar average income to Harlem. The wealthiest areas are by far Upper West Side and Upper East Side. We can also see that we are missing what seems to be data for two zipcodes in the Upper East side. This corresponds to some of the data that Marika had found was missing and still did not appear in the superzip dataset.
+This map show us the wealth in Manhattan alone by zipcode. We are now using the viridis color scale so that it is perceptually uniform and easier to see differences in color. This clearly shows that the income is very low at Harlem and above, including Morningside Heights. This is likely due to the fact that it is almost exclusively students living in Morningside Heights and Harlem. Also, it is interesting to see that Lower East Side has a similar average income to Harlem. The wealthiest areas are by far Upper West Side and Upper East Side. We can also see that we are missing what seems to be data for two zipcodes in the Upper East side. This corresponds to some of the data that Marika had found was missing and still did not appear in the superzip dataset.
 
 ```{r figwidth=10}
 g_brooklyn <- ggmap(brooklyn_map) + geom_polygon(aes(fill = income., x = long, y = lat, group = group), data = plotting_zips_brooklyn, alpha = 0.5)
@@ -663,7 +663,7 @@ manhattan_counts$SUBMIT_YEAR<-factor(manhattan_counts$SUBMIT_YEAR, c("2017", "20
 
 ggplot(manhattan_counts, aes(x=reorder(nbh, count), y=count, fill=SUBMIT_YEAR))+geom_bar(stat="identity",position=position_dodge())+coord_flip()+xlab("Neighborhood")+ggtitle("License Requests per Neighborhood and Year")+theme_fivethirtyeight()
 ```
-It makes sense that 2016 would have more applications than 2015, since many of the 2015 applications have been renewed by now. It looks like Greenwich Village, Upper West Side, and Upper Easy Side consistently have the highest number of requests throughout the three years. However, to get a better understanding of the distribution of areas, we can create three separate heatmaps.
+It makes sense that 2016 would have more applications than 2015, since many of the 2015 applications have been renewed by now. It looks like Greenwich Village, Upper West Side, and Upper East Side consistently have the highest number of requests throughout the three years. However, to get a better understanding of the distribution of areas, we can create three separate heatmaps.
 
 ```{r, message=FALSE, warning=FALSE}
 map2015 <- ggmap(manhattan_map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, fill=..level..),data=sidewalks_manhattan%>%filter(SUBMIT_YEAR=="2015"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")+ggtitle("Manhattan Licenses Applied for in 2015")+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)
@@ -726,7 +726,7 @@ ggplot(summary_cafe, aes(x=mean_income, y=n_cafes))+geom_point()+xlab("Average I
 cafe.lm = lm(mean_income~n_cafes, data=summary_cafe) 
 summary(cafe.lm)$r.squared
 ```
-On all the data, there is pretty weak correlation between income and number of sidewalk cafes, with an r-squares of 0.196.
+On all the data, there is pretty weak correlation between income and number of sidewalk cafes, with an r-squared of 0.196.
 
 ```{r message=FALSE, warning=FALSE}
 ggplot(summary_cafe, aes(x=mean_income, y=n_cafes))+geom_point()+xlab("Average Income (in Thousands of Dollars)")+ylab("Number of Sidewalk Cafes")+geom_smooth(method=lm)+facet_wrap(~BOROUGH, scales="free")+theme_fivethirtyeight()
@@ -849,7 +849,7 @@ nyc_liquor_licenses %>% filter(License.Type.Name == 'GROCERY BEER, WINE PROD') %
   mutate(active_length = License.Expiration.Date - License.Effective.Date) %>% 
   qplot(x = active_length, data = ., binwidth = 7)+theme_fivethirtyeight()
 ```
-In contrast, grocery licenses look to be for around 3 years
+In contrast, it looks like grocery licenses expire in about three years.
 
 The month plot made me question how licenses become active during the month.
 
@@ -873,7 +873,7 @@ ggmap(manhattan_map)+stat_density2d(aes(x=Longitude,y=Latitude, fill=..level..),
 ggmap(manhattan_map)+stat_density2d(aes(x=Longitude,y=Latitude, fill=..level..),data=nyc_liquor_licenses%>%filter(effective_year=="2016") %>% 
                                       filter(city.x == "Manhattan"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")
 ```
-In these two maps we see the spatial distribution between two years in which the license became effective. They are both very similar with the Midtown and Lower East Side having the highest density. The biggest difference between the two is that Morningside heights and north has more activity in 2016. Again, this isn't to say that new places popped up in these neighborhoods, but licensed became active in this year. 
+In these two maps we see the spatial distribution between two years in which the license became effective. They are both very similar with the Midtown and Lower East Side having the highest density. The biggest difference between the two is that Morningside heights and Hamilton Heights have more activity in 2016. Again, this isn't to say that new places popped up in these neighborhoods, but licenses became active in this year. 
 ```{r message=FALSE, warning=FALSE}
 ggmap(manhattan_map)+stat_density2d(aes(x=Longitude,y=Latitude, fill=..level..),
                                     data=nyc_liquor_licenses%>% filter(city.x == "Manhattan") %>% 
@@ -884,13 +884,15 @@ ggmap(manhattan_map)+stat_density2d(aes(x=Longitude,y=Latitude, fill=..level..),
                                     data=nyc_liquor_licenses%>% filter(city.x == "Manhattan") %>% 
                                       filter(License.Type.Name == "RESTAURANT WINE"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")
 ```
-These two maps compare wine in restaurants to beer in eating places. In the top map, the hotspot for beer stretches from Midtown all the way down to the Lower East Side. Additionally, outside of the upper east side and upper west side, the map is pretty much covered. In contrast, for wine, the concentration is clearly concentrated in the South and the East. Furthermore, the areas not covered in the beer map are covered in the wine map outside of Central Park. These areas tend to be more affluent, so this gives some evidence that wine is enjoyed more by more affluent people. 
-## 6. Conclusion  
+These two maps compare wine in restaurants to beer in eating places. In the top map, the hotspot for beer stretches from Midtown all the way down to the Lower East Side. Additionally, outside of the Upper East Side and Upper West Side, the map is pretty much covered. In contrast, for wine, the distribution is clearly concentrated in the South and the East. Furthermore, the areas not covered in the beer map are covered in the wine map outside of Central Park. These areas tend to be more affluent, so this gives some evidence that wine is enjoyed more by affluent people. 
+
+## 6. Conclusion   
+
 This project delved into exploring where sidewalk cafe and liquor licenses are issued and the geospatial relationship between these variables and income. Intuitively, areas generally associated as up and coming neighborhoods such as WIlliamsburg were found to see increases in the past two years. However, in Queens, there was found to be a negative correlation between income and sidewalk cafe and liquor licenses.  
 
 All of these conclusions should be taken with a grain of salt. First, we can't be sure that the data for either sidewalk cafes or liquor licenses is complete. There might be places who operate without a license or places that aren't recorded properly in the dataset. One such example was found in the liquor license data. Additionally, only two liquor licenses were granted to non rail-cars in Grand Central. This seems to be underestimating the true value. There were also two missing zip codes in the data and 15 zip codes that were not found in the liquor license data, giving further evidence that this dataset was incomplete.  
 
-The income data was collected by the census. While this data should be high quality, the most recent census was conducted in 2010 which means data might not be recent, especially considering the analysis focused on the years 2015-2016.  Also, we used when the license was issued as a proxy for which neighborhoods were growing. In the sidewalk cafe data, renewed licenses overwrote the existing license for the place. In the liquor license data, it was seen that licenses had to renewed every two years for bars. Without access to all the historical data it is hard to separate growth from the renewal of licenses.  
+The income data was collected by the census. While this data should be high quality, the most recent census was conducted in 2010 which means data might not be recent, especially considering the analysis focused on the years 2015-2016.  Also, we used the year the license was issued as a proxy for which neighborhoods were growing. In the sidewalk cafe data, renewed licenses overwrote the existing license for the place. In the liquor license data, it was seen that licenses had to renewed every two years for bars. Without access to all the historical data it is hard to separate growth from the renewal of licenses.  
 
 In terms of correlation, some neighborhoods such as MIdtown were found to have a high number of liquor licenses and sidewalk cafes. These correlations might be spurious as more people tend to live in these areas. This analysis only focused on how income affected sidewalk cafes and bars popping up, but the real cause might be something we didn't account for such as demographic information, ease of transportation, etc.   
 

@@ -24,7 +24,7 @@ require(reshape2)
 
 
 ###Summary
-You have probably heard of 'emerging' or 'up and coming' areas like Williamsburg, Brooklyn or Astoria, Queens. These are neighborhoods that are growing in popularity, especially among young professionals, and that have a lot of new business popping up. We wanted to investigate whether it would be possible to identify these neighborhoods through data. The interactive map below allows you to look at new liquor and sidewalk cafe licenses popping up from 2015 to 2017, and compare it to the mean incomes of the associated areas. Please note that as we are still in the beginning of 2017, we do not have much data for the year.
+You have probably heard of 'emerging' or 'up and coming' areas like Williamsburg, Brooklyn or Astoria, Queens. These are neighborhoods that are growing in popularity, especially among young professionals, and have a lot of new businesses popping up. We wanted to investigate whether it would be possible to identify these neighborhoods through data. The interactive map below allows you to look at new liquor and sidewalk cafe licenses popping up from 2015 to 2017, underlaid with mean incomes of the associated areas. Please note that as we are still in the beginning of 2017, we do not have much data for the year.
 
 ```{r loader, echo=FALSE, warning=FALSE, message=FALSE}
 queens_names<-read.csv("Data/QU_Locations.csv",strip.white=TRUE)
@@ -198,7 +198,7 @@ There is also an increase in the number of both kinds of establishments in Washi
 ####Brooklyn
 The data clearly shows the emergence of Williamsburg as a major 'hot spot' in terms of bars and restaurants. There is a noticeable increase of licenses from 2015 to 2016 in the area. You can also see an increase of licenses east of Williamsburg, along the L subway line.
 
-There is also a lot of activity happening around Brooklyn Heights immediately South of New York, and in Propect Heights & Park Slope, south-east of that. Both of these areas have been popular among young professionals working in Manhattan for some time.
+There is also a lot of activity happening around Brooklyn Heights immediately south of Manhattan, and in Propect Heights & Park Slope, south-east of that. Both of these areas have been popular among young professionals working in Manhattan for some time.
 
 There is also noticeable activity along two avenues in Bay Ridge, and increasing activity from 2015 to 2016 along the main street leading from Red Hook to Carroll Gardens. 
 
@@ -211,6 +211,6 @@ Interestingly, Queens is the only area where both the number of sidewalk cafes a
 
 ####Bronx
 
-Bronx is the hardest borough to deduce any trends for. In fact, there close to no correlation between average income and the number of bars or sidewalk cafes. 
+Bronx is the hardest borough to deduce any trends for. In fact, there is close to no correlation between average income and the number of bars or sidewalk cafes. 
 
-There seems to be some clustering in Fordham, around the New York Botanical Garden. There also seems to be a sudden increase in liquor license requests along an avenue in Throgs Neck in 2016. Otherwise, the bars seem to be distributed along major avenues.
+There seems to be some clustering in Fordham, around the New York Botanical Gardens. There also seems to be a sudden increase in liquor license requests along an avenue in Throgs Neck in 2016. We were not able to find any other major trends as the bars seem to be distributed along some major avenues year to year.
