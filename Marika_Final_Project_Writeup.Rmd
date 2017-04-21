@@ -523,11 +523,11 @@ g <- ggmap(map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, fill=..level..),data=
 g+scale_fill_gradient(low="yellow",high="red")+ggtitle("Heatmap of Sidewalk Cafe Licenses in NYC")
 ```
 The next question we can ask is whether there are clear patterns to where new license requests are coming in from, where they are being renewed, or where they have expired without renewal. 
-```{r fig.width=10}
+```{r fig.width=10, message=FALSE, warning=FALSE}
 ggmap(map)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color=BOROUGH),data=sidewalks, alpha=0.4)+facet_wrap(~STATUS_CLASSIFICATION)+ggtitle("Sidewalk Cafe Licenses by Status")
 ```
 However, since we are zoomed out a lot and looking at the entire set of licenses, it is difficult to tell the difference between the distributions of license requests. For this analysis, I am only concerned about active licenses (whether they are being renewed or not), and new requests that have not yet been approved. To do this, I created another STATUS_CLASSIFICATION that groups active renewal requests into the Active category, and sets all other non-new requests as "inactive". 
-```{r fig.width=10}
+```{r fig.width=10, message=FALSE, warning=FALSE}
 sidewalks <- sidewalks %>% mutate(STATUS_CLASSIFICATION2=ifelse(STATUS_CLASSIFICATION=="ACTIVE" | (STATUS_CLASSIFICATION=="RENEWAL" & LIC_STATUS=="Active"), "ACTIVE", ifelse(STATUS_CLASSIFICATION=="NEW","NEW","OLD")))
 new_active <- sidewalks %>% filter(STATUS_CLASSIFICATION2=="ACTIVE" | STATUS_CLASSIFICATION2=="NEW")
 ggmap(map)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color=BOROUGH),data=new_active, alpha=0.3)+facet_wrap(~STATUS_CLASSIFICATION2)+ggtitle("Active and New Licenses in New York City")
@@ -535,17 +535,17 @@ ggmap(map)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color=BOROUGH),data=new_active
 Since we are quite zoomed out, it is difficult to see what exactly is happening with the New requests. However, if we zoomed in, we would lose information about the Bronx or lower Brooklyn. In order to determine whether there is any useful information there, I have zoomed in on the Bronx region. 
 
 ##### Geographic Analysis - Bronx
-```{r}
+```{r message=FALSE, warning=FALSE}
 bronx_map <- get_map("Bronx, NY",  source = "google", zoom = 12, maptype="roadmap", color="bw") 
 ```
-```{r fig.width=10}
+```{r fig.width=10, message=FALSE, warning=FALSE}
 ggmap(bronx_map)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color=BOROUGH),data=new_active)+facet_wrap(~STATUS_CLASSIFICATION2)+ggtitle("Active and New Licenses in the Bronx")
 ```
 Since there are very few active or new licenses in the Bronx, I feel comfortable in zooming in on the rest of Manhattan / Brooklyn and Queens in order to be able to better see what is happening at the expense of Bronx. 
 
 ##### Geographic Analysis - Manhattan
 I want to take a closer look at what is happening in Manhattan. In order to do this at a more granular level, I will use my merged data with our master_zip document which lists the neighborhoods of each Borough by zip code. I also pulled out the year of the submission of the license application and saved it as SUBMIT_YEAR. 
-```{r}
+```{r message=FALSE, warning=FALSE}
 master_zip<-read.csv("Data/zips_master_no_missing_nbrh.csv", strip.white=TRUE)
 sidewalks_nbh <- merge(sidewalks, master_zip, by="ZIP", all.x=TRUE)
 
@@ -556,7 +556,7 @@ sidewalks_manhattan_active <- sidewalks_nbh %>% filter(BOROUGH=="MANHATTAN" & (S
 manhattan_map <- get_map("Manhattan, NY", source="google", maptype="roadmap", zoom=12, color="bw")
 ```
 I have also calculated the average locations of the neighborhoods in each borough based on their assigned Zip codes. 
-```{r fig.width=10}
+```{r fig.width=10, message=FALSE, warning=FALSE}
 
 ggmap(manhattan_map)+geom_point(aes(x=LONGITUDE, y=LATITUDE, color=nbh), data=sidewalks_manhattan_active)+ggtitle("All active or new sidewalk cafes in Manhattan")
 
@@ -565,7 +565,7 @@ sidewalks_bronx<- sidewalks_nbh %>% filter(BOROUGH=="BRONX")
 ```
 This view shows all of the distribution of all currently active or new sidewalk cafes in Manhattan. To get a better idea of density, we can also look at a heatmap of this view. 
 
-```{r fig.width=10}
+```{r fig.width=10, message=FALSE, warning=FALSE}
 g <- ggmap(manhattan_map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, fill=..level..),data=sidewalks_manhattan_active, geom="polygon", alpha=0.3)
 g+scale_fill_gradient(low="yellow",high="red")+ggtitle("Heatmap of Sidewalk Cafe Licenses in Manhattan")+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)
 
@@ -573,12 +573,12 @@ g+scale_fill_gradient(low="yellow",high="red")+ggtitle("Heatmap of Sidewalk Cafe
 
 This heatmap shows the highest concentration of sidewalk cafes in Greenwich Village and NoHo. To see the difference between active and new licenses, we can facet based on our previously calculated categorization.
 
-```{r fig.width=10}
+```{r fig.width=10, message=FALSE, warning=FALSE}
 g <- ggmap(manhattan_map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, fill=..level..),data=sidewalks_manhattan_active, geom="polygon", alpha=0.3)+facet_wrap(~STATUS_CLASSIFICATION2)
 g+scale_fill_gradient(low="yellow",high="red")+ggtitle("Heatmap of Sidewalk Cafe Licenses in Manhattan")+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)
 ```
 The heatmap view of the map is not a great one - it is difficult to tell the differences on the same scales in a heatmap. Looking at the same view, but by using geom_point again, we get the following view: 
-```{r fig.width=10}
+```{r fig.width=10, message=FALSE, warning=FALSE}
 ggmap(manhattan_map)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color=nbh),data=sidewalks_manhattan_active)+facet_wrap(~STATUS_CLASSIFICATION2)+ggtitle("Active and New Licenses in Manhattan") + guides(color=FALSE)+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)
 ```
 Once again, the data is not telling us too much since there are very few new requests. Perhaps a better way to categorize this data is to look at the years that applications were submitted, therefore ignoring whether a license is currently active or not.
@@ -606,16 +606,16 @@ ggplot(manhattan_counts, aes(x=reorder(nbh, count), y=count, fill=SUBMIT_YEAR))+
 ```
 It makes sense that 2016 would have more applications than 2015, since many of the 2015 applications have been renewed by now. It looks like Greenwich Village, Upper West Side, and Upper Easy Side consistently have the highest number of requests throughout the three years. However, to get a better understanding of the distribution of areas, we can create three separate heatmaps.
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 map2015 <- ggmap(manhattan_map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, fill=..level..),data=sidewalks_manhattan%>%filter(SUBMIT_YEAR=="2015"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")+ggtitle("Manhattan Licenses Applied for in 2015")+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)
 map2015
 ```
-```{r}
+```{r message=FALSE, warning=FALSE}
 map2016<-ggmap(manhattan_map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, fill=..level..),data=sidewalks_manhattan%>%filter(SUBMIT_YEAR=="2016"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")+ggtitle("Manhattan Licenses Applied for in 2016")+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)
 map2016
 ```
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 map2017 <- ggmap(manhattan_map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, fill=..level..),data=sidewalks_manhattan%>%filter(SUBMIT_YEAR=="2017"), geom="polygon", alpha=0.3)+scale_fill_gradient(low="yellow",high="red")+ggtitle("Manhattan Licenses Applied for in 2017")+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)
 map2017
 
@@ -624,7 +624,7 @@ Across all three years, you can see how the concentrated area of licenses remain
 
 We can do the same sort of analysis in all four boroughs that we have sidewalk cafe information about. To make this analysis easier to view, I have created a shiny app which can be found by following this link: [ShinyCafe](https://marikalohmus.shinyapps.io/cafeshiny/)
 
-```{r}
+```{r,  message=FALSE, warning=FALSE}
 sidewalks_brooklyn <- sidewalks_nbh %>% filter(BOROUGH=="BROOKLYN")
 sidewalks_queens <- sidewalks_nbh %>% filter(BOROUGH=="QUEENS")
 sidewalks_bronx <- sidewalks_nbh %>% filter(BOROUGH=="BRONX")
@@ -636,21 +636,21 @@ The Shiny app has a brief blurb explaining what each borough can tell us about t
 
 Next, I added Adam's income distribution ploygons to the background of these maps to see what the relationship is to income. 
 
-```{r fig.width=10}
+```{r fig.width=10,  message=FALSE, warning=FALSE}
 ggmap(manhattan_map)+geom_polygon(aes(fill = income., x = long, y = lat, group = group), data = plotting_zips_manhattan, alpha = 0.7)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color="purple"),data=sidewalks_manhattan, size=1)+ scale_fill_viridis()+geom_text_repel(data=manhattan_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)+guides(color=F)
 ```
 Manhattan has a pretty clear clustering of sidewalk cafes in the higher income areas, with the exception of Lower Mahattan and the Financial District.
 
-```{r fig.width=10}
+```{r fig.width=10, message=FALSE, warning=FALSE}
 ggmap(brooklyn_map)+geom_polygon(aes(fill = income., x = long, y = lat, group = group), data = plotting_zips_brooklyn, alpha = 0.7)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color="purple"),data=sidewalks_brooklyn, size=1)+ scale_fill_viridis()+guides(color=FALSE)
 ```
 The missing data in Williamsburg is hindering this analysis, but we do see how the average income in Brooklyn Heights, Park Slope, and Red Hook correlate with more sidewalk cafes.
 
-```{r fig.width=10}
+```{r fig.width=10, message=FALSE, warning=FALSE}
 ggmap(queens_map)+geom_polygon(aes(fill = income., x = long, y = lat, group = group), data = plotting_zips_queens, alpha = 0.7)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color="purple"),data=sidewalks_queens, size=1)+ scale_fill_viridis()+geom_text_repel(data=queens_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)+guides(color=F)
 ```
 Astoria and Long Island City are interesting cases with relatively low average incomes but a high concentration of sidewalk cafes. The other area to the south-east, around Parkside and Forest Hills, has a high concentration of cafes and high income.
-```{r fig.width=10}
+```{r fig.width=10, message=FALSE, warning=FALSE}
 ggmap(bronx_map)+geom_polygon(aes(fill = income., x = long, y = lat, group = group), data = plotting_zips_bronx, alpha = 0.7)+geom_point(aes(x=LONGITUDE,y=LATITUDE, color="purple"),data=sidewalks_bronx, size=1)+ scale_fill_viridis()+geom_text_repel(data=bronx_names, aes(mean_lon, mean_lat, label=Neighborhood),fontface="bold", size=3)+guides(color=F)
 ```
 With the very low number of Bronx datapoints, it is not easy to see a realtionship between income and where the sidewalk cafes are located.
@@ -660,7 +660,7 @@ mean_incomes <- plotting_zips1 %>% group_by(ZIP) %>% summarise(mean_income=mean(
 zip_sidewalk <- sidewalks_nbh %>% group_by(ZIP, BOROUGH) %>% summarise(n_cafes=n())
 summary_cafe <- merge(zip_sidewalk, mean_incomes, by="ZIP")
 ```
-```{r}
+```{r message=FALSE, warning=FALSE}
 ggplot(summary_cafe, aes(x=mean_income, y=n_cafes))+geom_point()+xlab("Average Income (in Thousands of Dollars)")+ylab("Number of Sidewalk Cafes")+geom_smooth(method=lm) 
 ```
 ```{r}
@@ -669,7 +669,7 @@ summary(cafe.lm)$r.squared
 ```
 On all the data, there is pretty weak correlation between income and number of sidewalk cafes, with an r-squares of 0.196.
 
-```{r}
+```{r message=FALSE, warning=FALSE}
 ggplot(summary_cafe, aes(x=mean_income, y=n_cafes))+geom_point()+xlab("Average Income (in Thousands of Dollars)")+ylab("Number of Sidewalk Cafes")+geom_smooth(method=lm)+facet_wrap(~BOROUGH, scales="free")
 ```
 
@@ -696,7 +696,7 @@ liq <-liq %>% mutate(TYPE="Bar")
 
 total <- rbind(liq,side)
 ```
-```{r fig.width=20}
+```{r fig.width=20, message=FALSE, warning=FALSE}
 ggmap(map)+stat_density2d(aes(x=LONGITUDE,y=LATITUDE, color=TYPE),size=2, alpha=.5,contour=TRUE,data=total, geom="density2d")+xlab("") + ylab("")+theme(axis.text.x=element_blank(),axis.text.y=element_blank(),axis.ticks.x=element_blank(),axis.ticks.y=element_blank(),axis.line = element_line(color = NA))+ guides(fill=FALSE,alpha=FALSE)+facet_wrap(~YEAR)
 ```
 
